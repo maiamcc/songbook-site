@@ -2,7 +2,6 @@
 
 ## P1
 * style isn't shitty
-* print layout - one song
 * fonts
 * range in print layout
 

@@ -46,6 +46,7 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `bop_rating`      | integer         | no       | 1–5 inclusive | ✓         |      | ✓     | ✓    | ✓     |
 | `structure`       | string          | no       |               | ✓         |      | ✓     | ✓    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
+| `range`           | string          | no       | format `aa-bb` (lowercase) |           |      |       |      |       |
 
 The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on the homepage list, on a per-value index page (listing all songs sharing one metadata value), on an individual song page on screen, and on the dedicated print page at `/songs/<slug>/print/` (linked from each screen song page), respectively. The Indexable column marks fields whose values can serve as the *key* of an index page — e.g. an index of all songs with `mood: uplifting`.
 

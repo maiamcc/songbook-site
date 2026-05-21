@@ -61,6 +61,10 @@ const FIELD_FIXTURES = {
   },
   structure: { value: "StructureSentinel", marker: "StructureSentinel" },
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
+  // range is validated against [a-z]{2}-[a-z]{2}; the value below is a
+  // legal sentinel that's distinctive enough not to appear coincidentally
+  // in any other rendered field.
+  range: { value: "qz-rk", marker: "qz-rk" },
 };
 
 function contains(html, marker) {
