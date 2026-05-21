@@ -27,17 +27,17 @@ test("all optional fields with valid types", () => {
 
 test("topics must be list[string]", () => {
   assert.deepEqual(validate({ title: "X", topics: "home" }), [
-    "field topics must be list[string]",
+    'field "topics" must be list[string]',
   ]);
   assert.deepEqual(validate({ title: "X", topics: ["a", 2] }), [
-    "field topics must be list[string]",
+    'field "topics" must be list[string]',
   ]);
 });
 
 test("string fields reject non-strings", () => {
   for (const field of ["genre", "mood", "structure", "notes"]) {
     assert.deepEqual(validate({ title: "X", [field]: 5 }), [
-      `field ${field} must be string`,
+      `field "${field}" must be string`,
     ]);
   }
 });
@@ -45,7 +45,7 @@ test("string fields reject non-strings", () => {
 test("bop_rating must be integer 1-5", () => {
   for (const bad of [0, 6, 3.5, "5", -1]) {
     assert.deepEqual(validate({ title: "X", bop_rating: bad }), [
-      "field bop_rating must be integer 1-5",
+      'field "bop_rating" must be integer 1-5',
     ]);
   }
   for (const ok of [1, 2, 3, 4, 5]) {
