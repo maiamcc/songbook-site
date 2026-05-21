@@ -32,3 +32,22 @@ structure: verse-chorus
 notes: capo 2 sounds nicer
 ---
 ```
+
+## Lyrics
+
+Everything after the frontmatter is the song's lyrics.
+
+Verses are plain text.  Indent a line (one tab, or four spaces, after a blank line) to mark it as a chorus or refrain. Indented blocks render as `<div class="chorus">` and pick up a distinct visual style.
+
+```markdown
+Mary had a little lamb (3x)
+Mary had a little lamb, its fleece was white as snow.
+And everywhere that Mary went (3x)
+The lamb was sure to go.
+
+	Hurrah for Mary, Hurrah for the lamb!
+	Hurrah for the Union Boys who did not give a damn!
+    ...
+```
+
+Markdown rendering is configured in `lib/markdown.js` and exercised by `test/markdown.test.js`.

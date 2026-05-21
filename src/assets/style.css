@@ -76,3 +76,13 @@ h1 { margin-bottom: 0.25rem; }
   background: none;
   padding: 0;
 }
+
+/* Indented blocks in song markdown render as choruses. */
+.song-body .chorus {
+  white-space: pre-wrap;
+  font-style: italic;
+  color: var(--accent);
+  border-left: 3px solid var(--accent);
+  padding: 0.25rem 0 0.25rem 0.9rem;
+  margin: 0.75rem 0 0.75rem 0.5rem;
+}

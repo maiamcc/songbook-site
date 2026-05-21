@@ -1,7 +1,9 @@
+import { configureMarkdown } from "./lib/markdown.js";
+
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
 
-  eleventyConfig.amendLibrary("md", (md) => md.set({ breaks: true }));
+  eleventyConfig.amendLibrary("md", configureMarkdown);
 
   eleventyConfig.addCollection("songs", (api) =>
     api.getFilteredByGlob("src/songs/*.md").sort((a, b) =>

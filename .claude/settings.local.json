@@ -6,7 +6,8 @@
       "Bash(npm run *)",
       "Bash(npm test *)",
       "Bash(node scripts/new-song.js)",
-      "Bash(node /tmp/rl-test.mjs)"
+      "Bash(node /tmp/rl-test.mjs)",
+      "Bash(node *)"
     ]
   }
 }

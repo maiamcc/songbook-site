@@ -5,15 +5,15 @@ author: Dillon Bustin
 bop_rating: 3
 structure: chorus
 ---
-I'm rolling, flowing, around these hills; 
-I must take my rest, but this river never will.
-Rolling, flowing, to Cairo Town,
-Just give me time to lay me down.
+    I'm rolling, flowing, around these hills; 
+    I must take my rest, but this river never will.
+    Rolling, flowing, to Cairo Town,
+    Just give me time to lay me down.
 
 Boat's up the river, she won't come down.
 I believe it in my soul, that she is water-bound.
 Back her, slack her, bring her round,
-Just give me time to lay me down
+Just give me time to lay me down.
 
 	I'm rolling, flowing ...
 	
@@ -34,13 +34,13 @@ Lord, I got no time to lay me down.
 All of the rich folks out on the promenade,
 They twirl their parasols and they sip their lemonade.
 I got hot steam to drink, I got a smokestack for my shade,
-And I got no time to lay me down
+And I got no time to lay me down.
 
 	I'm rolling, flowing ...
 	
 I load all of this freight by bale and by sack;
 I tie it to the front and I lash it to the back.
 A hundred eighty pounds of bale, a hundred ninety pounds of sack,
-Two hundred pounds'll break your back
+Two hundred pounds'll break your back.
 
 	I'm rolling, flowing ...
