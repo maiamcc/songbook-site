@@ -2,7 +2,15 @@
 // Add new fields here as the songbook grows.
 //
 // `display` lists the views where this field (when present) is rendered.
-// Valid entries: "home" (homepage list) and "song" (per-song page).
+// Valid entries: "home" (homepage list), "index" (per-value index pages
+// listing all songs with a given metadata value), and "song" (per-song
+// page).
+//
+// `indexable: true` marks fields that can serve as the *key* of an
+// index view — i.e., it makes sense to list songs by that field's
+// value (e.g. all songs with mood=uplifting). Only certain fields are
+// indexable; the rest are not useful as grouping keys.
+//
 // The README frontmatter table is asserted to match these declarations
 // (see test/readme.test.js), as are the actual view templates (see
 // test/views.test.js). Edit only this file; the rest is checked.
@@ -17,13 +25,13 @@ export const FIELDS = {
     required: true,
     type: "string",
     check: isString,
-    display: ["home", "song"],
+    display: ["home", "index", "song"],
   },
   alternate_title: {
     required: false,
     type: "string",
     check: isString,
-    display: ["home", "song"],
+    display: ["home", "index", "song"],
   },
   author: {
     required: false,
@@ -41,31 +49,36 @@ export const FIELDS = {
     required: false,
     type: "list[string]",
     check: isStringList,
-    display: ["song"],
+    display: ["index", "song"],
+    indexable: true,
   },
   genre: {
     required: false,
     type: "string",
     check: isString,
-    display: ["song"],
+    display: ["index", "song"],
+    indexable: true,
   },
   mood: {
     required: false,
     type: "string",
     check: isString,
-    display: ["song"],
+    display: ["index", "song"],
+    indexable: true,
   },
   bop_rating: {
     required: false,
     type: "integer 1-5",
     check: isBopRating,
-    display: ["song"],
+    display: ["index", "song"],
+    indexable: true,
   },
   structure: {
     required: false,
     type: "string",
     check: isString,
-    display: ["song"],
+    display: ["index", "song"],
+    indexable: true,
   },
   notes: {
     required: false,
@@ -74,6 +87,10 @@ export const FIELDS = {
     display: ["song"],
   },
 };
+
+export const INDEXABLE_FIELDS = Object.keys(FIELDS).filter(
+  (f) => FIELDS[f].indexable
+);
 
 export const REQUIRED_FIELDS = Object.keys(FIELDS).filter(
   (f) => FIELDS[f].required
