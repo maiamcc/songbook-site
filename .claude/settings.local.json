@@ -9,7 +9,8 @@
       "Bash(node /tmp/rl-test.mjs)",
       "Bash(node *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git mv *)"
     ]
   }
 }
