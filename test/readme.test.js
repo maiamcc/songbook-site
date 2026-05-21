@@ -15,7 +15,7 @@ const README = readFileSync(join(__dirname, "..", "README.md"), "utf8");
 function parseFieldTable(md) {
   const lines = md.split("\n");
   const headerIdx = lines.findIndex(
-    (l) => /\|\s*Field\s*\|.*Required.*Index.*Song/.test(l)
+    (l) => /\|\s*Field\s*\|.*Required.*Home.*Song/.test(l)
   );
   if (headerIdx < 0) throw new Error("frontmatter table not found in README");
 
@@ -45,7 +45,7 @@ test("README table lists exactly the fields declared in FIELDS", () => {
 });
 
 for (const row of rows) {
-  const [nameCell, , requiredCell, , indexCell, songCell] = row;
+  const [nameCell, , requiredCell, , homeCell, songCell] = row;
   const name = nameCell.replace(/`/g, "");
   const spec = FIELDS[name];
   if (!spec) continue; // covered by the previous test
@@ -58,9 +58,9 @@ for (const row of rows) {
       `Required column for ${name}`
     );
 
-    const expectIndex = spec.display.includes("index");
-    const hasIndex = indexCell.includes("✓");
-    assert.equal(hasIndex, expectIndex, `Index column for ${name}`);
+    const expectHome = spec.display.includes("home");
+    const hasHome = homeCell.includes("✓");
+    assert.equal(hasHome, expectHome, `Home column for ${name}`);
 
     const expectSong = spec.display.includes("song");
     const hasSong = songCell.includes("✓");

@@ -6,14 +6,18 @@ Notes for Claude when working in this repo.
 
 The `FIELDS` object in `test/song-schema.js` defines every frontmatter
 field: its type, whether it's required, and where it renders
-(`display: ["index", "song"]`). Two tests enforce that the rest of the
+(`display: ["home", "song"]`). Two tests enforce that the rest of the
 project agrees with the schema:
 
 - `test/readme.test.js` parses the frontmatter table in `README.md` and
-  asserts each row's Required / Index / Song columns match `FIELDS`.
-- `test/views.test.js` renders `src/index.njk` and
-  `src/_includes/song.njk` with a fixture and asserts each field renders
-  (or doesn't) according to `FIELDS[field].display`.
+  asserts each row's Required / Home / Song columns match `FIELDS`.
+- `test/views.test.js` renders `src/index.njk` (the home view) and
+  `src/_includes/song.njk` (the song view) with a fixture and asserts
+  each field renders (or doesn't) according to `FIELDS[field].display`.
+
+Note: the homepage template is `src/index.njk` because Eleventy serves
+`/` from a file literally named `index`. The *view* is called "home" in
+the schema; "index" is reserved for a future alphabetical-index view.
 
 ### Workflow for changing the schema
 
@@ -22,9 +26,9 @@ project agrees with the schema:
 2. Run `npm test`. The README and view tests will fail until the rest
    of the project agrees.
 3. Update the **frontmatter table in `README.md`** so the row matches
-   the schema (Required column = "yes"/"no", Index/Song columns marked
+   the schema (Required column = "yes"/"no", Home/Song columns marked
    with ✓ to match `display`).
-4. If `display` includes `"index"`, edit `src/index.njk`. If it
+4. If `display` includes `"home"`, edit `src/index.njk`. If it
    includes `"song"`, edit `src/_includes/song.njk`. The templates are
    handwritten because rendering is per-field bespoke (stars for
    `bop_rating`, byline join for `author`/`year_written`, etc.).

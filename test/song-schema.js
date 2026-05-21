@@ -2,7 +2,7 @@
 // Add new fields here as the songbook grows.
 //
 // `display` lists the views where this field (when present) is rendered.
-// Valid entries: "index" (homepage list) and "song" (per-song page).
+// Valid entries: "home" (homepage list) and "song" (per-song page).
 // The README frontmatter table is asserted to match these declarations
 // (see test/readme.test.js), as are the actual view templates (see
 // test/views.test.js). Edit only this file; the rest is checked.
@@ -17,19 +17,19 @@ export const FIELDS = {
     required: true,
     type: "string",
     check: isString,
-    display: ["index", "song"],
+    display: ["home", "song"],
   },
   alternate_title: {
     required: false,
     type: "string",
     check: isString,
-    display: ["index", "song"],
+    display: ["home", "song"],
   },
   author: {
     required: false,
     type: "string",
     check: isString,
-    display: ["index", "song"],
+    display: ["home", "song"],
   },
   year_written: {
     required: false,

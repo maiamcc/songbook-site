@@ -10,7 +10,7 @@ import { FIELDS } from "./song-schema.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");
 const SONG_NJK = join(SRC, "_includes", "song.njk");
-const INDEX_NJK = join(SRC, "index.njk");
+const HOME_NJK = join(SRC, "index.njk");
 
 // Render an .njk file with the given context, after stripping the
 // Eleventy frontmatter block (which Nunjucks doesn't understand).
@@ -62,15 +62,15 @@ for (const [field, spec] of Object.entries(FIELDS)) {
     );
   });
 
-  test(`index view: ${field} ${spec.display.includes("index") ? "renders" : "does NOT render"}`, () => {
-    const html = render(INDEX_NJK, {
+  test(`home view: ${field} ${spec.display.includes("home") ? "renders" : "does NOT render"}`, () => {
+    const html = render(HOME_NJK, {
       collections: { songs: [{ url: "/songs/x/", data: fullSong }] },
     });
-    const shouldRender = spec.display.includes("index");
+    const shouldRender = spec.display.includes("home");
     assert.equal(
       contains(html, fixture.marker),
       shouldRender,
-      `expected ${field} marker to ${shouldRender ? "" : "not "}appear in index view`
+      `expected ${field} marker to ${shouldRender ? "" : "not "}appear in home view`
     );
   });
 }
@@ -115,8 +115,8 @@ test("song view: a title-only song renders no optional field markers", () => {
   }
 });
 
-test("index view: each song's title appears inside its link", () => {
-  const html = render(INDEX_NJK, {
+test("home view: each song's title appears inside its link", () => {
+  const html = render(HOME_NJK, {
     collections: {
       songs: [
         { url: "/songs/full/", data: { title: "Full Song" } },
@@ -137,8 +137,8 @@ test("index view: each song's title appears inside its link", () => {
   );
 });
 
-test("index view: title-only songs emit no alt-title or author markup", () => {
-  const html = render(INDEX_NJK, {
+test("home view: title-only songs emit no alt-title or author markup", () => {
+  const html = render(HOME_NJK, {
     collections: {
       songs: [{ url: "/songs/bare/", data: { title: "Bare Song" } }],
     },
