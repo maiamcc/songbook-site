@@ -7,6 +7,13 @@ mood: uplifting
 bop_rating: 4
 structure: refrain-lines
 topics: [monks, buildings]
+notes: |
+    According to Carter, Julian lived at about the time of Chaucer, in a cell (she was a hermit and a mystic)
+    in what is now the Chapel of Julian in Norwich, England. According to my differing sources, Julian spoke to
+    her God in a vision, asking why evil was necessary in the world. The answer she got was that it was indeed
+    necessary, but that "All will be well; all manner of things shall be well." (Loosely remembered.) That then
+    became her message, and she apparently brought peace to the troubles of her area at one time by repeating
+    that message.
 ---
 
 Loud are the bells of Norwich
