@@ -302,16 +302,18 @@ h1 { margin-bottom: 0.25rem; }
   line-height: 1.4;
 }
 
-/* Collapse the whole song header onto one (wrapping) inline line:
-   Title (Alt) — Author · Year · Bop: N
-   ::before on byline/song-meta means the separators only render when
-   the element actually exists, so a title-only song doesn't produce
-   orphan dashes. */
+/* Tighter two-line header:
+   Line 1: Title (Alt Title)
+   Line 2: Author · Year · Bop: N
+   Title (with optional alt-title inline) stays on its own line as
+   the h1 block; byline + song-meta collapse onto a single second
+   line. The "· " before song-meta only renders when a byline
+   actually precedes it, so a Bop-only line doesn't start with an
+   orphan separator. */
 .print-layout .song-header {
   margin-bottom: 0.7rem;
 }
 
-.print-layout .song-header h1,
 .print-layout .song-header .byline,
 .print-layout .song-header .song-meta,
 .print-layout .song-header .song-meta dt,
@@ -321,7 +323,7 @@ h1 { margin-bottom: 0.25rem; }
 
 .print-layout .song-header h1 {
   font-size: 1.2rem;
-  margin: 0;
+  margin: 0 0 0.15rem;
 }
 
 .print-layout .song-header .alt-title {
@@ -334,12 +336,8 @@ h1 { margin-bottom: 0.25rem; }
   color: inherit;
 }
 
-.print-layout .song-header .byline::before {
-  content: "— ";
-}
-
-.print-layout .song-header .song-meta::before {
-  content: "· ";
+.print-layout .song-header .byline + .song-meta::before {
+  content: " · ";
 }
 
 /* Lyrics: shrink the generous screen line-height inside the chord
