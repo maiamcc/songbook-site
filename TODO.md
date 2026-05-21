@@ -18,4 +18,5 @@
 * mobile layout?
 * make song types, topics etc. formatted better and more consistently. maybe color coded? pills??/bw
 * customizable print layout: paper size, fields included, etc.
+* style the metadata drawer on the song view (currently default `<details>`/`<summary>` look)
 * other information to track, maybe: roud number, whether it's printed to my notebook, how well i know it, lineage/where i learned it from.
