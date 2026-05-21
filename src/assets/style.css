@@ -1,9 +1,25 @@
 :root {
-  --fg: #1a1a1a;
-  --muted: #666;
-  --accent: #8b3a3a;
-  --bg: #fdfaf3;
-  --chord: #8b3a3a;
+  /* Raw palette — the only literal hex values in the stylesheet. Every
+     other color is derived from these via color-mix(), so changing one
+     palette value updates borders, hover tints, etc. in lockstep. */
+  --primary: #073B3A;
+  --secondary: #0B6E4F;
+  --tertiary: #4DCCBD;
+  --quaternary: #5B2E48;
+  --quinary: #939196;
+
+  /* Semantic aliases */
+  --fg: var(--primary);
+  --muted: var(--quinary);
+  --accent: var(--secondary);
+  --highlight: var(--tertiary);
+  --chord: var(--secondary);
+
+  /* Derived shades */
+  --bg: color-mix(in srgb, var(--tertiary) 8%, white);
+  --border: color-mix(in srgb, var(--primary) 14%, white);
+  --separator: color-mix(in srgb, var(--tertiary) 40%, var(--quinary));
+  --hover-bg: color-mix(in srgb, var(--tertiary) 18%, transparent);
 }
 
 * { box-sizing: border-box; }
@@ -19,7 +35,7 @@ body {
 }
 
 header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 0.75rem;
   margin-bottom: 2rem;
 }
@@ -86,12 +102,15 @@ h1 { margin-bottom: 0.25rem; }
 
 .song-meta dd:not(:last-of-type)::after {
   content: " · ";
-  color: #c0b8a8;
+  color: var(--separator);
   margin: 0 0.1rem;
 }
 
+.rating {
+  color: var(--quaternary);
+}
+
 .song-meta .rating {
-  color: var(--accent);
   letter-spacing: 0.08em;
 }
 
@@ -103,7 +122,7 @@ h1 { margin-bottom: 0.25rem; }
   color: inherit;
   text-decoration: underline;
   text-decoration-style: dotted;
-  text-decoration-color: #c0b8a8;
+  text-decoration-color: var(--separator);
   text-underline-offset: 3px;
 }
 
@@ -132,7 +151,7 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 .song-list li {
-  border-bottom: 1px dotted #ddd;
+  border-bottom: 1px dotted var(--border);
 }
 
 /* The song-link in a list row (whole row on home, title row on an
@@ -154,7 +173,7 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 .song-list > li > a:hover {
-  background: rgba(139, 58, 58, 0.08);
+  background: var(--hover-bg);
   color: var(--accent);
 }
 
@@ -198,11 +217,10 @@ h1 { margin-bottom: 0.25rem; }
 .index-meta > span:not(:last-child)::after {
   content: "·";
   margin: 0 0.5rem;
-  color: #c0b8a8;
+  color: var(--separator);
 }
 
 .index-meta .rating {
-  color: var(--accent);
   letter-spacing: 0.05em;
 }
 
