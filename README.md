@@ -6,18 +6,20 @@ I caved and am vibecoding a songbook site.
 
 Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is enforced by `test/song-schema.js` and checked in `test/songs.test.js`.
 
-| Field             | Type            | Required | Notes         |
-| ----------------- | --------------- | -------- | ------------- |
-| `title`           | string          | yes      |               |
-| `alternate_title` | string          | no       |               |
-| `author`          | string          | no       |               |
-| `year_written`    | string          | no       |               |
-| `topics`          | list of strings | no       |               |
-| `genre`           | string          | no       |               |
-| `mood`            | string          | no       |               |
-| `bop_rating`      | integer         | no       | 1–5 inclusive |
-| `structure`       | string          | no       |               |
-| `notes`           | string          | no       |               |
+| Field             | Type            | Required | Notes         | Index | Song |
+| ----------------- | --------------- | -------- | ------------- | ----- | ---- |
+| `title`           | string          | yes      |               | ✓     | ✓    |
+| `alternate_title` | string          | no       |               | ✓     | ✓    |
+| `author`          | string          | no       |               | ✓     | ✓    |
+| `year_written`    | string          | no       |               |       | ✓    |
+| `topics`          | list of strings | no       |               |       | ✓    |
+| `genre`           | string          | no       |               |       | ✓    |
+| `mood`            | string          | no       |               |       | ✓    |
+| `bop_rating`      | integer         | no       | 1–5 inclusive |       | ✓    |
+| `structure`       | string          | no       |               |       | ✓    |
+| `notes`           | string          | no       |               |       | ✓    |
+
+The Index and Song columns mark which fields, when present, are surfaced on the homepage list and on an individual song page respectively. All non-rendered fields are still indexed for future use.
 
 Example:
 

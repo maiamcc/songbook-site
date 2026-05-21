@@ -33,15 +33,46 @@ header {
 
 h1 { margin-bottom: 0.25rem; }
 
-.artist {
-  color: var(--muted);
+.song .alt-title {
   font-style: italic;
-  margin-top: 0;
+  color: var(--muted);
+  margin: 0.1rem 0 0.5rem;
+  font-size: 1.1rem;
 }
 
-.meta {
+.song .byline {
   color: var(--muted);
-  font-size: 0.9rem;
+  margin: 0 0 1.25rem;
+}
+
+.song-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 0.9rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+.song-meta dt {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.song-meta dd {
+  margin: 0;
+}
+
+.song-meta .rating {
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.song .notes {
+  background: rgba(139, 58, 58, 0.06);
+  border-left: 3px solid var(--accent);
+  padding: 0.5rem 0.75rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
 }
 
 .song-list {
