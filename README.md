@@ -47,7 +47,7 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `structure`       | string          | no       |               | ✓         |      | ✓     | ✓    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
 
-The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on the homepage list, on a per-value index page (listing all songs sharing one metadata value), on an individual song page on screen, and on the printed form of a song page (via `@media print`), respectively. The Indexable column marks fields whose values can serve as the *key* of an index page — e.g. an index of all songs with `mood: uplifting`.
+The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on the homepage list, on a per-value index page (listing all songs sharing one metadata value), on an individual song page on screen, and on the dedicated print page at `/songs/<slug>/print/` (linked from each screen song page), respectively. The Indexable column marks fields whose values can serve as the *key* of an index page — e.g. an index of all songs with `mood: uplifting`.
 
 Example:
 

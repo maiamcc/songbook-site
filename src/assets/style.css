@@ -24,13 +24,40 @@
 
 * { box-sizing: border-box; }
 
-/* Utility: show only in screen / print. !important on the toggles so
-   these win against more specific layout rules (e.g. the print
-   inline-display rule on .song-header .song-meta dt). */
-.print-only { display: none !important; }
-@media print {
-  .screen-only { display: none !important; }
-  .print-only { display: revert !important; }
+/* Layout toggle links: "Print view →" on a screen song page, and
+   "← View on screen" on the corresponding print page. Subtle so they
+   don't compete with the song content. The print-page toggle gets
+   hidden on actual paper print further down. */
+.layout-toggle {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 1.5rem 0 0;
+}
+
+.layout-toggle a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--separator);
+  text-underline-offset: 3px;
+}
+
+.layout-toggle a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* Print tip on the screen song page: hidden on screen, only appears
+   on paper if someone hits Cmd+P from the screen view (the dedicated
+   print view is the better experience). */
+.print-tip {
+  display: none;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 1rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
 }
 
 body {
@@ -248,136 +275,99 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 /* Print layout: tuned for A5 paper (148×210mm) so songs print as a
-   pocket-songbook page. Drop the site chrome and tighten typography
-   so a full song fits on one sheet whenever possible. */
+   pocket-songbook page. The dedicated print page at /songs/<slug>/print/
+   uses base-print.njk, which puts <body class="print-layout">, so the
+   styles below scope to that class instead of @media print. The screen
+   song view at /songs/<slug>/ is unchanged when printed (apart from a
+   tiny print-only tip pointing readers at the print view). */
 @page {
   size: A5;
   margin: 12mm 14mm;
 }
 
+.print-layout {
+  background: white;
+  color: black;
+  max-width: none;
+  padding: 0.5rem 0.6rem 1rem;
+  font-size: 10.5pt;
+  line-height: 1.4;
+}
+
+/* Collapse the whole song header onto one (wrapping) inline line:
+   Title (Alt) — Author · Year · Bop: N
+   ::before on byline/song-meta means the separators only render when
+   the element actually exists, so a title-only song doesn't produce
+   orphan dashes. */
+.print-layout .song-header {
+  margin-bottom: 0.7rem;
+}
+
+.print-layout .song-header h1,
+.print-layout .song-header .byline,
+.print-layout .song-header .song-meta,
+.print-layout .song-header .song-meta dt,
+.print-layout .song-header .song-meta dd {
+  display: inline;
+}
+
+.print-layout .song-header h1 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.print-layout .song-header .alt-title {
+  font-size: 0.9rem;
+}
+
+.print-layout .song .byline,
+.print-layout .song-meta {
+  font-size: 0.85rem;
+  color: inherit;
+}
+
+.print-layout .song-header .byline::before {
+  content: "— ";
+}
+
+.print-layout .song-header .song-meta::before {
+  content: "· ";
+}
+
+/* Lyrics: shrink the generous screen line-height inside the chord
+   code blocks so verses occupy less vertical space. */
+.print-layout .song-body pre {
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+
+.print-layout .song-body p {
+  margin: 0.4rem 0;
+}
+
+.print-layout .song-body .chorus {
+  margin: 0.4rem 0 0.4rem 0.4rem;
+  padding: 0.15rem 0 0.15rem 0.6rem;
+}
+
+/* Notes at the bottom in a tighter form. */
+.print-layout .song .notes {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+}
+
+/* Keep choruses and verse paragraphs from splitting across pages. */
+.print-layout .song-body .chorus,
+.print-layout .song-body p,
+.print-layout .song-body pre {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Actual-paper print: hide the on-page toggle links (they're nav
+   chrome, not content), and reveal the print-tip on the screen song
+   page so readers know there's a dedicated print view. */
 @media print {
-  body {
-    background: white;
-    color: black;
-    max-width: none;
-    padding: 0;
-    font-size: 10.5pt;
-    line-height: 1.4;
-  }
-
-  /* Collapse the whole song header onto one (wrapping) inline line:
-     Title (Alt) — Author · Year · Bop rating: N / 5
-     ::before on byline/song-meta means the separators only render
-     when the element actually exists, so a title-only song doesn't
-     produce orphan dashes. */
-  .song-header {
-    margin-bottom: 0.7rem;
-  }
-
-  .song-header h1,
-  .song-header .byline,
-  .song-header .song-meta,
-  .song-header .song-meta dt,
-  .song-header .song-meta dd {
-    display: inline;
-  }
-
-  .song-header h1 {
-    font-size: 1.2rem;
-    margin: 0;
-  }
-
-  .song-header .alt-title {
-    font-size: 0.9rem;
-  }
-
-  .song .byline,
-  .song-meta {
-    font-size: 0.85rem;
-  }
-
-  .song-header .byline::before {
-    content: "— ";
-    font-weight: normal;
-    color: inherit;
-  }
-
-  .song-header .song-meta::before {
-    content: "· ";
-    font-weight: normal;
-    color: inherit;
-  }
-
-  /* Lyrics: shrink the generous screen line-height inside the chord
-     code blocks so verses occupy less vertical space. */
-  .song-body pre {
-    font-size: 9.5pt;
-    line-height: 1.5;
-  }
-
-  .song-body p {
-    margin: 0.4rem 0;
-  }
-
-  .song-body .chorus {
-    margin: 0.4rem 0 0.4rem 0.4rem;
-    padding: 0.15rem 0 0.15rem 0.6rem;
-  }
-
-  /* Notes at the bottom in a tighter form. */
-  .song .notes {
-    margin-top: 0.8rem;
-    font-size: 0.8rem;
-  }
-
-  /* Site nav at the top of every page. Scoped to body > header so the
-     song's own <header class="song-header"> (which holds the title,
-     alt-title, and byline) stays visible. */
-  body > header {
-    display: none;
-  }
-
-  /* The song-meta index links aren't clickable on paper; strip the
-     dotted underline so values read as plain text. Likewise the
-     title link to the song detail (irrelevant when you're already
-     reading the song). */
-  .song-meta dd a,
-  .song-list a {
-    text-decoration: none;
-    border: none;
-    color: inherit;
-  }
-
-  /* Keep choruses and verse paragraphs from splitting across pages. */
-  .song-body .chorus,
-  .song-body p,
-  .song-body pre {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  /* Hide song-meta fields whose schema entry lacks "print" in its
-     display list (see lib/song-schema.js). Keep this list in sync.
-     dt/dd qualifiers are needed so this rule matches the specificity
-     of the inline-display rule above; without them this loses and
-     hidden fields leak into print. */
-  .song-meta dt[data-field="genre"],
-  .song-meta dd[data-field="genre"],
-  .song-meta dt[data-field="mood"],
-  .song-meta dd[data-field="mood"],
-  .song-meta dt[data-field="structure"],
-  .song-meta dd[data-field="structure"],
-  .song-meta dt[data-field="topics"],
-  .song-meta dd[data-field="topics"] {
-    display: none;
-  }
-
-  /* The screen-mode dd::after separator only knows source order, not
-     visibility, so a visible dd followed by hidden siblings would
-     render an orphan "·". Currently only bop_rating shows up in the
-     printed dl, so no separators are needed at all. The selector
-     must match the screen rule's specificity (the :not()) to win. */
-  .song-meta dd:not(:last-of-type)::after {
-    content: none;
-  }
+  .layout-toggle { display: none; }
+  .print-tip { display: block; }
 }

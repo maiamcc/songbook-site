@@ -1,9 +1,18 @@
 import { readFileSync } from "node:fs";
 import matter from "gray-matter";
+import MarkdownIt from "markdown-it";
 import { configureMarkdown } from "./lib/markdown.js";
 import { sortKey } from "./lib/title.js";
 import { slugify } from "./lib/slug.js";
 import { INDEXABLE_FIELDS, validate } from "./lib/song-schema.js";
+
+// A standalone markdown-it instance configured the same way Eleventy's
+// instance is (via configureMarkdown), used to pre-render each song's
+// body so the print pagination template (src/songs-print.njk) has the
+// rendered HTML available as song.data.bodyHtml. Eleventy renders the
+// .md files itself for the screen view; this is purely for the parallel
+// print view, which doesn't go through the .md → song.njk pipeline.
+const md = configureMarkdown(MarkdownIt({ html: true }));
 
 // Validate every song's raw frontmatter against the schema and fail
 // the build with a clear, located error if anything's off. This is the
@@ -44,6 +53,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("songs", (api) => {
     const songs = api.getFilteredByGlob("src/songs/*.md");
     assertValidSongs(songs);
+    for (const song of songs) {
+      const { content } = matter(readFileSync(song.inputPath, "utf8"));
+      song.data.bodyHtml = md.render(content);
+    }
     return songs.sort((a, b) =>
       sortKey(a.data.title).localeCompare(sortKey(b.data.title))
     );

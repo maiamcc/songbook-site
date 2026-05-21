@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");
 const INCLUDES = join(SRC, "_includes");
 const SONG_NJK = join(INCLUDES, "song.njk");
+const SONG_PRINT_NJK = join(INCLUDES, "song-print.njk");
 const HOME_NJK = join(SRC, "index.njk");
 const INDEX_NJK = join(SRC, "index-pages.njk");
 
@@ -50,15 +51,32 @@ const FIELD_FIXTURES = {
   topics: { value: ["TopicSentinel"], marker: "TopicSentinel" },
   genre: { value: "GenreSentinel", marker: "GenreSentinel" },
   mood: { value: "MoodSentinel", marker: "MoodSentinel" },
-  // bop_rating renders as "N / 5"; the slash-out-of-five form only
-  // appears in rendered ratings, so matching it anywhere is unambiguous.
-  bop_rating: { value: 3, marker: /3 \/ 5/ },
+  // bop_rating renders as "N / 5" on screen (and on index pages); the
+  // print view drops the "/ 5" and the index link, so it gets its own
+  // distinctive marker that targets the <dt>Bop</dt><dd>N</dd> pair.
+  bop_rating: {
+    value: 3,
+    marker: /3 \/ 5/,
+    printMarker: /<dt>Bop<\/dt><dd>3<\/dd>/,
+  },
   structure: { value: "StructureSentinel", marker: "StructureSentinel" },
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
 };
 
 function contains(html, marker) {
   return marker instanceof RegExp ? marker.test(html) : html.includes(marker);
+}
+
+// song-print.njk is a Nunjucks macro file, not a standalone template,
+// so we render by importing it and invoking the macro with a song-data
+// object and a pre-rendered bodyHtml string (same shape Eleventy passes
+// at build time from src/songs-print.njk).
+function renderPrint(songData, bodyHtml) {
+  const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(INCLUDES));
+  return env.renderString(
+    `{% import "song-print.njk" as p %}{{ p.renderSongPrint(s, body) }}`,
+    { s: songData, body: bodyHtml || "" }
+  );
 }
 
 const fullSong = Object.fromEntries(
@@ -109,6 +127,17 @@ for (const [field, spec] of Object.entries(FIELDS)) {
       contains(html, fixture.marker),
       shouldRender,
       `expected ${field} marker to ${shouldRender ? "" : "not "}appear in index view`
+    );
+  });
+
+  test(`print view: ${field} ${spec.display.includes("print") ? "renders" : "does NOT render"}`, () => {
+    const html = renderPrint(fullSong, fullSong.content);
+    const shouldRender = spec.display.includes("print");
+    const marker = fixture.printMarker || fixture.marker;
+    assert.equal(
+      contains(html, marker),
+      shouldRender,
+      `expected ${field} marker to ${shouldRender ? "" : "not "}appear in print view`
     );
   });
 }
@@ -187,6 +216,25 @@ test("song view: each topic gets its own index link", () => {
 test("song view: body content passes through", () => {
   const html = render(SONG_NJK, fullSong);
   assert.match(html, /<p>body sentinel<\/p>/);
+});
+
+test("print view: body content passes through", () => {
+  const html = renderPrint(fullSong, fullSong.content);
+  assert.match(html, /<p>body sentinel<\/p>/);
+});
+
+test("print view: bop_rating renders as plain 'Bop: N' (no /5, no link)", () => {
+  const html = renderPrint(fullSong, fullSong.content);
+  assert.match(html, /<dt>Bop<\/dt><dd>3<\/dd>/);
+  assert.doesNotMatch(html, /href="\/index\/bop_rating\//);
+});
+
+test("print view: file path is reachable", () => {
+  // Read the file directly to make sure the symbol is exercised — the
+  // renderPrint helper loads it via the loader, but this guards against
+  // accidental renames slipping past the schema-driven loop above.
+  const src = readFileSync(SONG_PRINT_NJK, "utf8");
+  assert.match(src, /macro renderSongPrint/);
 });
 
 test("song view: a title-only song renders no optional field markers", () => {

@@ -1,0 +1,13 @@
+---
+pagination:
+  data: collections.songs
+  size: 1
+  alias: song
+permalink: "/songs/{{ song.fileSlug }}/print/"
+layout: base-print.njk
+eleventyComputed:
+  title: "{{ song.data.title }}"
+  screenUrl: "{{ song.url }}"
+---
+{% import "song-print.njk" as p %}
+{{ p.renderSongPrint(song.data, song.data.bodyHtml) }}

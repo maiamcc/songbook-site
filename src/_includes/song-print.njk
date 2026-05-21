@@ -1,0 +1,33 @@
+{# Macro that renders the print-mode markup for a single song. `s` is
+   the song's data object (per lib/song-schema.js — fields like title,
+   author, bop_rating, notes); `bodyHtml` is the rendered HTML for the
+   markdown body. Only fields whose schema entry includes "print" in
+   `display` are rendered here, so the print layout doesn't need any
+   CSS hiding to suppress non-printing fields. #}
+{% macro renderSongPrint(s, bodyHtml) %}
+<article class="song">
+  <header class="song-header">
+    <h1>
+      {{ s.title }}{% if s.alternate_title %} <span class="alt-title">({{ s.alternate_title }})</span>{% endif %}
+    </h1>
+    {% if s.author or s.year_written %}
+    <p class="byline">
+      {%- if s.author %}{{ s.author }}{% endif -%}
+      {%- if s.author and s.year_written %} · {% endif -%}
+      {%- if s.year_written %}{{ s.year_written }}{% endif -%}
+    </p>
+    {% endif %}
+    {% if s.bop_rating %}
+    <dl class="song-meta">
+      <dt>Bop</dt><dd>{{ s.bop_rating }}</dd>
+    </dl>
+    {% endif %}
+  </header>
+
+  <div class="song-body">
+    {{ bodyHtml | safe }}
+  </div>
+
+  {% if s.notes %}<p class="notes"><span class="notes-label">Notes:</span> {{ s.notes }}</p>{% endif %}
+</article>
+{% endmacro %}

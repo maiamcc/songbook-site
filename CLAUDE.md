@@ -27,13 +27,19 @@ enforce that the rest of the project agrees with the schema:
   be used as the index key. Template: `src/index-pages.njk`.
 - **song** — the per-song detail page. Template:
   `src/_includes/song.njk`.
-- **print** — what shows when a song page is printed (`@media print`).
-  Uses the same template as the song view; fields without `"print"` in
-  their `display` are hidden by CSS that targets `[data-field="…"]` on
-  the rendered `<dt>/<dd>` pairs. If you add a new field that should
-  print, append `"print"` to its `display` and tick the Print column
-  in the README; if a new field should NOT print, add a matching rule
-  in the `@media print` block of `src/assets/style.css`.
+- **print** — a dedicated print layout served at
+  `/songs/<slug>/print/`. A small "Print view →" link on the screen
+  song page leads here; the print page has a "← View on screen" link
+  back. The print page renders via the `renderSongPrint` macro in
+  `src/_includes/song-print.njk`, wrapped in `base-print.njk`
+  (no site header). Only fields with `"print"` in their `display`
+  appear in the macro — there is no `@media print` hiding logic. The
+  paginated `src/songs-print.njk` walks `collections.songs` and emits
+  one print page per song, using `song.data.bodyHtml` (pre-rendered
+  in `eleventy.config.js`) for the lyrics. If you add a new field
+  that should print, append `"print"` to its `display`, tick the
+  Print column in the README, and render the field in the
+  `renderSongPrint` macro.
 
 ### Workflow for changing the schema
 
@@ -47,11 +53,12 @@ enforce that the rest of the project agrees with the schema:
    `display`).
 4. If `display` includes `"home"`, edit `src/index.njk`. If it
    includes `"index"`, edit `src/index-pages.njk`. If it includes
-   `"song"`, edit `src/_includes/song.njk`. If it omits `"print"`,
-   make sure the `@media print` block in `src/assets/style.css` hides
-   the field's `[data-field="…"]` element. The templates are
-   handwritten because rendering is per-field bespoke (stars for
-   `bop_rating`, byline join for `author`/`year_written`, etc.).
+   `"song"`, edit `src/_includes/song.njk`. If it includes `"print"`,
+   edit the `renderSongPrint` macro in
+   `src/_includes/song-print.njk`. The templates are handwritten
+   because rendering is per-field bespoke (slash form for screen
+   `bop_rating`, plain "Bop: N" for print, byline join for
+   `author`/`year_written`, etc.).
 5. Add an entry in `FIELD_FIXTURES` in `test/views.test.js` if the new
    field needs a custom rendered-form marker (e.g. for non-string types
    whose literal value doesn't appear in the HTML).

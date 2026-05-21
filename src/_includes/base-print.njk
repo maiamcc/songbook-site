@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "Songbook" }}</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body class="print-layout">
+    <p class="layout-toggle"><a href="{{ screenUrl }}">← View on screen</a></p>
+    <main>
+      {{ content | safe }}
+    </main>
+  </body>
+</html>
