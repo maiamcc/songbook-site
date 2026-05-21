@@ -8,7 +8,8 @@
     "build": "eleventy",
     "clean": "rm -rf _site",
     "test": "node --test test/*.test.js",
-    "new-song": "node scripts/new-song.js"
+    "new-song": "node scripts/new-song.js",
+    "check-print-pages": "npm run build && node scripts/check-print-pages.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

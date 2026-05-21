@@ -21,6 +21,7 @@ That installs Eleventy and the few dev dependencies (`gray-matter`, `markdown-it
 | `npm run clean`    | Remove the `_site/` build output.                                                               |
 | `npm test`         | Run the Node test suite (`node --test test/*.test.js`). Validates every song, asserts the README table matches the schema, and renders the view templates against fixtures. |
 | `npm run new-song` | Launch the interactive new-song script (see below).                                             |
+| `npm run check-print-pages` | Build the site, render each song's `/print/` page through headless Chrome as A5 PDF, and list any that span 2+ pages (see below). |
 
 ### Adding a song with `npm run new-song`
 
@@ -29,6 +30,12 @@ That installs Eleventy and the few dev dependencies (`gray-matter`, `markdown-it
 After all fields are entered, the script proposes a slug derived from the title (with a leading `the`/`a` stripped) and asks you to accept it or enter a custom one. The file is written to `src/songs/<slug>.md` with the frontmatter populated and an empty body ready for lyrics. If the slug collides with an existing song, you're re-prompted.
 
 For list-valued fields like `topics`, enter a comma-separated string (e.g. `home, travel`).
+
+### Checking print-page count with `npm run check-print-pages`
+
+`scripts/check-print-pages.js` spins up a tiny static server over `_site/`, then renders every song's `/print/` page through headless Chrome (`--headless=new --print-to-pdf`) at A5. It counts `/Type /Page` objects in the resulting PDF binary — so no extra dependencies — and prints the slugs of any songs that span two or more A5 sheets, with their page counts.
+
+The npm script runs `npm run build` first so `_site/` is fresh; you don't need to build separately. The underlying script auto-detects Chrome at `/Applications/Google Chrome.app/...`; override with `CHROME_BIN=/path/to/chrome npm run check-print-pages` if you have it somewhere else.
 
 ## Song frontmatter
 

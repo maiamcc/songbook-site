@@ -3,13 +3,13 @@
 ## P1
 * style isn't shitty
 * fonts
-* range in print layout
 
 ## P2:
-* searching and filtering for songs on the homepage
 * print layout - multiple songs / check and print multiple songs
 * keep track of tags, topics, genres, formats -- don't reinvent the wheel every time
+  * maybe adding new ones to a big yaml file? bonus points if there's room to give a description for each song format.
 * print indexes and lists
+* searching and filtering for songs on the homepage
 
 ### P3:
 * publish the site?!
