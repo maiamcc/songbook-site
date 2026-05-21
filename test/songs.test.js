@@ -4,7 +4,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
-import { validate } from "./song-schema.js";
+import { validate } from "../lib/song-schema.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SONGS_DIR = join(__dirname, "..", "src", "songs");

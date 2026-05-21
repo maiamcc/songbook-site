@@ -5,7 +5,7 @@ import { writeFile, access } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
-import { FIELDS, validate } from "../test/song-schema.js";
+import { FIELDS, validate } from "../lib/song-schema.js";
 import { slugify } from "../lib/slug.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

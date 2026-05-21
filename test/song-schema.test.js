@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { validate } from "./song-schema.js";
+import { validate } from "../lib/song-schema.js";
 
 test("title required", () => {
   assert.deepEqual(validate({}), ["missing required field: title"]);

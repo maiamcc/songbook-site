@@ -2,9 +2,9 @@
 
 Notes for Claude when working in this repo.
 
-## `test/song-schema.js` is the single source of truth for songs
+## `lib/song-schema.js` is the single source of truth for songs
 
-The `FIELDS` object in `test/song-schema.js` defines every frontmatter
+The `FIELDS` object in `lib/song-schema.js` defines every frontmatter
 field: its type, whether it's required, where it renders
 (`display: ["home", "index", "song"]`), and whether its values can serve
 as the key of an index page (`indexable: true`). Two tests enforce that
@@ -30,7 +30,7 @@ the rest of the project agrees with the schema:
 
 ### Workflow for changing the schema
 
-1. Edit `test/song-schema.js` — add, remove, or rename the field, and
+1. Edit `lib/song-schema.js` — add, remove, or rename the field, and
    set its `required`, `type`, `check`, and `display` properties.
 2. Run `npm test`. The README and view tests will fail until the rest
    of the project agrees.

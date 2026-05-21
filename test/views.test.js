@@ -5,7 +5,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import matter from "gray-matter";
-import { FIELDS } from "./song-schema.js";
+import { FIELDS } from "../lib/song-schema.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");

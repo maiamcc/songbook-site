@@ -1,12 +1,12 @@
 // Asserts the frontmatter table in README.md matches FIELDS in
-// test/song-schema.js. The schema is the source of truth; this test
+// lib/song-schema.js. The schema is the source of truth; this test
 // fails loudly whenever the README drifts.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { FIELDS } from "./song-schema.js";
+import { FIELDS } from "../lib/song-schema.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const README = readFileSync(join(__dirname, "..", "README.md"), "utf8");
