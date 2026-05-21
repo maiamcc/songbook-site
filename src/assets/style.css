@@ -106,13 +106,6 @@ h1 { margin-bottom: 0.25rem; }
   margin: 0 0.1rem;
 }
 
-.rating {
-  color: var(--quaternary);
-}
-
-.song-meta .rating {
-  letter-spacing: 0.08em;
-}
 
 /* Inline links inside song-meta (song page) and index-meta (index page
    rows). Subtle dotted underline by default so users see they're
@@ -218,10 +211,6 @@ h1 { margin-bottom: 0.25rem; }
   content: "·";
   margin: 0 0.5rem;
   color: var(--separator);
-}
-
-.index-meta .rating {
-  letter-spacing: 0.05em;
 }
 
 .song-body pre {

@@ -45,7 +45,7 @@ When just ten weeks were gone and past,
 they finally brought us news about the loss:
 Seemed a body had been found 
 of a sailor lost and drowned,
-And in our hearts we knew 'twas Davy Cross.
+And in our hearts we knew 'twas Davy Cross
 
 	For we ...
 

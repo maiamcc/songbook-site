@@ -50,10 +50,9 @@ const FIELD_FIXTURES = {
   topics: { value: ["TopicSentinel"], marker: "TopicSentinel" },
   genre: { value: "GenreSentinel", marker: "GenreSentinel" },
   mood: { value: "MoodSentinel", marker: "MoodSentinel" },
-  // bop_rating renders as stars, not its literal value. The stars
-  // only appear in rendered ratings, so matching them anywhere is
-  // unambiguous (and works whether or not they're wrapped in a link).
-  bop_rating: { value: 3, marker: /★★★☆☆/ },
+  // bop_rating renders as "N / 5"; the slash-out-of-five form only
+  // appears in rendered ratings, so matching it anywhere is unambiguous.
+  bop_rating: { value: 3, marker: /3 \/ 5/ },
   structure: { value: "StructureSentinel", marker: "StructureSentinel" },
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
 };
@@ -129,15 +128,14 @@ test("song view: byline joins author and year_written with ·", () => {
   );
 });
 
-test("song view: bop_rating renders as N filled then 5-N empty stars inside a .rating link", () => {
+test("song view: bop_rating renders as 'N / 5' inside a .rating link", () => {
   for (const n of [1, 2, 3, 4, 5]) {
-    const stars = "★".repeat(n) + "☆".repeat(5 - n);
     const html = render(SONG_NJK, { ...fullSong, bop_rating: n });
-    // <dd class="rating"><a href="/index/bop_rating/N/" title="...">★★★…</a></dd>
+    // <dd class="rating"><a href="/index/bop_rating/N/" title="...">N / 5</a></dd>
     assert.match(
       html,
       new RegExp(
-        `class="rating"[^<]*<a [^>]*href="/index/bop_rating/${n}/"[^>]*>${stars}<`
+        `class="rating"[^<]*<a [^>]*href="/index/bop_rating/${n}/"[^>]*>${n} / 5<`
       )
     );
   }
@@ -234,9 +232,9 @@ test("index view: heading shows field name (underscore→space) and value", () =
       songs: [{ url: "/songs/x/", data: { title: "X" } }],
     },
   });
-  // For bop_rating specifically, the value is rendered as stars.
+  // For bop_rating specifically, the value is rendered as "N / 5".
   assert.match(html, /<span class="index-field">bop rating:<\/span>/);
-  assert.match(html, /<span class="rating">★★★★☆<\/span>/);
+  assert.match(html, /<span class="rating">4 \/ 5<\/span>/);
 });
 
 test("index view: heading shows literal value for non-bop_rating fields", () => {
