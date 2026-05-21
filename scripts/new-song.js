@@ -18,6 +18,14 @@ export function slugify(s) {
     .replace(/^-+|-+$/g, "");
 }
 
+// Default slug derived from a song title. Strips a leading "the" or "a"
+// article so e.g. "The Bells of Norwich" sorts as "bells-of-norwich".
+// Only applied to the auto-generated default — a user-supplied slug is
+// taken at face value.
+export function defaultSlug(title) {
+  return slugify(title).replace(/^(the|a)-/, "");
+}
+
 // Convert one raw input string into the typed value the schema expects.
 // Returns undefined for blank input (the user is skipping). For bop_rating,
 // non-numeric input is passed through as-is so the validator surfaces the
@@ -84,11 +92,11 @@ async function main() {
       }
     }
 
-    const defaultSlug = slugify(data.title);
+    const fallback = defaultSlug(data.title);
     let filepath;
     while (true) {
-      const raw = await ask(`slug (enter for "${defaultSlug}"): `);
-      const slug = raw.trim() === "" ? defaultSlug : slugify(raw);
+      const raw = await ask(`slug (enter for "${fallback}"): `);
+      const slug = raw.trim() === "" ? fallback : slugify(raw);
       if (!slug) {
         console.log("  slug must contain at least one alphanumeric character");
         continue;

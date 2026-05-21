@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parse, slugify } from "../scripts/new-song.js";
+import { parse, slugify, defaultSlug } from "../scripts/new-song.js";
 
 test("slugify: basic kebab-case", () => {
   assert.equal(slugify("Country Roads"), "country-roads");
@@ -17,6 +17,25 @@ test("slugify: trims surrounding whitespace and stray hyphens", () => {
 test("slugify: returns empty string when nothing alphanumeric remains", () => {
   assert.equal(slugify("!!! ??? ---"), "");
   assert.equal(slugify(""), "");
+});
+
+test("defaultSlug: strips leading 'the' article", () => {
+  assert.equal(defaultSlug("The Bells of Norwich"), "bells-of-norwich");
+  assert.equal(defaultSlug("the weight"), "weight");
+});
+
+test("defaultSlug: strips leading 'a' article", () => {
+  assert.equal(defaultSlug("A Hard Day's Night"), "hard-day-s-night");
+});
+
+test("defaultSlug: does not strip mid-word matches", () => {
+  assert.equal(defaultSlug("Theatre"), "theatre");
+  assert.equal(defaultSlug("Apple"), "apple");
+});
+
+test("defaultSlug: leaves single-word article-only titles alone", () => {
+  assert.equal(defaultSlug("The"), "the");
+  assert.equal(defaultSlug("A"), "a");
 });
 
 test("parse: blank or whitespace-only returns undefined for any field", () => {
