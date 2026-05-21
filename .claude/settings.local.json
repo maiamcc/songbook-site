@@ -7,7 +7,9 @@
       "Bash(npm test *)",
       "Bash(node scripts/new-song.js)",
       "Bash(node /tmp/rl-test.mjs)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
