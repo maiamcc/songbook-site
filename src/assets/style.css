@@ -283,4 +283,13 @@ h1 { margin-bottom: 0.25rem; }
   .song-meta [data-field="topics"] {
     display: none;
   }
+
+  /* The screen-mode dd::after separator only knows source order, not
+     visibility, so a visible dd followed by hidden siblings would
+     render an orphan "·". Currently only bop_rating shows up in the
+     printed dl, so no separators are needed at all. The selector
+     must match the screen rule's specificity (the :not()) to win. */
+  .song-meta dd:not(:last-of-type)::after {
+    content: none;
+  }
 }
