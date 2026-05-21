@@ -83,12 +83,25 @@ for (const row of rows) {
       ["song", songCell],
       ["print", printCell],
     ]) {
-      const expected = spec.display.includes(view);
-      const actual = cell.includes("✓");
+      // "✓" means rendered and visible by default; "+" means rendered
+      // but hidden by default behind a collapsible drawer (tracked in
+      // the schema's `collapsedOn` list). An empty cell means the
+      // field doesn't render in that view at all.
+      const visible = cell.includes("✓");
+      const collapsed = cell.includes("+");
+      const present = visible || collapsed;
+      const expectedPresent = spec.display.includes(view);
+      const expectedCollapsed = (spec.collapsedOn || []).includes(view);
+      const label = view[0].toUpperCase() + view.slice(1);
       assert.equal(
-        actual,
-        expected,
-        `${view[0].toUpperCase() + view.slice(1)} column for ${name}`
+        present,
+        expectedPresent,
+        `${label} column for ${name}: present`
+      );
+      assert.equal(
+        collapsed,
+        expectedCollapsed,
+        `${label} column for ${name}: collapsed`
       );
     }
   });

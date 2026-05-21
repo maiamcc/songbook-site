@@ -151,6 +151,30 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 
+/* Collapsible "Metadata" drawer on the screen song page (native
+   <details>/<summary>). Holds the secondary metadata fields
+   (genre, mood, structure, topics); bop_rating sits outside the
+   drawer so the rating is always visible. */
+.song-meta-drawer {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.song-meta-drawer summary {
+  cursor: pointer;
+  list-style-position: outside;
+  width: max-content;
+}
+
+.song-meta-drawer summary:hover {
+  color: var(--accent);
+}
+
+.song-meta-drawer .song-meta {
+  margin-top: 0.15rem;
+}
+
 /* Inline links inside song-meta (song page) and index-meta (index page
    rows). Subtle dotted underline by default so users see they're
    actionable; accent color + accent underline on hover. */

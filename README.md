@@ -40,15 +40,21 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `alternate_title` | string          | no       |               |           | ✓    | ✓     | ✓    | ✓     |
 | `author`          | string          | no       |               |           | ✓    |       | ✓    | ✓     |
 | `year_written`    | string          | no       |               |           |      |       | ✓    | ✓     |
-| `topics`          | list of strings | no       |               | ✓         |      | ✓     | ✓    |       |
-| `genre`           | string          | no       |               | ✓         |      | ✓     | ✓    |       |
-| `mood`            | string          | no       |               | ✓         |      | ✓     | ✓    |       |
+| `topics`          | list of strings | no       |               | ✓         |      | ✓     | +    |       |
+| `genre`           | string          | no       |               | ✓         |      | ✓     | +    |       |
+| `mood`            | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `bop_rating`      | integer         | no       | 1–5 inclusive | ✓         |      | ✓     | ✓    | ✓     |
-| `structure`       | string          | no       |               | ✓         |      | ✓     | ✓    |       |
+| `structure`       | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
 | `range`           | string          | no       | format `aa-bb` (lowercase) |           |      |       |      |       |
 
-The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on the homepage list, on a per-value index page (listing all songs sharing one metadata value), on an individual song page on screen, and on the dedicated print page at `/songs/<slug>/print/` (linked from each screen song page), respectively. The Indexable column marks fields whose values can serve as the *key* of an index page — e.g. an index of all songs with `mood: uplifting`.
+The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on which view. A `✓` means the field is visible by default; a `+` means the field is rendered but hidden by default behind a collapsible drawer (the "Metadata" `<details>` element on the song view).
+- `Home`: the homepage list
+- `Index`: on a per-value index page (listing all songs sharing one metadata value)
+- `Song`: on an individual song page on screen
+- `Print`: on a song's print page at `/songs/<slug>/print/` (linked from each screen song page).
+
+The Indexable column marks fields whose values can serve as the *key* of an index page — e.g. an index of all songs with `mood: uplifting`.
 
 Example:
 

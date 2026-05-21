@@ -17,14 +17,22 @@ layout: base.njk
     </p>
     {% endif %}
 
-    {% if genre or mood or bop_rating or structure or topics %}
+    {% if bop_rating %}
     <dl class="song-meta">
-      {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
-      {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
-      {% if bop_rating %}<dt>Bop rating</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}</dd>{% endif %}
-      {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
-      {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+      <dt>Bop rating</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}</dd>
     </dl>
+    {% endif %}
+
+    {% if genre or mood or structure or topics %}
+    <details class="song-meta-drawer">
+      <summary>Metadata</summary>
+      <dl class="song-meta">
+        {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
+        {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
+        {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
+        {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+      </dl>
+    </details>
     {% endif %}
 
   </header>

@@ -241,6 +241,36 @@ test("print view: file path is reachable", () => {
   assert.match(src, /macro renderSongPrint/);
 });
 
+test("song view: schema's collapsedOn:['song'] fields land inside the drawer", () => {
+  // The "Metadata" <details> drawer holds the schema's collapsedOn:["song"]
+  // fields. Fields that are display:["song"] but NOT in collapsedOn must
+  // render outside the drawer (e.g. bop_rating sits in its own song-meta
+  // dl so the rating stays visible by default).
+  const html = render(SONG_NJK, fullSong);
+  const drawerMatch = html.match(
+    /<details class="song-meta-drawer">[\s\S]*?<\/details>/
+  );
+  assert.ok(drawerMatch, "expected a .song-meta-drawer <details> block");
+  const drawer = drawerMatch[0];
+  const outside = html.replace(drawer, "");
+
+  for (const [field, spec] of Object.entries(FIELDS)) {
+    if (!spec.display.includes("song")) continue;
+    const fixture = FIELD_FIXTURES[field];
+    const collapsed = (spec.collapsedOn || []).includes("song");
+    const target = collapsed ? drawer : outside;
+    const other = collapsed ? outside : drawer;
+    assert.ok(
+      contains(target, fixture.marker),
+      `expected ${field} marker ${collapsed ? "inside" : "outside"} the drawer`
+    );
+    assert.ok(
+      !contains(other, fixture.marker),
+      `expected ${field} marker NOT ${collapsed ? "outside" : "inside"} the drawer`
+    );
+  }
+});
+
 test("song view: a title-only song renders no optional field markers", () => {
   const html = render(SONG_NJK, { title: "Minimal", content: "" });
   assert.match(html, /<h1>[\s\S]*?Minimal[\s\S]*?<\/h1>/);
