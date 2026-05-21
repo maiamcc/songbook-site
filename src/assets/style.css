@@ -135,7 +135,7 @@ h1 { margin-bottom: 0.25rem; }
 .song .notes {
   border-left: 2px solid var(--accent);
   padding: 0.05rem 0 0.05rem 0.6rem;
-  margin: 0.5rem 0 0;
+  margin: 2rem 0 0;
   font-size: 0.9rem;
   color: var(--muted);
 }
