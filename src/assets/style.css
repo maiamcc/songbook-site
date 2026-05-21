@@ -1,0 +1,78 @@
+:root {
+  --fg: #1a1a1a;
+  --muted: #666;
+  --accent: #8b3a3a;
+  --bg: #fdfaf3;
+  --chord: #8b3a3a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: Georgia, "Iowan Old Style", serif;
+  color: var(--fg);
+  background: var(--bg);
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  line-height: 1.5;
+}
+
+header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.home {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+h1 { margin-bottom: 0.25rem; }
+
+.artist {
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.song-list {
+  list-style: none;
+  padding: 0;
+}
+
+.song-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted #ddd;
+}
+
+.song-list a {
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.song-list a:hover { color: var(--accent); }
+
+.song-body pre {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+  background: transparent;
+  padding: 0;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+/* Bracketed chords above lyrics, e.g. [G] */
+.song-body pre code {
+  background: none;
+  padding: 0;
+}

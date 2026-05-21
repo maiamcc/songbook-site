@@ -1,0 +1,15 @@
+---
+layout: base.njk
+title: Songbook
+---
+<h1>Songbook</h1>
+<ul class="song-list">
+  {% for song in collections.songs %}
+    <li>
+      <a href="{{ song.url }}">{{ song.data.title }}</a>
+      {% if song.data.artist %}<span class="artist"> — {{ song.data.artist }}</span>{% endif %}
+    </li>
+  {% else %}
+    <li><em>No songs yet. Add a markdown file under <code>src/songs/</code>.</em></li>
+  {% endfor %}
+</ul>
