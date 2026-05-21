@@ -1,5 +1,11 @@
 ---
 title: Country Roads
+topics: [home, nostalgia, travel, mountains]
+genre: folk
+mood: nostalgic
+bop_rating: 5
+structure: verse-chorus
+notes: everyone knows the chorus, lean into it
 ---
 
 ```
