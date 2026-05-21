@@ -7,9 +7,10 @@
     "start": "eleventy --serve",
     "build": "eleventy",
     "clean": "rm -rf _site",
-    "test": "node --test test/"
+    "test": "node --test test/*.test.js"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "gray-matter": "^4.0.3"
   }
 }
