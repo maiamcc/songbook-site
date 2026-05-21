@@ -1,5 +1,11 @@
 // Single source of truth for song frontmatter fields.
 // Add new fields here as the songbook grows.
+//
+// `display` lists the views where this field (when present) is rendered.
+// Valid entries: "index" (homepage list) and "song" (per-song page).
+// The README frontmatter table is asserted to match these declarations
+// (see test/readme.test.js), as are the actual view templates (see
+// test/views.test.js). Edit only this file; the rest is checked.
 
 const isString = (v) => typeof v === "string";
 const isStringList = (v) => Array.isArray(v) && v.every(isString);
@@ -7,16 +13,66 @@ const isBopRating = (v) =>
   typeof v === "number" && Number.isInteger(v) && v >= 1 && v <= 5;
 
 export const FIELDS = {
-  title: { required: true, type: "string", check: isString },
-  alternate_title: { required: false, type: "string", check: isString },
-  author: { required: false, type: "string", check: isString },
-  year_written: { required: false, type: "string", check: isString },
-  topics: { required: false, type: "list[string]", check: isStringList },
-  genre: { required: false, type: "string", check: isString },
-  mood: { required: false, type: "string", check: isString },
-  bop_rating: { required: false, type: "integer 1-5", check: isBopRating },
-  structure: { required: false, type: "string", check: isString },
-  notes: { required: false, type: "string", check: isString },
+  title: {
+    required: true,
+    type: "string",
+    check: isString,
+    display: ["index", "song"],
+  },
+  alternate_title: {
+    required: false,
+    type: "string",
+    check: isString,
+    display: ["index", "song"],
+  },
+  author: {
+    required: false,
+    type: "string",
+    check: isString,
+    display: ["index", "song"],
+  },
+  year_written: {
+    required: false,
+    type: "string",
+    check: isString,
+    display: ["song"],
+  },
+  topics: {
+    required: false,
+    type: "list[string]",
+    check: isStringList,
+    display: ["song"],
+  },
+  genre: {
+    required: false,
+    type: "string",
+    check: isString,
+    display: ["song"],
+  },
+  mood: {
+    required: false,
+    type: "string",
+    check: isString,
+    display: ["song"],
+  },
+  bop_rating: {
+    required: false,
+    type: "integer 1-5",
+    check: isBopRating,
+    display: ["song"],
+  },
+  structure: {
+    required: false,
+    type: "string",
+    check: isString,
+    display: ["song"],
+  },
+  notes: {
+    required: false,
+    type: "string",
+    check: isString,
+    display: ["song"],
+  },
 };
 
 export const REQUIRED_FIELDS = Object.keys(FIELDS).filter(

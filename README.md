@@ -19,7 +19,7 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is en
 | `structure`       | string          | no       |               |       | ✓    |
 | `notes`           | string          | no       |               |       | ✓    |
 
-The Index and Song columns mark which fields, when present, are surfaced on the homepage list and on an individual song page respectively. All non-rendered fields are still indexed for future use.
+The Index and Song columns mark which fields, when present, are surfaced on the homepage list and on an individual song page respectively.
 
 Example:
 
