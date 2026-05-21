@@ -1,9 +1,28 @@
 // Single source of truth for song frontmatter fields.
 // Add new fields here as the songbook grows.
-export const REQUIRED_FIELDS = ["title"];
-export const OPTIONAL_FIELDS = ["artist", "key"];
 
-export const KNOWN_FIELDS = new Set([...REQUIRED_FIELDS, ...OPTIONAL_FIELDS]);
+const isString = (v) => typeof v === "string";
+const isStringList = (v) => Array.isArray(v) && v.every(isString);
+const isBopRating = (v) =>
+  typeof v === "number" && Number.isInteger(v) && v >= 1 && v <= 5;
+
+export const FIELDS = {
+  title: { required: true, type: "string", check: isString },
+  topics: { required: false, type: "list[string]", check: isStringList },
+  genre: { required: false, type: "string", check: isString },
+  mood: { required: false, type: "string", check: isString },
+  bop_rating: { required: false, type: "integer 1-5", check: isBopRating },
+  structure: { required: false, type: "string", check: isString },
+  notes: { required: false, type: "string", check: isString },
+};
+
+export const REQUIRED_FIELDS = Object.keys(FIELDS).filter(
+  (f) => FIELDS[f].required
+);
+export const OPTIONAL_FIELDS = Object.keys(FIELDS).filter(
+  (f) => !FIELDS[f].required
+);
+export const KNOWN_FIELDS = new Set(Object.keys(FIELDS));
 
 export function validate(data) {
   const errors = [];
@@ -15,9 +34,15 @@ export function validate(data) {
     }
   }
 
-  for (const field of Object.keys(data)) {
+  for (const [field, value] of Object.entries(data)) {
     if (!KNOWN_FIELDS.has(field)) {
       errors.push(`unknown field: ${field}`);
+      continue;
+    }
+    if (value === undefined || value === null) continue;
+    const spec = FIELDS[field];
+    if (!spec.check(value)) {
+      errors.push(`field ${field} must be ${spec.type}`);
     }
   }
 

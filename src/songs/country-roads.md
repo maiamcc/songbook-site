@@ -1,7 +1,5 @@
 ---
 title: Country Roads
-artist: John Denver
-key: G
 ---
 
 ```

@@ -1,7 +1,5 @@
 ---
 title: Wagon Wheel
-artist: Old Crow Medicine Show
-key: G
 ---
 
 ```
