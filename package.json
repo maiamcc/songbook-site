@@ -7,7 +7,8 @@
     "start": "eleventy --serve",
     "build": "eleventy",
     "clean": "rm -rf _site",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "new-song": "node scripts/new-song.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
