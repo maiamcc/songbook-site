@@ -66,3 +66,13 @@ enforce that the rest of the project agrees with the schema:
   schema. Presentation is bespoke; keep it in the templates.
 - Don't move `FIELDS` to declare presentation details (CSS classes, star
   glyphs, etc.) — `display` is intentionally just a list of view names.
+
+## Keep README usage docs in sync with `package.json`
+
+Whenever you add, rename, or remove a script in `package.json` (or a
+standalone CLI tool the user is meant to run), update the **Commands**
+section of `README.md` in the same change. New scripts that take
+interactive input or non-obvious flags should also get a short
+"how to use" paragraph under that table — the goal is that someone
+opening the repo for the first time can run every command without
+reading the source.

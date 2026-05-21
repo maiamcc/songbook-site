@@ -2,9 +2,37 @@
 
 I caved and am vibecoding a songbook site.
 
+## Getting started
+
+Clone the repo, then from the project root:
+
+```sh
+npm install
+```
+
+That installs Eleventy and the few dev dependencies (`gray-matter`, `markdown-it`, `nunjucks`) used by the build, tests, and scripts.
+
+## Commands
+
+| Command            | What it does                                                                                    |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| `npm start`        | Run Eleventy in dev mode (`eleventy --serve`). Serves the site locally with live reload.        |
+| `npm run build`    | Build the site to `_site/`. Frontmatter is validated against the schema; bad data fails the build. |
+| `npm run clean`    | Remove the `_site/` build output.                                                               |
+| `npm test`         | Run the Node test suite (`node --test test/*.test.js`). Validates every song, asserts the README table matches the schema, and renders the view templates against fixtures. |
+| `npm run new-song` | Launch the interactive new-song script (see below).                                             |
+
+### Adding a song with `npm run new-song`
+
+`scripts/new-song.js` walks every field in the schema in order and prompts for a value. Blank input skips an optional field; a required field re-prompts. Input is validated against the schema as you go, so a bad value (e.g. a non-integer for `bop_rating`) re-prompts with the canonical error.
+
+After all fields are entered, the script proposes a slug derived from the title (with a leading `the`/`a` stripped) and asks you to accept it or enter a custom one. The file is written to `src/songs/<slug>.md` with the frontmatter populated and an empty body ready for lyrics. If the slug collides with an existing song, you're re-prompted.
+
+For list-valued fields like `topics`, enter a comma-separated string (e.g. `home, travel`).
+
 ## Song frontmatter
 
-Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is enforced by `test/song-schema.js` and checked in `test/songs.test.js`.
+Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is defined in `lib/song-schema.js` and enforced both in tests (`test/songs.test.js`) and at build time (the `songs` collection in `eleventy.config.js`).
 
 | Field             | Type            | Required | Notes         | Indexable | Home | Index | Song | Print |
 | ----------------- | --------------- | -------- | ------------- | --------- | ---- | ----- | ---- | ----- |
