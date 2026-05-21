@@ -6,6 +6,7 @@ year_written: pre-1997
 mood: uplifting
 bop_rating: 4
 structure: refrain-lines
+topics: [monks, buildings]
 ---
 
 Loud are the bells of Norwich

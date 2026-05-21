@@ -33,33 +33,61 @@ header {
 
 h1 { margin-bottom: 0.25rem; }
 
-.song .alt-title {
+.song-header {
+  margin-bottom: 1.25rem;
+}
+
+.song-header h1 {
+  margin: 0 0 0.1rem;
+  line-height: 1.2;
+}
+
+.song-header .alt-title {
   font-style: italic;
+  font-weight: normal;
   color: var(--muted);
-  margin: 0.1rem 0 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  margin-left: 0.2rem;
 }
 
 .song .byline {
   color: var(--muted);
-  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  margin: 0 0 0.3rem;
 }
 
+/* Metadata laid out as a single inline flow of "Label: value" pairs
+   separated by middots, so the whole block is one (occasionally two)
+   visual line instead of a tall key/value grid. */
 .song-meta {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.25rem 0.9rem;
-  margin: 0 0 1.5rem;
-  font-size: 0.95rem;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.song-meta dt,
+.song-meta dd {
+  display: inline;
+  margin: 0;
 }
 
 .song-meta dt {
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: normal;
+}
+
+.song-meta dt::after {
+  content: ": ";
 }
 
 .song-meta dd {
-  margin: 0;
+  color: var(--fg);
+}
+
+.song-meta dd:not(:last-of-type)::after {
+  content: " · ";
+  color: #c0b8a8;
+  margin: 0 0.1rem;
 }
 
 .song-meta .rating {
@@ -86,11 +114,16 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 .song .notes {
-  background: rgba(139, 58, 58, 0.06);
-  border-left: 3px solid var(--accent);
-  padding: 0.5rem 0.75rem;
-  margin: 0 0 1.5rem;
-  font-size: 0.95rem;
+  border-left: 2px solid var(--accent);
+  padding: 0.05rem 0 0.05rem 0.6rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.song .notes .notes-label {
+  font-weight: 600;
+  color: var(--fg);
 }
 
 .song-list {

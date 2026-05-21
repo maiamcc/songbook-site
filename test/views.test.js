@@ -118,7 +118,7 @@ for (const [field, spec] of Object.entries(FIELDS)) {
 
 test("song view: title renders inside an h1", () => {
   const html = render(SONG_NJK, fullSong);
-  assert.match(html, /<h1>TitleSentinel<\/h1>/);
+  assert.match(html, /<h1>[\s\S]*?TitleSentinel[\s\S]*?<\/h1>/);
 });
 
 test("song view: byline joins author and year_written with ·", () => {
@@ -193,7 +193,7 @@ test("song view: body content passes through", () => {
 
 test("song view: a title-only song renders no optional field markers", () => {
   const html = render(SONG_NJK, { title: "Minimal", content: "" });
-  assert.match(html, /<h1>Minimal<\/h1>/);
+  assert.match(html, /<h1>[\s\S]*?Minimal[\s\S]*?<\/h1>/);
   for (const cls of ["alt-title", "byline", "song-meta", "notes", "rating"]) {
     assert.doesNotMatch(
       html,

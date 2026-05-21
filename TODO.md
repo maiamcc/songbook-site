@@ -8,4 +8,5 @@
 * make tab titles not suck
 * maybe add favicon
 * fonts
-* make song types, topics etc. formatted better and more consistently. maybe color coded? pills??
+* make song types, topics etc. formatted better and more consistently. maybe color coded? pills??/bw
+* mobile layout?
