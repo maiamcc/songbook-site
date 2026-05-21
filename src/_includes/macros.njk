@@ -1,0 +1,11 @@
+{# Shared template macros. Imported via {% import "macros.njk" as m %}. #}
+
+{# Render an indexable (field, value) pair as a link to its index page,
+   with a "N songs" tooltip. `inner` is the visible text — usually the
+   value itself, but for bop_rating it's the rendered star block.
+   Requires the `collections.indexEntries` and `indexCount`/`slugify`
+   filters from eleventy.config.js. #}
+{% macro indexLink(field, value, inner) -%}
+  {%- set n = collections.indexEntries | indexCount(field, value) -%}
+  <a href="/index/{{ field }}/{{ value | slugify }}/" title="{{ n }} song{% if n != 1 %}s{% endif %}">{{ inner | safe }}</a>
+{%- endmacro %}

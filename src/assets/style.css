@@ -67,15 +67,22 @@ h1 { margin-bottom: 0.25rem; }
   letter-spacing: 0.08em;
 }
 
-.song-meta dd a {
+/* Inline links inside song-meta (song page) and index-meta (index page
+   rows). Subtle dotted underline by default so users see they're
+   actionable; accent color + accent underline on hover. */
+.song-meta dd a,
+.index-meta a {
   color: inherit;
-  text-decoration: none;
-  border-bottom: 1px dotted transparent;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: #c0b8a8;
+  text-underline-offset: 3px;
 }
 
-.song-meta dd a:hover {
+.song-meta dd a:hover,
+.index-meta a:hover {
   color: var(--accent);
-  border-bottom-color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
 .song .notes {
@@ -95,7 +102,10 @@ h1 { margin-bottom: 0.25rem; }
   border-bottom: 1px dotted #ddd;
 }
 
-.song-list a {
+/* The song-link in a list row (whole row on home, title row on an
+   index page). Scoped to direct children of <li> so nested index
+   links in .index-meta keep default styling. */
+.song-list > li > a {
   display: block;
   padding: 0.5rem 0.6rem;
   color: var(--fg);
@@ -104,7 +114,13 @@ h1 { margin-bottom: 0.25rem; }
   border-radius: 3px;
 }
 
-.song-list a:hover {
+/* On index pages the meta row hangs below the title link; trim the
+   bottom padding so they sit tight together. */
+.song-list > li:has(.index-meta) > a {
+  padding-bottom: 0.1rem;
+}
+
+.song-list > li > a:hover {
   background: rgba(139, 58, 58, 0.08);
   color: var(--accent);
 }
@@ -136,15 +152,11 @@ h1 { margin-bottom: 0.25rem; }
   margin: 0 0 1.25rem;
 }
 
-.index-title {
-  font-weight: 600;
-}
-
 .index-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.15rem 0;
-  margin-top: 0.15rem;
+  padding: 0 0.6rem 0.5rem;
   font-weight: normal;
   font-size: 0.9rem;
   color: var(--muted);

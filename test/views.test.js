@@ -10,7 +10,8 @@ import { slugify } from "../lib/slug.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");
-const SONG_NJK = join(SRC, "_includes", "song.njk");
+const INCLUDES = join(SRC, "_includes");
+const SONG_NJK = join(INCLUDES, "song.njk");
 const HOME_NJK = join(SRC, "index.njk");
 const INDEX_NJK = join(SRC, "index-pages.njk");
 
@@ -21,7 +22,9 @@ const INDEX_NJK = join(SRC, "index-pages.njk");
 // the templates use them.
 function render(filepath, ctx) {
   const { content } = matter(readFileSync(filepath, "utf8"));
-  const env = new nunjucks.Environment();
+  // Loader on the _includes directory so {% import "macros.njk" %}
+  // resolves the same way Eleventy resolves it at build time.
+  const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(INCLUDES));
   env.addFilter("slugify", slugify);
   env.addFilter("indexCount", (entries, field, value) => {
     const entry = entries.find((e) => e.field === field && e.value === value);
