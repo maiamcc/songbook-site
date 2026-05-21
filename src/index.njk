@@ -7,6 +7,8 @@ title: Songbook
   {% for song in collections.songs %}
     <li>
       <a href="{{ song.url }}">{{ song.data.title }}</a>
+      {% if song.data.alternate_title %}<span class="alt-title"> ({{ song.data.alternate_title }})</span>{% endif %}
+      {% if song.data.author %}<span class="author"> — {{ song.data.author }}</span>{% endif %}
     </li>
   {% else %}
     <li><em>No songs yet. Add a markdown file under <code>src/songs/</code>.</em></li>

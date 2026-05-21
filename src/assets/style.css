@@ -62,6 +62,15 @@ h1 { margin-bottom: 0.25rem; }
 
 .song-list a:hover { color: var(--accent); }
 
+.song-list .alt-title {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.song-list .author {
+  color: var(--muted);
+}
+
 .song-body pre {
   font-family: "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.95rem;

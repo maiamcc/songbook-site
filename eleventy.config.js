@@ -1,4 +1,5 @@
 import { configureMarkdown } from "./lib/markdown.js";
+import { sortKey } from "./lib/title.js";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
@@ -7,7 +8,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addCollection("songs", (api) =>
     api.getFilteredByGlob("src/songs/*.md").sort((a, b) =>
-      a.data.title.localeCompare(b.data.title)
+      sortKey(a.data.title).localeCompare(sortKey(b.data.title))
     )
   );
 
