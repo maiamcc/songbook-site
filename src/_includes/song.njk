@@ -9,34 +9,48 @@ layout: base.njk
     <h1>
       {{ title }}{% if alternate_title %} <span class="alt-title">({{ alternate_title }})</span>{% endif %}
     </h1>
-    {% if author or year_written %}
-    <p class="byline">
-      {%- if author %}{{ author }}{% endif -%}
-      {%- if author and year_written %} · {% endif -%}
-      {%- if year_written %}{{ year_written }}{% endif -%}
-    </p>
-    {% endif %}
-
-    {% if bop_rating or rnge %}
-    <dl class="song-meta">
-      {% if bop_rating %}<dt>Bop</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}</dd>{% endif %}
-      {% if rnge %}
+    {# Under the title: a two-column flex row. The left column stacks
+       the byline (author / year) and the collapsible Metadata drawer;
+       the right column is .song-vitals (Bop and rnge, stacked). The
+       row only renders if at least one of its children would. #}
+    {% if author or year_written or genre or mood or structure or topics or bop_rating or rnge %}
+    <div class="meta-row">
+      <div class="meta-left">
+        {% if author or year_written %}
+        <p class="byline">
+          {%- if author %}{{ author }}{% endif -%}
+          {%- if author and year_written %} · {% endif -%}
+          {%- if year_written %}{{ year_written }}{% endif -%}
+        </p>
+        {% endif %}
+        {% if genre or mood or structure or topics %}
+        <details class="song-meta-drawer">
+          <summary>Metadata</summary>
+          <dl class="song-meta">
+            {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
+            {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
+            {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
+            {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+          </dl>
+        </details>
+        {% endif %}
+      </div>
+      {% if bop_rating or rnge %}
+      <div class="song-vitals">
+        {% if bop_rating %}
+        <dl class="song-meta">
+          <dt>Bop</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}</dd>
+        </dl>
+        {% endif %}
+        {% if rnge %}
         {% set rngeParts = rnge.split("-") %}
-        <dt class="visually-hidden">Range</dt><dd><span class="range"><sub class="range-low">{{ rngeParts[0] }}</sub><svg class="range-bar" viewBox="0 0 10 10" preserveAspectRatio="none" aria-hidden="true"><line x1="1" y1="8" x2="9" y2="2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg><sup class="range-high">{{ rngeParts[1] }}</sup></span></dd>
+        <dl class="song-meta">
+          <dt class="visually-hidden">Range</dt><dd><span class="range"><sub class="range-low">{{ rngeParts[0] }}</sub><svg class="range-bar" viewBox="0 0 10 10" preserveAspectRatio="none" aria-hidden="true"><line x1="1" y1="8" x2="9" y2="2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg><sup class="range-high">{{ rngeParts[1] }}</sup></span></dd>
+        </dl>
+        {% endif %}
+      </div>
       {% endif %}
-    </dl>
-    {% endif %}
-
-    {% if genre or mood or structure or topics %}
-    <details class="song-meta-drawer">
-      <summary>Metadata</summary>
-      <dl class="song-meta">
-        {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
-        {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
-        {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
-        {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
-      </dl>
-    </details>
+    </div>
     {% endif %}
 
   </header>

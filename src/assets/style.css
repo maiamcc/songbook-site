@@ -111,6 +111,34 @@ h1 { margin-bottom: 0.25rem; }
 
 .song-header {
   margin-bottom: 1.25rem;
+  display: flow-root; /* contain the layout-toggle + song-vitals floats */
+}
+
+/* Below the title h1: a two-column flex row. Left column holds the
+   byline (author / year) and the Metadata drawer; right column is
+   .song-vitals (Bop + rnge, stacked). The h1 above is full-width
+   (its first line wraps around the Print view float). */
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.meta-row .meta-left {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.song-vitals {
+  flex: 0 0 auto;
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.song-vitals .song-meta + .song-meta {
+  margin-top: 0.15rem;
 }
 
 .song-header h1 {
