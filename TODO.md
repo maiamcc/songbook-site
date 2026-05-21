@@ -4,6 +4,7 @@
 * style isn't shitty
 * print layout - one song
 * fonts
+* range in print layout
 
 ## P2:
 * searching and filtering for songs on the homepage

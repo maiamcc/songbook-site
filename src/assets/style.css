@@ -24,6 +24,15 @@
 
 * { box-sizing: border-box; }
 
+/* Utility: show only in screen / print. !important on the toggles so
+   these win against more specific layout rules (e.g. the print
+   inline-display rule on .song-header .song-meta dt). */
+.print-only { display: none !important; }
+@media print {
+  .screen-only { display: none !important; }
+  .print-only { display: revert !important; }
+}
+
 body {
   font-family: Georgia, "Iowan Old Style", serif;
   color: var(--fg);
@@ -256,23 +265,47 @@ h1 { margin-bottom: 0.25rem; }
     line-height: 1.4;
   }
 
-  /* Tighter heading + header block. */
+  /* Collapse the whole song header onto one (wrapping) inline line:
+     Title (Alt) — Author · Year · Bop rating: N / 5
+     ::before on byline/song-meta means the separators only render
+     when the element actually exists, so a title-only song doesn't
+     produce orphan dashes. */
   .song-header {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .song-header h1,
+  .song-header .byline,
+  .song-header .song-meta,
+  .song-header .song-meta dt,
+  .song-header .song-meta dd {
+    display: inline;
   }
 
   .song-header h1 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 0;
   }
 
   .song-header .alt-title {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .song .byline,
   .song-meta {
     font-size: 0.85rem;
+  }
+
+  .song-header .byline::before {
+    content: "— ";
+    font-weight: normal;
+    color: inherit;
+  }
+
+  .song-header .song-meta::before {
+    content: "· ";
+    font-weight: normal;
+    color: inherit;
   }
 
   /* Lyrics: shrink the generous screen line-height inside the chord
@@ -324,11 +357,18 @@ h1 { margin-bottom: 0.25rem; }
   }
 
   /* Hide song-meta fields whose schema entry lacks "print" in its
-     display list (see lib/song-schema.js). Keep this list in sync. */
-  .song-meta [data-field="genre"],
-  .song-meta [data-field="mood"],
-  .song-meta [data-field="structure"],
-  .song-meta [data-field="topics"] {
+     display list (see lib/song-schema.js). Keep this list in sync.
+     dt/dd qualifiers are needed so this rule matches the specificity
+     of the inline-display rule above; without them this loses and
+     hidden fields leak into print. */
+  .song-meta dt[data-field="genre"],
+  .song-meta dd[data-field="genre"],
+  .song-meta dt[data-field="mood"],
+  .song-meta dd[data-field="mood"],
+  .song-meta dt[data-field="structure"],
+  .song-meta dd[data-field="structure"],
+  .song-meta dt[data-field="topics"],
+  .song-meta dd[data-field="topics"] {
     display: none;
   }
 

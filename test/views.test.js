@@ -131,11 +131,11 @@ test("song view: byline joins author and year_written with ·", () => {
 test("song view: bop_rating renders as 'N / 5' inside a .rating link", () => {
   for (const n of [1, 2, 3, 4, 5]) {
     const html = render(SONG_NJK, { ...fullSong, bop_rating: n });
-    // <dd class="rating"><a href="/index/bop_rating/N/" title="...">N / 5</a></dd>
+    // <dd class="rating"><span class="screen-only"><a href="/index/bop_rating/N/" title="...">N / 5</a></span>...
     assert.match(
       html,
       new RegExp(
-        `class="rating"[^<]*<a [^>]*href="/index/bop_rating/${n}/"[^>]*>${n} / 5<`
+        `class="rating"[\\s\\S]*?<a [^>]*href="/index/bop_rating/${n}/"[^>]*>${n} / 5<`
       )
     );
   }
