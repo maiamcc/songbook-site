@@ -46,7 +46,7 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `bop_rating`      | integer         | no       | 1–5 inclusive | ✓         |      | ✓     | ✓    | ✓     |
 | `structure`       | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
-| `rnge`            | string          | no       | format `aa-bb` (lowercase) |           |      |       | ✓    |       |
+| `rnge`            | string          | no       | format `aa-bb` (lowercase) |           |      |       | ✓    | ✓     |
 
 The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on which view. A `✓` means the field is visible by default; a `+` means the field is rendered but hidden by default behind a collapsible drawer (the "Metadata" `<details>` element on the song view).
 - `Home`: the homepage list

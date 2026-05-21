@@ -135,6 +135,9 @@ h1 { margin-bottom: 0.25rem; }
   text-align: right;
   font-size: 0.9rem;
   color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
 }
 
 .song-vitals .song-meta + .song-meta {
@@ -431,6 +434,21 @@ h1 { margin-bottom: 0.25rem; }
 
 .print-layout .song-header .byline + .song-meta::before {
   content: " · ";
+}
+
+/* On print, pull the .song-vitals block out of the inline header flow
+   and float it to the right of the byline. Each inner .song-meta dl
+   becomes its own block so Bop and rnge stack — matching the screen
+   view's right-aligned two-row vitals column. Border switches to a
+   plain gray to print cleanly (matching the chorus/notes left-bars). */
+.print-layout .song-vitals {
+  float: right;
+  margin-left: 1em;
+  border-color: #999;
+}
+
+.print-layout .song-vitals .song-meta {
+  display: block;
 }
 
 /* Lyrics: shrink the generous screen line-height inside the chord
