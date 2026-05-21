@@ -1,5 +1,8 @@
 ---
-title: The Bells of Norwich (All Shall Be Well)
+title: The Bells of Norwich
+author: Sydney Carter
+alternate_title: All Shall Be Well
+year_written: pre-1997
 mood: uplifting
 bop_rating: 4
 structure: refrain-lines

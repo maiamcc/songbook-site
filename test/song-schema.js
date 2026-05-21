@@ -8,6 +8,9 @@ const isBopRating = (v) =>
 
 export const FIELDS = {
   title: { required: true, type: "string", check: isString },
+  alternate_title: { required: false, type: "string", check: isString },
+  author: { required: false, type: "string", check: isString },
+  year_written: { required: false, type: "string", check: isString },
   topics: { required: false, type: "list[string]", check: isStringList },
   genre: { required: false, type: "string", check: isString },
   mood: { required: false, type: "string", check: isString },
