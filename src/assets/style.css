@@ -81,17 +81,22 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 .song-list li {
-  padding: 0.4rem 0;
   border-bottom: 1px dotted #ddd;
 }
 
 .song-list a {
+  display: block;
+  padding: 0.5rem 0.6rem;
   color: var(--fg);
   text-decoration: none;
   font-weight: 600;
+  border-radius: 3px;
 }
 
-.song-list a:hover { color: var(--accent); }
+.song-list a:hover {
+  background: rgba(139, 58, 58, 0.08);
+  color: var(--accent);
+}
 
 .song-list .alt-title {
   color: var(--muted);

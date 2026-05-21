@@ -115,7 +115,7 @@ test("song view: a title-only song renders no optional field markers", () => {
   }
 });
 
-test("index view: each song gets a link with href and title", () => {
+test("index view: each song's title appears inside its link", () => {
   const html = render(INDEX_NJK, {
     collections: {
       songs: [
@@ -124,8 +124,17 @@ test("index view: each song gets a link with href and title", () => {
       ],
     },
   });
-  assert.match(html, /<a href="\/songs\/full\/">Full Song<\/a>/);
-  assert.match(html, /<a href="\/songs\/bare\/">Bare Song<\/a>/);
+  // The whole row is wrapped in <a>, so the title may sit alongside
+  // other spans inside the link. Just assert href + title coexist
+  // within the same anchor.
+  assert.match(
+    html,
+    /<a [^>]*href="\/songs\/full\/"[^>]*>[\s\S]*?Full Song[\s\S]*?<\/a>/
+  );
+  assert.match(
+    html,
+    /<a [^>]*href="\/songs\/bare\/"[^>]*>[\s\S]*?Bare Song[\s\S]*?<\/a>/
+  );
 });
 
 test("index view: title-only songs emit no alt-title or author markup", () => {
