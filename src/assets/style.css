@@ -24,14 +24,15 @@
 
 * { box-sizing: border-box; }
 
-/* Layout toggle links: "Print view →" on a screen song page, and
-   "← View on screen" on the corresponding print page. Subtle so they
-   don't compete with the song content. The print-page toggle gets
-   hidden on actual paper print further down. */
+/* Layout toggle links: "Print view →" floated to the top-right of the
+   song-header on a screen song page, and "← View on screen" at the
+   top of the body on the corresponding print page. Subtle so they
+   don't compete with the song content. The toggle gets hidden on
+   actual paper print further down. */
 .layout-toggle {
   font-size: 0.85rem;
   color: var(--muted);
-  margin: 1.5rem 0 0;
+  margin: 0 0 0.5rem;
 }
 
 .layout-toggle a {
@@ -45,6 +46,13 @@
 .layout-toggle a:hover {
   color: var(--accent);
   text-decoration-color: var(--accent);
+}
+
+/* Inside the song-header, float the toggle to the top-right so the
+   title (and the rest of the frontmatter) flows alongside it. */
+.song-header .layout-toggle {
+  float: right;
+  margin: 0.3rem 0 0 1rem;
 }
 
 /* Print tip on the screen song page: hidden on screen, only appears
@@ -362,6 +370,24 @@ h1 { margin-bottom: 0.25rem; }
 .print-layout .song-body pre {
   page-break-inside: avoid;
   break-inside: avoid;
+}
+
+/* Print is pure black on white — override every screen-mode color
+   rule (muted bylines, accent chorus/notes bars, fg song-meta dd,
+   etc.) so nothing reads as colored ink on paper. The left-bar
+   accents on .chorus and .notes still render, but in black via
+   currentColor so they match the surrounding text. */
+.print-layout .song-header .alt-title,
+.print-layout .song-meta dd,
+.print-layout .song-body .chorus,
+.print-layout .song .notes,
+.print-layout .song .notes .notes-label {
+  color: inherit;
+}
+
+.print-layout .song-body .chorus,
+.print-layout .song .notes {
+  border-color: #999;
 }
 
 /* Actual-paper print: hide the on-page toggle links (they're nav

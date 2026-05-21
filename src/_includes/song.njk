@@ -5,6 +5,7 @@ layout: base.njk
 <p class="print-tip">For a printer-friendly version of this song, visit the <a href="{{ page.url }}print/">print view</a>.</p>
 <article class="song">
   <header class="song-header">
+    <p class="layout-toggle"><a href="{{ page.url }}print/">Print view →</a></p>
     <h1>
       {{ title }}{% if alternate_title %} <span class="alt-title">({{ alternate_title }})</span>{% endif %}
     </h1>
@@ -34,4 +35,3 @@ layout: base.njk
 
   {% if notes %}<p class="notes"><span class="notes-label">Notes:</span> {{ notes }}</p>{% endif %}
 </article>
-<p class="layout-toggle"><a href="{{ page.url }}print/">Print view →</a></p>
