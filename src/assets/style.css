@@ -248,3 +248,50 @@ h1 { margin-bottom: 0.25rem; }
   padding: 0.25rem 0 0.25rem 0.9rem;
   margin: 0.75rem 0 0.75rem 0.5rem;
 }
+
+/* Print layout: drop the site chrome and styling that only makes
+   sense on screen, so a printed song sheet is just the title block
+   and lyrics. */
+@media print {
+  body {
+    background: white;
+    color: black;
+    max-width: none;
+    padding: 0.5in;
+  }
+
+  /* Site nav at the top of every page. Scoped to body > header so the
+     song's own <header class="song-header"> (which holds the title,
+     alt-title, and byline) stays visible. */
+  body > header {
+    display: none;
+  }
+
+  /* The song-meta index links aren't clickable on paper; strip the
+     dotted underline so values read as plain text. Likewise the
+     title link to the song detail (irrelevant when you're already
+     reading the song). */
+  .song-meta dd a,
+  .song-list a {
+    text-decoration: none;
+    border: none;
+    color: inherit;
+  }
+
+  /* Keep choruses and verse paragraphs from splitting across pages. */
+  .song-body .chorus,
+  .song-body p,
+  .song-body pre {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Hide song-meta fields whose schema entry lacks "print" in its
+     display list (see lib/song-schema.js). Keep this list in sync. */
+  .song-meta [data-field="genre"],
+  .song-meta [data-field="mood"],
+  .song-meta [data-field="structure"],
+  .song-meta [data-field="topics"] {
+    display: none;
+  }
+}

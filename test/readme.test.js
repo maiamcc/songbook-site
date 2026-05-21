@@ -15,7 +15,8 @@ const README = readFileSync(join(__dirname, "..", "README.md"), "utf8");
 function parseFieldTable(md) {
   const lines = md.split("\n");
   const headerIdx = lines.findIndex(
-    (l) => /\|\s*Field\s*\|.*Required.*Indexable.*Home.*Index.*Song/.test(l)
+    (l) =>
+      /\|\s*Field\s*\|.*Required.*Indexable.*Home.*Index.*Song.*Print/.test(l)
   );
   if (headerIdx < 0) throw new Error("frontmatter table not found in README");
 
@@ -54,6 +55,7 @@ for (const row of rows) {
     homeCell,
     indexCell,
     songCell,
+    printCell,
   ] = row;
   const name = nameCell.replace(/`/g, "");
   const spec = FIELDS[name];
@@ -79,6 +81,7 @@ for (const row of rows) {
       ["home", homeCell],
       ["index", indexCell],
       ["song", songCell],
+      ["print", printCell],
     ]) {
       const expected = spec.display.includes(view);
       const actual = cell.includes("✓");

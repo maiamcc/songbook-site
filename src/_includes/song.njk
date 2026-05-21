@@ -17,14 +17,14 @@ layout: base.njk
 
     {% if genre or mood or bop_rating or structure or topics %}
     <dl class="song-meta">
-      {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
-      {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
+      {% if genre %}<dt data-field="genre">Genre</dt><dd data-field="genre">{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
+      {% if mood %}<dt data-field="mood">Mood</dt><dd data-field="mood">{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
       {% if bop_rating %}
         {%- set stars %}{% for i in range(bop_rating) %}★{% endfor %}{% for i in range(5 - bop_rating) %}☆{% endfor %}{% endset -%}
-        <dt>Bop rating</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, stars) }}</dd>
+        <dt data-field="bop_rating">Bop rating</dt><dd class="rating" data-field="bop_rating">{{ m.indexLink("bop_rating", bop_rating, stars) }}</dd>
       {% endif %}
-      {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
-      {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+      {% if structure %}<dt data-field="structure">Structure</dt><dd data-field="structure">{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
+      {% if topics %}<dt data-field="topics">Topics</dt><dd data-field="topics">{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
     </dl>
     {% endif %}
 
