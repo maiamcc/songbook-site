@@ -4,6 +4,7 @@ author: Paul Davenport
 mood: sad
 bop_rating: 1
 structure: chorus
+rnge: ti-so
 ---
 
 The Widow Cross had but one son,

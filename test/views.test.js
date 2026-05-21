@@ -61,10 +61,13 @@ const FIELD_FIXTURES = {
   },
   structure: { value: "StructureSentinel", marker: "StructureSentinel" },
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
-  // range is validated against [a-z]{2}-[a-z]{2}; the value below is a
-  // legal sentinel that's distinctive enough not to appear coincidentally
-  // in any other rendered field.
-  range: { value: "qz-rk", marker: "qz-rk" },
+  // rnge is validated against [a-z]{2}-[a-z]{2} and rendered as two
+  // halves (qz / rk) split by a diagonal bar — the raw "qz-rk" string
+  // never appears in the markup, so the marker matches the two halves
+  // in source order. The sentinel parts are distinct enough that
+  // matching qz...rk in any order would still be a false-positive-free
+  // signal.
+  rnge: { value: "qz-rk", marker: /qz[\s\S]*?rk/ },
 };
 
 function contains(html, marker) {
@@ -158,6 +161,19 @@ test("song view: byline joins author and year_written with ·", () => {
   assert.match(
     html,
     /<p class="byline">[\s\S]*AuthorSentinel[\s\S]*·[\s\S]*YearSentinel1492[\s\S]*<\/p>/
+  );
+});
+
+test("song view: rnge renders as low/high halves split by a diagonal bar", () => {
+  const html = render(SONG_NJK, fullSong);
+  // qz/rk are the FIELD_FIXTURES sentinel halves. Structure: a .range
+  // wrapper holding sub (low) → svg .range-bar → sup (high), in source
+  // order. The svg is what draws the diagonal line. (Class names keep
+  // the "range" prefix — they describe the visual concept; the field
+  // itself is "rnge" to avoid a Nunjucks builtin collision.)
+  assert.match(
+    html,
+    /<span class="range">[\s\S]*?<sub class="range-low">qz<\/sub>[\s\S]*?<svg class="range-bar"[\s\S]*?<sup class="range-high">rk<\/sup>[\s\S]*?<\/span>/
   );
 });
 

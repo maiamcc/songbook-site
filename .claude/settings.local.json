@@ -11,7 +11,8 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git mv *)",
-      "Bash(grep *)"
+      "Bash(grep *)",
+      "Skill(update-config)"
     ]
   }
 }

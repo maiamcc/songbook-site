@@ -17,9 +17,13 @@ layout: base.njk
     </p>
     {% endif %}
 
-    {% if bop_rating %}
+    {% if bop_rating or rnge %}
     <dl class="song-meta">
-      <dt>Bop rating</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}</dd>
+      {% if bop_rating %}<dt>Bop</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}</dd>{% endif %}
+      {% if rnge %}
+        {% set rngeParts = rnge.split("-") %}
+        <dt class="visually-hidden">Range</dt><dd><span class="range"><sub class="range-low">{{ rngeParts[0] }}</sub><svg class="range-bar" viewBox="0 0 10 10" preserveAspectRatio="none" aria-hidden="true"><line x1="1" y1="8" x2="9" y2="2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg><sup class="range-high">{{ rngeParts[1] }}</sup></span></dd>
+      {% endif %}
     </dl>
     {% endif %}
 

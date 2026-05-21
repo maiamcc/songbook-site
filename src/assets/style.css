@@ -24,6 +24,22 @@
 
 * { box-sizing: border-box; }
 
+/* Standard a11y utility: hide a node from sighted users while keeping
+   it in the accessibility tree (screen readers, voice control, etc.).
+   Used e.g. for the Range <dt> label, which sighted readers don't need
+   since the visual already shows the low → high notes. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Layout toggle links: "Print view →" floated to the top-right of the
    song-header on a screen song page, and "← View on screen" at the
    top of the body on the corresponding print page. Subtle so they
@@ -150,6 +166,31 @@ h1 { margin-bottom: 0.25rem; }
   margin: 0 0.1rem;
 }
 
+
+/* Vocal/instrumental range: rendered from the "ab-cd" frontmatter
+   string as two halves (low note as <sub>, high note as <sup>) with
+   a short diagonal line between them going up-and-right. The line
+   is an inline SVG sized in em units so it scales with surrounding
+   text; stroke uses currentColor so it picks up the active text
+   color (black on print, fg/muted on screen). */
+.range {
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.range .range-low,
+.range .range-high {
+  font-size: 0.85em;
+}
+
+.range-bar {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  margin: 0 0.05em;
+}
 
 /* Collapsible "Metadata" drawer on the screen song page (native
    <details>/<summary>). Holds the secondary metadata fields

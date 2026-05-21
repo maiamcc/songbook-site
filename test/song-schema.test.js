@@ -21,7 +21,7 @@ test("all optional fields with valid types", () => {
     bop_rating: 4,
     structure: "verse-chorus",
     notes: "n/a",
-    range: "ab-cd",
+    rnge: "ab-cd",
   };
   assert.deepEqual(validate(data), []);
 });
@@ -54,7 +54,7 @@ test("bop_rating must be integer 1-5", () => {
   }
 });
 
-test("range must match [a-z]{2}-[a-z]{2}", () => {
+test("rnge must match [a-z]{2}-[a-z]{2}", () => {
   // Wrong shape, wrong case, non-string — all flagged with the same
   // "must be string matching ..." message that surfaces the pattern.
   const bad = [
@@ -72,11 +72,11 @@ test("range must match [a-z]{2}-[a-z]{2}", () => {
   ];
   for (const v of bad) {
     if (v === null) continue; // null is dropped by validate before check
-    assert.deepEqual(validate({ title: "X", range: v }), [
-      'field "range" must be string matching [a-z]{2}-[a-z]{2}',
+    assert.deepEqual(validate({ title: "X", rnge: v }), [
+      'field "rnge" must be string matching [a-z]{2}-[a-z]{2}',
     ]);
   }
   for (const ok of ["ab-cd", "aa-aa", "zz-yz"]) {
-    assert.deepEqual(validate({ title: "X", range: ok }), []);
+    assert.deepEqual(validate({ title: "X", rnge: ok }), []);
   }
 });
