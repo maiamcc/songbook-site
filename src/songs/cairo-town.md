@@ -4,6 +4,7 @@ alternate_title: The Roustabout Song
 author: Dillon Bustin
 bop_rating: 3
 structure: chorus
+topics: [sea, fun]
 ---
     I'm rolling, flowing, around these hills; 
     I must take my rest, but this river never will.

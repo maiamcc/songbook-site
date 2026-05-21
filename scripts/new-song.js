@@ -6,17 +6,13 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { FIELDS, validate } from "../test/song-schema.js";
+import { slugify } from "../lib/slug.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SONGS_DIR = join(__dirname, "..", "src", "songs");
 
-export function slugify(s) {
-  return s
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+// Re-exported so test/new-song.test.js can keep importing it from here.
+export { slugify };
 
 // Default slug derived from a song title. Strips a leading "the" or "a"
 // article so e.g. "The Bells of Norwich" sorts as "bells-of-norwich".

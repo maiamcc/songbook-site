@@ -107,6 +107,49 @@ h1 { margin-bottom: 0.25rem; }
   color: var(--muted);
 }
 
+/* Index pages: one page per (field, value) pair, rich per-song rows. */
+.index-heading {
+  margin-bottom: 0.25rem;
+}
+
+.index-heading .index-field {
+  color: var(--muted);
+  font-weight: normal;
+  text-transform: lowercase;
+  margin-right: 0.3rem;
+}
+
+.index-count {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 1.25rem;
+}
+
+.index-title {
+  font-weight: 600;
+}
+
+.index-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0;
+  margin-top: 0.15rem;
+  font-weight: normal;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.index-meta > span:not(:last-child)::after {
+  content: "·";
+  margin: 0 0.5rem;
+  color: #c0b8a8;
+}
+
+.index-meta .rating {
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
 .song-body pre {
   font-family: "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.95rem;

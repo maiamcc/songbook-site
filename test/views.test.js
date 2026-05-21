@@ -11,6 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");
 const SONG_NJK = join(SRC, "_includes", "song.njk");
 const HOME_NJK = join(SRC, "index.njk");
+const INDEX_NJK = join(SRC, "index-pages.njk");
 
 // Render an .njk file with the given context, after stripping the
 // Eleventy frontmatter block (which Nunjucks doesn't understand).
@@ -71,6 +72,25 @@ for (const [field, spec] of Object.entries(FIELDS)) {
       contains(html, fixture.marker),
       shouldRender,
       `expected ${field} marker to ${shouldRender ? "" : "not "}appear in home view`
+    );
+  });
+
+  test(`index view: ${field} ${spec.display.includes("index") ? "renders" : "does NOT render"}`, () => {
+    // Pick a non-special field for the entry key so the heading doesn't
+    // collide with the per-song row's content for that same field.
+    const html = render(INDEX_NJK, {
+      entry: {
+        field: "genre",
+        value: "FilterSentinel",
+        slug: "filtersentinel",
+        songs: [{ url: "/songs/x/", data: fullSong }],
+      },
+    });
+    const shouldRender = spec.display.includes("index");
+    assert.equal(
+      contains(html, fixture.marker),
+      shouldRender,
+      `expected ${field} marker to ${shouldRender ? "" : "not "}appear in index view`
     );
   });
 }
@@ -135,6 +155,57 @@ test("home view: each song's title appears inside its link", () => {
     html,
     /<a [^>]*href="\/songs\/bare\/"[^>]*>[\s\S]*?Bare Song[\s\S]*?<\/a>/
   );
+});
+
+test("index view: heading shows field name (underscore→space) and value", () => {
+  const html = render(INDEX_NJK, {
+    entry: {
+      field: "bop_rating",
+      value: 4,
+      slug: "4",
+      songs: [{ url: "/songs/x/", data: { title: "X" } }],
+    },
+  });
+  // For bop_rating specifically, the value is rendered as stars.
+  assert.match(html, /<span class="index-field">bop rating:<\/span>/);
+  assert.match(html, /<span class="rating">★★★★☆<\/span>/);
+});
+
+test("index view: heading shows literal value for non-bop_rating fields", () => {
+  const html = render(INDEX_NJK, {
+    entry: {
+      field: "mood",
+      value: "uplifting",
+      slug: "uplifting",
+      songs: [{ url: "/songs/x/", data: { title: "X" } }],
+    },
+  });
+  assert.match(html, /<span class="index-field">mood:<\/span>\s*uplifting/);
+});
+
+test("index view: count line pluralizes correctly", () => {
+  const one = render(INDEX_NJK, {
+    entry: {
+      field: "mood",
+      value: "x",
+      slug: "x",
+      songs: [{ url: "/s/a/", data: { title: "A" } }],
+    },
+  });
+  assert.match(one, /1 song[^s]/);
+
+  const two = render(INDEX_NJK, {
+    entry: {
+      field: "mood",
+      value: "x",
+      slug: "x",
+      songs: [
+        { url: "/s/a/", data: { title: "A" } },
+        { url: "/s/b/", data: { title: "B" } },
+      ],
+    },
+  });
+  assert.match(two, /2 songs/);
 });
 
 test("home view: title-only songs emit no alt-title or author markup", () => {

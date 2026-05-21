@@ -1,0 +1,38 @@
+---
+pagination:
+  data: collections.indexEntries
+  size: 1
+  alias: entry
+permalink: "/index/{{ entry.field }}/{{ entry.slug }}/"
+eleventyComputed:
+  title: "{{ entry.field | replace('_', ' ') }}: {{ entry.value }}"
+layout: base.njk
+---
+<h1 class="index-heading">
+  <span class="index-field">{{ entry.field | replace("_", " ") }}:</span>
+  {% if entry.field == "bop_rating" -%}
+    <span class="rating">{% for i in range(entry.value) %}★{% endfor %}{% for i in range(5 - entry.value) %}☆{% endfor %}</span>
+  {%- else -%}
+    {{ entry.value }}
+  {%- endif %}
+</h1>
+<p class="index-count">{{ entry.songs.length }} song{% if entry.songs.length != 1 %}s{% endif %}</p>
+
+<ul class="song-list">
+  {% for song in entry.songs %}
+    <li>
+      <a href="{{ song.url }}">
+        <div class="index-title">
+          {{ song.data.title }}{% if song.data.alternate_title %}<span class="alt-title"> ({{ song.data.alternate_title }})</span>{% endif %}
+        </div>
+        <div class="index-meta">
+          {% if song.data.genre %}<span>{{ song.data.genre }}</span>{% endif %}
+          {% if song.data.mood %}<span>{{ song.data.mood }}</span>{% endif %}
+          {% if song.data.bop_rating %}<span class="rating">{% for i in range(song.data.bop_rating) %}★{% endfor %}{% for i in range(5 - song.data.bop_rating) %}☆{% endfor %}</span>{% endif %}
+          {% if song.data.structure %}<span>{{ song.data.structure }}</span>{% endif %}
+          {% if song.data.topics %}<span>{{ song.data.topics | join(", ") }}</span>{% endif %}
+        </div>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
