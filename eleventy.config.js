@@ -1,6 +1,8 @@
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
 
+  eleventyConfig.amendLibrary("md", (md) => md.set({ breaks: true }));
+
   eleventyConfig.addCollection("songs", (api) =>
     api.getFilteredByGlob("src/songs/*.md").sort((a, b) =>
       a.data.title.localeCompare(b.data.title)
