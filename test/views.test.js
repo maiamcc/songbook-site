@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import matter from "gray-matter";
 import { FIELDS } from "../lib/song-schema.js";
+import { slugify } from "../lib/slug.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");
@@ -16,9 +17,22 @@ const INDEX_NJK = join(SRC, "index-pages.njk");
 // Render an .njk file with the given context, after stripping the
 // Eleventy frontmatter block (which Nunjucks doesn't understand).
 // We're testing what fields end up in the markup, not the layout chain.
+// Filters here must mirror what eleventy.config.js registers, since
+// the templates use them.
 function render(filepath, ctx) {
   const { content } = matter(readFileSync(filepath, "utf8"));
-  return new nunjucks.Environment().renderString(content, ctx);
+  const env = new nunjucks.Environment();
+  env.addFilter("slugify", slugify);
+  env.addFilter("indexCount", (entries, field, value) => {
+    const entry = entries.find((e) => e.field === field && e.value === value);
+    return entry ? entry.songs.length : 0;
+  });
+  return env.renderString(content, {
+    // Templates expect collections.indexEntries to exist. Default to
+    // an empty list; individual tests can override.
+    collections: { indexEntries: [], ...(ctx.collections || {}) },
+    ...ctx,
+  });
 }
 
 // Fixture values per field. Each value is paired with a "marker" string
@@ -33,8 +47,10 @@ const FIELD_FIXTURES = {
   topics: { value: ["TopicSentinel"], marker: "TopicSentinel" },
   genre: { value: "GenreSentinel", marker: "GenreSentinel" },
   mood: { value: "MoodSentinel", marker: "MoodSentinel" },
-  // bop_rating renders as stars, not its literal value — match the .rating div instead.
-  bop_rating: { value: 3, marker: /class="rating">★★★☆☆</ },
+  // bop_rating renders as stars, not its literal value. The stars
+  // only appear in rendered ratings, so matching them anywhere is
+  // unambiguous (and works whether or not they're wrapped in a link).
+  bop_rating: { value: 3, marker: /★★★☆☆/ },
   structure: { value: "StructureSentinel", marker: "StructureSentinel" },
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
 };
@@ -110,12 +126,61 @@ test("song view: byline joins author and year_written with ·", () => {
   );
 });
 
-test("song view: bop_rating renders as N filled then 5-N empty stars", () => {
+test("song view: bop_rating renders as N filled then 5-N empty stars inside a .rating link", () => {
   for (const n of [1, 2, 3, 4, 5]) {
     const stars = "★".repeat(n) + "☆".repeat(5 - n);
     const html = render(SONG_NJK, { ...fullSong, bop_rating: n });
-    assert.match(html, new RegExp(`class="rating">${stars}<`));
+    // <dd class="rating"><a href="/index/bop_rating/N/" title="...">★★★…</a></dd>
+    assert.match(
+      html,
+      new RegExp(
+        `class="rating"[^<]*<a [^>]*href="/index/bop_rating/${n}/"[^>]*>${stars}<`
+      )
+    );
   }
+});
+
+test("song view: indexable values link to /index/<field>/<slug>/", () => {
+  const html = render(SONG_NJK, fullSong);
+  for (const [field, slug] of [
+    ["genre", "genresentinel"],
+    ["mood", "moodsentinel"],
+    ["structure", "structuresentinel"],
+    ["bop_rating", "3"],
+    ["topics", "topicsentinel"],
+  ]) {
+    assert.match(
+      html,
+      new RegExp(`href="/index/${field}/${slug}/"`),
+      `missing link to /index/${field}/${slug}/`
+    );
+  }
+});
+
+test("song view: index links carry an N-songs tooltip from collections.indexEntries", () => {
+  const html = render(SONG_NJK, {
+    ...fullSong,
+    collections: {
+      indexEntries: [
+        { field: "mood", value: "MoodSentinel", songs: [1, 2, 3] },
+        { field: "genre", value: "GenreSentinel", songs: [1] },
+      ],
+    },
+  });
+  assert.match(
+    html,
+    /href="\/index\/mood\/moodsentinel\/" title="3 songs"/
+  );
+  assert.match(html, /href="\/index\/genre\/genresentinel\/" title="1 song"/);
+});
+
+test("song view: each topic gets its own index link", () => {
+  const html = render(SONG_NJK, {
+    ...fullSong,
+    topics: ["alpha", "beta gamma"],
+  });
+  assert.match(html, /href="\/index\/topics\/alpha\/"[^>]*>alpha</);
+  assert.match(html, /href="\/index\/topics\/beta-gamma\/"[^>]*>beta gamma</);
 });
 
 test("song view: body content passes through", () => {

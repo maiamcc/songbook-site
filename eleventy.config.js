@@ -30,6 +30,17 @@ export default function (eleventyConfig) {
 
   eleventyConfig.amendLibrary("md", configureMarkdown);
 
+  // Templates use this to build /index/<field>/<slug>/ links against
+  // the same slugifier the indexEntries collection uses for permalinks.
+  eleventyConfig.addFilter("slugify", slugify);
+
+  // Returns the number of songs sharing this (field, value) pair.
+  // Used by templates to put a "N songs" tooltip on index-page links.
+  eleventyConfig.addFilter("indexCount", (entries, field, value) => {
+    const entry = entries.find((e) => e.field === field && e.value === value);
+    return entry ? entry.songs.length : 0;
+  });
+
   eleventyConfig.addCollection("songs", (api) => {
     const songs = api.getFilteredByGlob("src/songs/*.md");
     assertValidSongs(songs);

@@ -1,6 +1,14 @@
 ---
 layout: base.njk
 ---
+{# Render an indexable (field, value) pair as a link to its index page,
+   with a "N songs" tooltip. `inner` is the visible text (usually the
+   value itself; for bop_rating, the star block). #}
+{% macro indexLink(field, value, inner) -%}
+  {%- set n = collections.indexEntries | indexCount(field, value) -%}
+  <a href="/index/{{ field }}/{{ value | slugify }}/" title="{{ n }} song{% if n != 1 %}s{% endif %}">{{ inner | safe }}</a>
+{%- endmacro %}
+
 <article class="song">
   <h1>{{ title }}</h1>
   {% if alternate_title %}<p class="alt-title">{{ alternate_title }}</p>{% endif %}
@@ -14,11 +22,14 @@ layout: base.njk
 
   {% if genre or mood or bop_rating or structure or topics %}
   <dl class="song-meta">
-    {% if genre %}<dt>Genre</dt><dd>{{ genre }}</dd>{% endif %}
-    {% if mood %}<dt>Mood</dt><dd>{{ mood }}</dd>{% endif %}
-    {% if bop_rating %}<dt>Bop rating</dt><dd class="rating">{% for i in range(bop_rating) %}★{% endfor %}{% for i in range(5 - bop_rating) %}☆{% endfor %}</dd>{% endif %}
-    {% if structure %}<dt>Structure</dt><dd>{{ structure }}</dd>{% endif %}
-    {% if topics %}<dt>Topics</dt><dd>{{ topics | join(", ") }}</dd>{% endif %}
+    {% if genre %}<dt>Genre</dt><dd>{{ indexLink("genre", genre, genre) }}</dd>{% endif %}
+    {% if mood %}<dt>Mood</dt><dd>{{ indexLink("mood", mood, mood) }}</dd>{% endif %}
+    {% if bop_rating %}
+      {%- set stars %}{% for i in range(bop_rating) %}★{% endfor %}{% for i in range(5 - bop_rating) %}☆{% endfor %}{% endset -%}
+      <dt>Bop rating</dt><dd class="rating">{{ indexLink("bop_rating", bop_rating, stars) }}</dd>
+    {% endif %}
+    {% if structure %}<dt>Structure</dt><dd>{{ indexLink("structure", structure, structure) }}</dd>{% endif %}
+    {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
   </dl>
   {% endif %}
 

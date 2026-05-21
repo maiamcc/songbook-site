@@ -67,6 +67,17 @@ h1 { margin-bottom: 0.25rem; }
   letter-spacing: 0.08em;
 }
 
+.song-meta dd a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+
+.song-meta dd a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 .song .notes {
   background: rgba(139, 58, 58, 0.06);
   border-left: 3px solid var(--accent);
