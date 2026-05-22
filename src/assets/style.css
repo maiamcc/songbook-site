@@ -132,10 +132,10 @@ h1 {
 
 .song-vitals {
   flex: 0 0 auto;
-  text-align: right;
+  text-align: center;
   font-size: 0.9rem;
   color: var(--muted);
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
   border-radius: 3px;
   padding: 0.25rem 0.5rem;
 }
@@ -199,28 +199,18 @@ h1 {
 
 
 /* Vocal/instrumental range: rendered from the "ab-cd" frontmatter
-   string as two halves (low note as <sub>, high note as <sup>) with
-   a short diagonal line between them going up-and-right. The line
-   is an inline SVG sized in em units so it scales with surrounding
-   text; stroke uses currentColor so it picks up the active text
-   color (black on print, fg/muted on screen). */
+   string as low → high. The arrow is an inline SVG sized in em
+   units so it scales with the surrounding text; stroke uses
+   currentColor so it picks up the active text color. */
 .range {
-  display: inline-block;
   white-space: nowrap;
-  line-height: 1;
-  vertical-align: middle;
 }
 
-.range .range-low,
-.range .range-high {
-  font-size: 0.85em;
-}
-
-.range-bar {
-  width: 1em;
-  height: 1em;
+.range-arrow {
+  width: 0.85em;
+  height: 0.85em;
   vertical-align: middle;
-  margin: 0 0.05em;
+  margin: 0 0.15em;
 }
 
 /* Collapsible "Metadata" drawer on the screen song page (native
@@ -453,13 +443,6 @@ h1 {
 
 .print-layout .song-vitals .song-meta {
   display: block;
-}
-
-/* Center the range underneath the right-aligned Bop line. Targets
-   the dl containing .range so it's unaffected by reorderings or
-   when only one of the two vitals is present. */
-.print-layout .song-vitals .song-meta:has(.range) {
-  text-align: center;
 }
 
 .print-layout .song-body p {
