@@ -11,7 +11,7 @@
   * maybe adding new ones to a big yaml file? bonus points if there's room to give a description for each song format.
 * print indexes and lists
 * searching and filtering for songs on the homepage
-* search in navbar
+* search in navbar (harris recommends implementing search with pagefind so it's all client-side search)
 
 ### P3:
 * publish the site?!
