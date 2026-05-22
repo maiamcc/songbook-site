@@ -5,7 +5,7 @@ mood: sad
 bop_rating: 1
 structure: chorus
 rnge: ti-so
-notes: |
+notes: >-
     From the liner notes of The Melrose Quartet's album _Dominion_: "Ganseys are
     intricately knitted fishermen's sweaters. Mary Cross of Flamborough told Paul
     in 1980: 'There was a boy in the village when I was a girl, whom all the girls
