@@ -244,8 +244,13 @@ h1 { margin-bottom: 0.25rem; }
   color: var(--accent);
 }
 
+/* When the drawer is open, hang its children below the "Metadata"
+   summary with a thin connector line and an indent — visually
+   binds the dl to its parent <summary> as a single unit. */
 .song-meta-drawer .song-meta {
-  margin-top: 0.15rem;
+  margin: 0.3rem 0 0 0.45rem;
+  padding: 0.1rem 0 0.1rem 0.7rem;
+  border-left: 2px solid var(--separator);
 }
 
 /* In the drawer the .song-meta dl holds multiple pairs, so replace
