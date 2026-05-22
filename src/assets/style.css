@@ -74,7 +74,8 @@
 }
 
 body {
-  font-family: Georgia, "Iowan Old Style", serif;
+  font-family: "Cormorant", Georgia, "Iowan Old Style", serif;
+  font-weight: 500;
   color: var(--fg);
   background: var(--bg);
   max-width: 42rem;
@@ -102,7 +103,10 @@ a:hover {
   text-decoration: none;
 }
 
-h1 { margin-bottom: 0.25rem; }
+h1 {
+  font-family: "Cormorant Infant", "Cormorant", Georgia, serif;
+  margin-bottom: 0.25rem;
+}
 
 .song-header {
   margin-bottom: 1.25rem;
