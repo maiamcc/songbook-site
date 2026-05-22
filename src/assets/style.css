@@ -3,6 +3,7 @@
      from black via color-mix(). Change --accent to reskin every
      link, hover state, and accented bar in the site. */
   --accent: #870101;
+  --accent-dark: color-mix(in srgb, var(--accent) 70%, black);
 
   --fg: black;
   --bg: white;
@@ -42,16 +43,14 @@
 }
 
 .layout-toggle a {
-  color: var(--muted);
   text-decoration: underline;
   text-decoration-style: dotted;
-  text-decoration-color: var(--separator);
+  text-decoration-color: var(--accent);
   text-underline-offset: 3px;
 }
 
 .layout-toggle a:hover {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--accent-dark);
 }
 
 /* Inside the song-header, float the toggle to the top-right so the
@@ -84,18 +83,23 @@ body {
   line-height: 1.5;
 }
 
+/* All links default to the accent color, darkening on hover.
+   Per-context rules below tune text-decoration but inherit color. */
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent-dark);
+}
+
 .top-nav {
   font-size: 0.8rem;
   margin-bottom: 1.5rem;
 }
 
 .top-nav a {
-  color: var(--muted);
   text-decoration: none;
-}
-
-.top-nav a:hover {
-  color: var(--accent);
 }
 
 h1 { margin-bottom: 0.25rem; }
@@ -258,17 +262,15 @@ h1 { margin-bottom: 0.25rem; }
    actionable; accent color + accent underline on hover. */
 .song-meta dd a,
 .index-meta a {
-  color: inherit;
   text-decoration: underline;
   text-decoration-style: dotted;
-  text-decoration-color: var(--separator);
+  text-decoration-color: var(--accent);
   text-underline-offset: 3px;
 }
 
 .song-meta dd a:hover,
 .index-meta a:hover {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--accent-dark);
 }
 
 /* Thin rule between the lyric body and the notes paragraph (screen
@@ -308,7 +310,6 @@ h1 { margin-bottom: 0.25rem; }
 .song-list > li > a {
   display: block;
   padding: 0.5rem 0.6rem;
-  color: var(--fg);
   text-decoration: none;
   border-radius: 3px;
 }
@@ -321,7 +322,6 @@ h1 { margin-bottom: 0.25rem; }
 
 .song-list > li > a:hover {
   background: var(--hover-bg);
-  color: var(--accent);
 }
 
 .song-list .alt-title {
@@ -501,9 +501,11 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 /* Actual-paper print: hide the on-page toggle links (they're nav
-   chrome, not content), and reveal the print-tip on the screen song
-   page so readers know there's a dedicated print view. */
+   chrome, not content), reveal the print-tip on the screen song
+   page so readers know there's a dedicated print view, and pin
+   link color to currentColor so no accent ink hits paper. */
 @media print {
   .layout-toggle { display: none; }
   .print-tip { display: block; }
+  a, a:hover { color: inherit; }
 }
