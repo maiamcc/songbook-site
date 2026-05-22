@@ -1,9 +1,7 @@
 # TODO
 
 ## P1
-* style isn't shitty
-* fonts
-* color scheme
+* more layout stuff
 
 ## P2:
 * print layout - multiple songs / check and print multiple songs
