@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ title or "Songbook" }}</title>
-    <link rel="stylesheet" href="/assets/style.css" />
+    <link rel="stylesheet" href="{{ '/assets/style.css' | relativeUrl(page.url) }}" />
   </head>
   <body>
     <header>
-      <a href="/" class="home">Songbook</a>
+      <a href="{{ '/' | relativeUrl(page.url) }}" class="home">Songbook</a>
     </header>
     <main>
       {{ content | safe }}

@@ -4,6 +4,7 @@ import MarkdownIt from "markdown-it";
 import { configureMarkdown } from "./lib/markdown.js";
 import { sortKey } from "./lib/title.js";
 import { slugify } from "./lib/slug.js";
+import { relativeUrl } from "./lib/url.js";
 import { INDEXABLE_FIELDS, validate } from "./lib/song-schema.js";
 
 // A standalone markdown-it instance configured the same way Eleventy's
@@ -42,6 +43,11 @@ export default function (eleventyConfig) {
   // Templates use this to build /index/<field>/<slug>/ links against
   // the same slugifier the indexEntries collection uses for permalinks.
   eleventyConfig.addFilter("slugify", slugify);
+
+  // Rewrites root-absolute URLs to be relative to the current page so
+  // the build is portable across deploy paths (custom domain root vs.
+  // GitHub project page subpath). See lib/url.js.
+  eleventyConfig.addFilter("relativeUrl", relativeUrl);
 
   // Returns the number of songs sharing this (field, value) pair.
   // Used by templates to put a "N songs" tooltip on index-page links.

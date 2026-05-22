@@ -7,6 +7,7 @@ import nunjucks from "nunjucks";
 import matter from "gray-matter";
 import { FIELDS } from "../lib/song-schema.js";
 import { slugify } from "../lib/slug.js";
+import { relativeUrl } from "../lib/url.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");
@@ -27,6 +28,7 @@ function render(filepath, ctx) {
   // resolves the same way Eleventy resolves it at build time.
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(INCLUDES));
   env.addFilter("slugify", slugify);
+  env.addFilter("relativeUrl", relativeUrl);
   env.addFilter("indexCount", (entries, field, value) => {
     const entry = entries.find((e) => e.field === field && e.value === value);
     return entry ? entry.songs.length : 0;

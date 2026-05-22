@@ -22,7 +22,7 @@ layout: base.njk
 <ul class="song-list">
   {% for song in entry.songs %}
     <li>
-      <a href="{{ song.url }}">
+      <a href="{{ song.url | relativeUrl(page.url) }}">
         {{ song.data.title }}{% if song.data.alternate_title %}<span class="alt-title"> ({{ song.data.alternate_title }})</span>{% endif %}
       </a>
       <div class="index-meta">

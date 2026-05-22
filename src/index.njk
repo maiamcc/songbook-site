@@ -6,7 +6,7 @@ title: Songbook
 <ul class="song-list">
   {% for song in collections.songs %}
     <li>
-      <a href="{{ song.url }}">
+      <a href="{{ song.url | relativeUrl(page.url) }}">
         {{ song.data.title }}{% if song.data.alternate_title %}<span class="alt-title"> ({{ song.data.alternate_title }})</span>{% endif %}{% if song.data.author %}<span class="author"> — {{ song.data.author }}</span>{% endif %}
       </a>
     </li>

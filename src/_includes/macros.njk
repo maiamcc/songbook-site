@@ -7,5 +7,6 @@
    filters from eleventy.config.js. #}
 {% macro indexLink(field, value, inner) -%}
   {%- set n = collections.indexEntries | indexCount(field, value) -%}
-  <a href="/index/{{ field }}/{{ value | slugify }}/" title="{{ n }} song{% if n != 1 %}s{% endif %}">{{ inner | safe }}</a>
+  {%- set href = "/index/" ~ field ~ "/" ~ (value | slugify) ~ "/" -%}
+  <a href="{{ href | relativeUrl(page.url) }}" title="{{ n }} song{% if n != 1 %}s{% endif %}">{{ inner | safe }}</a>
 {%- endmacro %}
