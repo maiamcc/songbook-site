@@ -9,7 +9,8 @@
     "clean": "rm -rf _site",
     "test": "node --test test/*.test.js",
     "new-song": "node scripts/new-song.js",
-    "check-print-pages": "npm run build && node scripts/check-print-pages.js"
+    "check-print-pages": "npm run build && node scripts/check-print-pages.js",
+    "deploy": "npm run build && cd _site && git add -A && (git diff --cached --quiet && echo 'No changes to commit; pushing any prior unpushed commits.' || git commit -m \"Deploy $(date -u +%Y-%m-%dT%H:%M:%SZ)\") && git push"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

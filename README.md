@@ -22,6 +22,7 @@ That installs Eleventy and the few dev dependencies (`gray-matter`, `markdown-it
 | `npm test`         | Run the Node test suite (`node --test test/*.test.js`). Validates every song, asserts the README table matches the schema, and renders the view templates against fixtures. |
 | `npm run new-song` | Launch the interactive new-song script (see below).                                             |
 | `npm run check-print-pages` | Build the site, render each song's `/print/` page through headless Chrome as A5 PDF, and list any that span 2+ pages (see below). |
+| `npm run deploy`   | Build the site, commit the resulting `_site/` to its own git repo with a timestamp, and push to GitHub Pages (see below). |
 
 ### Adding a song with `npm run new-song`
 
@@ -36,6 +37,16 @@ For list-valued fields like `topics`, enter a comma-separated string (e.g. `home
 `scripts/check-print-pages.js` spins up a tiny static server over `_site/`, then renders every song's `/print/` page through headless Chrome (`--headless=new --print-to-pdf`) at A5. It counts `/Type /Page` objects in the resulting PDF binary — so no extra dependencies — and prints the slugs of any songs that span two or more A5 sheets, with their page counts.
 
 The npm script runs `npm run build` first so `_site/` is fresh; you don't need to build separately. The underlying script auto-detects Chrome at `/Applications/Google Chrome.app/...`; override with `CHROME_BIN=/path/to/chrome npm run check-print-pages` if you have it somewhere else.
+
+### Deploying with `npm run deploy`
+
+The build output directory `_site/` is itself a separate git repo whose `origin` is the GitHub Pages repo that serves the site (see `_site/.git/config`). The Eleventy build writes into it, and `npm run deploy` is the one-shot ship command:
+
+1. `npm run build` — rebuild `_site/` from source.
+2. In `_site/`, `git add -A` and commit any changes with a UTC timestamp (`Deploy 2026-05-21T21:14:00Z`). If nothing changed, the commit is skipped; any prior unpushed commit still gets pushed.
+3. `git push` — pushes to the GitHub Pages remote, which serves the new content shortly after.
+
+Internal URLs in the built HTML are relative (see `lib/url.js` and the `relativeUrl` filter in `eleventy.config.js`), so the same `_site/` works whether the GitHub Pages repo serves at a custom domain root or at `<user>.github.io/<repo>/`.
 
 ## Song frontmatter
 
