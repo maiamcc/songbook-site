@@ -381,6 +381,16 @@ h1 {
 @page {
   size: A5;
   margin: 12mm 14mm;
+
+  /* Page numbers in the bottom-right corner of every printed sheet,
+     formatted as current/total. CSS @page can't gate on total page
+     count, so single-page songs print "1/1". */
+  @bottom-right {
+    content: counter(page) "/" counter(pages);
+    font-family: "Cormorant", Georgia, serif;
+    font-size: 9pt;
+    color: #666;
+  }
 }
 
 .print-layout {
