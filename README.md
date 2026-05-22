@@ -56,15 +56,15 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | ----------------- | --------------- | -------- | ------------- | --------- | ---- | ----- | ---- | ----- |
 | `title`           | string          | yes      |               |           | ✓    | ✓     | ✓    | ✓     |
 | `alternate_title` | string          | no       |               |           | ✓    | ✓     | ✓    | ✓     |
-| `author`          | string          | no       |               |           | ✓    |       | ✓    | ✓     |
+| `author`          | string          | yes      |               |           | ✓    |       | ✓    | ✓     |
 | `year_written`    | string          | no       |               |           |      |       | ✓    | ✓     |
 | `topics`          | list of strings | no       |               | ✓         |      | ✓     | +    |       |
 | `genre`           | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `mood`            | string          | no       |               | ✓         |      | ✓     | +    |       |
-| `bop_rating`      | integer         | no       | 1–5 inclusive | ✓         |      | ✓     | ✓    | ✓     |
+| `bop_rating`      | integer         | yes      | 1–5 inclusive | ✓         |      | ✓     | ✓    | ✓     |
 | `structure`       | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
-| `rnge`            | string          | no       | format `aa-bb` (lowercase) |           |      |       | ✓    | ✓     |
+| `rnge`            | string          | yes      | format `aa-bb` (lowercase) |           |      |       | ✓    | ✓     |
 
 The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on which view. A `✓` means the field is visible by default; a `+` means the field is rendered but hidden by default behind a collapsible drawer (the "Metadata" `<details>` element on the song view).
 - `Home`: the homepage list
@@ -79,11 +79,13 @@ Example:
 ```yaml
 ---
 title: Country Roads
+author: John Denver
 topics: [home, travel]
 genre: folk
 mood: nostalgic
 bop_rating: 5
 structure: verse-chorus
+rnge: do-mi
 notes: capo 2 sounds nicer
 ---
 ```
