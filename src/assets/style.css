@@ -41,7 +41,7 @@
 }
 
 /* Layout toggle links: "Print view →" floated to the top-right of the
-   song-header on a screen song page, and "← View on screen" at the
+   song-header on a screen song page, and "← Web view" at the
    top of the body on the corresponding print page. Subtle so they
    don't compete with the song content. The toggle gets hidden on
    actual paper print further down. */
