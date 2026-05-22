@@ -94,17 +94,18 @@ body {
   line-height: 1.5;
 }
 
-header {
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.75rem;
-  margin-bottom: 2rem;
+.top-nav {
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.home {
-  font-weight: bold;
+.top-nav a {
+  color: var(--muted);
   text-decoration: none;
+}
+
+.top-nav a:hover {
   color: var(--accent);
-  font-size: 1.1rem;
 }
 
 h1 { margin-bottom: 0.25rem; }

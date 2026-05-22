@@ -3,6 +3,7 @@
 ## P1
 * style isn't shitty
 * fonts
+* color scheme
 
 ## P2:
 * print layout - multiple songs / check and print multiple songs
@@ -10,6 +11,7 @@
   * maybe adding new ones to a big yaml file? bonus points if there's room to give a description for each song format.
 * print indexes and lists
 * searching and filtering for songs on the homepage
+* search in navbar
 
 ### P3:
 * publish the site?!

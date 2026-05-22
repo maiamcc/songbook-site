@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="{{ '/assets/style.css' | relativeUrl(page.url) }}" />
   </head>
   <body>
-    <header>
-      <a href="{{ '/' | relativeUrl(page.url) }}" class="home">Songbook</a>
-    </header>
+    <nav class="top-nav">
+      <a href="{{ '/' | relativeUrl(page.url) }}">Home</a>
+    </nav>
     <main>
       {{ content | safe }}
     </main>
