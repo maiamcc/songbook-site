@@ -57,7 +57,6 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `title`           | string          | yes      |               |           | ✓    | ✓     | ✓    | ✓     |
 | `alternate_title` | string          | no       |               |           | ✓    | ✓     | ✓    | ✓     |
 | `author`          | string          | yes      |               |           | ✓    |       | ✓    | ✓     |
-| `year_written`    | string          | no       |               |           |      |       | +    | ✓     |
 | `topics`          | list of strings | no       |               | ✓         |      | ✓     | +    |       |
 | `genre`           | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `mood`            | string          | no       |               | ✓         |      | ✓     | +    |       |

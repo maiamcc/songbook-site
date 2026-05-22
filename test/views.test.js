@@ -5,9 +5,17 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import matter from "gray-matter";
+import MarkdownIt from "markdown-it";
 import { FIELDS } from "../lib/song-schema.js";
 import { slugify } from "../lib/slug.js";
 import { relativeUrl } from "../lib/url.js";
+import { configureMarkdown } from "../lib/markdown.js";
+
+// Mirror the eleventy.config.js inlineMarkdown filter so notes
+// render through the same markdown-it instance the build uses.
+const md = configureMarkdown(MarkdownIt({ html: true }));
+const inlineMarkdown = (str) =>
+  str == null ? "" : md.renderInline(String(str));
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC = join(__dirname, "..", "src");
@@ -29,6 +37,7 @@ function render(filepath, ctx) {
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(INCLUDES));
   env.addFilter("slugify", slugify);
   env.addFilter("relativeUrl", relativeUrl);
+  env.addFilter("inlineMarkdown", inlineMarkdown);
   env.addFilter("indexCount", (entries, field, value) => {
     const entry = entries.find((e) => e.field === field && e.value === value);
     return entry ? entry.songs.length : 0;
@@ -49,7 +58,6 @@ const FIELD_FIXTURES = {
   title: { value: "TitleSentinel", marker: "TitleSentinel" },
   alternate_title: { value: "AltTitleSentinel", marker: "AltTitleSentinel" },
   author: { value: "AuthorSentinel", marker: "AuthorSentinel" },
-  year_written: { value: "YearSentinel1492", marker: "YearSentinel1492" },
   topics: { value: ["TopicSentinel"], marker: "TopicSentinel" },
   genre: { value: "GenreSentinel", marker: "GenreSentinel" },
   mood: { value: "MoodSentinel", marker: "MoodSentinel" },
@@ -82,6 +90,7 @@ function contains(html, marker) {
 // at build time from src/songs-print.njk).
 function renderPrint(songData, bodyHtml) {
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(INCLUDES));
+  env.addFilter("inlineMarkdown", inlineMarkdown);
   return env.renderString(
     `{% import "song-print.njk" as p %}{{ p.renderSongPrint(s, body) }}`,
     { s: songData, body: bodyHtml || "" }
@@ -158,26 +167,14 @@ test("song view: title renders inside an h1", () => {
   assert.match(html, /<h1>[\s\S]*?TitleSentinel[\s\S]*?<\/h1>/);
 });
 
-test("song view: byline contains author only (year_written lives in the drawer)", () => {
-  // On screen, the byline is just the author; year_written is one of
-  // the collapsedOn:["song"] fields and renders inside the .song-meta
-  // drawer instead. The drawer placement itself is covered by the
-  // schema-driven collapsedOn test further down.
+test("song view: byline is the author", () => {
   const html = render(SONG_NJK, fullSong);
-  const bylineMatch = html.match(/<p class="byline">[\s\S]*?<\/p>/);
-  assert.ok(bylineMatch, "expected a .byline paragraph");
-  assert.match(bylineMatch[0], /AuthorSentinel/);
-  assert.doesNotMatch(bylineMatch[0], /YearSentinel1492/);
+  assert.match(html, /<p class="byline">\s*AuthorSentinel\s*<\/p>/);
 });
 
-test("print view: byline joins author and year_written with ·", () => {
-  // The print layout keeps the full byline since the drawer isn't a
-  // print concept — every field lives in source order on paper.
+test("print view: byline is the author", () => {
   const html = renderPrint(fullSong, fullSong.content);
-  assert.match(
-    html,
-    /<p class="byline">[\s\S]*AuthorSentinel[\s\S]*·[\s\S]*YearSentinel1492[\s\S]*<\/p>/
-  );
+  assert.match(html, /<p class="byline">\s*AuthorSentinel\s*<\/p>/);
 });
 
 test("song view: rnge renders as low/high halves split by a diagonal bar", () => {

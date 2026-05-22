@@ -28,12 +28,8 @@
     <h1>
       {{ s.title }}{% if s.alternate_title %} <span class="alt-title">({{ s.alternate_title }})</span>{% endif %}
     </h1>
-    {% if s.author or s.year_written %}
-    <p class="byline">
-      {%- if s.author %}{{ s.author }}{% endif -%}
-      {%- if s.author and s.year_written %} · {% endif -%}
-      {%- if s.year_written %}{{ s.year_written }}{% endif -%}
-    </p>
+    {% if s.author %}
+    <p class="byline">{{ s.author }}</p>
     {% endif %}
   </header>
 
@@ -41,6 +37,6 @@
     {{ bodyHtml | safe }}
   </div>
 
-  {% if s.notes %}<p class="notes"><span class="notes-label">Notes:</span> {{ s.notes }}</p>{% endif %}
+  {% if s.notes %}<p class="notes"><span class="notes-label">Notes:</span> {{ s.notes | inlineMarkdown | safe }}</p>{% endif %}
 </article>
 {% endmacro %}

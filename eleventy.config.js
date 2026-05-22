@@ -49,6 +49,14 @@ export default function (eleventyConfig) {
   // GitHub project page subpath). See lib/url.js.
   eleventyConfig.addFilter("relativeUrl", relativeUrl);
 
+  // Render a short markdown snippet (e.g. a song's `notes` field) as
+  // inline HTML — emphasis, links, line breaks — without wrapping it
+  // in a <p>. Uses the same markdown-it instance as the body so the
+  // configuration (breaks: true, chorus rule) is identical.
+  eleventyConfig.addFilter("inlineMarkdown", (str) =>
+    str == null ? "" : md.renderInline(String(str))
+  );
+
   // Returns the number of songs sharing this (field, value) pair.
   // Used by templates to put a "N songs" tooltip on index-page links.
   eleventyConfig.addFilter("indexCount", (entries, field, value) => {

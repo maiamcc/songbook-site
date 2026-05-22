@@ -34,7 +34,6 @@ test("all optional fields with valid types", () => {
   const data = {
     ...REQUIRED,
     alternate_title: "Alt",
-    year_written: "1850",
     topics: ["a", "b"],
     genre: "folk",
     mood: "happy",
