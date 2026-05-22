@@ -55,5 +55,8 @@ layout: base.njk
     {{ content | safe }}
   </div>
 
-  {% if notes %}<p class="notes"><span class="notes-label">Notes:</span> {{ notes | inlineMarkdown | safe }}</p>{% endif %}
+  {% if notes %}
+  <hr class="notes-sep" />
+  <p class="notes"><span class="notes-label">Notes:</span> {{ notes | inlineMarkdown | safe }}</p>
+  {% endif %}
 </article>

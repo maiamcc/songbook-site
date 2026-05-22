@@ -281,10 +281,19 @@ h1 { margin-bottom: 0.25rem; }
   text-decoration-color: var(--accent);
 }
 
+/* Thin rule between the lyric body and the notes paragraph (screen
+   and print). Lives inside the {% if notes %} block, so absent when
+   notes are. Owns the vertical spacing — .notes itself is margin:0. */
+.notes-sep {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1.25rem 0;
+}
+
 .song .notes {
   border-left: 2px solid var(--accent);
   padding: 0.05rem 0 0.05rem 0.6rem;
-  margin: 2rem 0 0;
+  margin: 0;
   font-size: 0.9rem;
   color: var(--muted);
 }
@@ -484,8 +493,11 @@ h1 { margin-bottom: 0.25rem; }
 }
 
 /* Notes at the bottom in a tighter form. */
+.print-layout .notes-sep {
+  margin: 0.5rem 0;
+}
+
 .print-layout .song .notes {
-  margin-top: 0.8rem;
   font-size: 0.8rem;
 }
 

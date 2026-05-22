@@ -37,6 +37,9 @@
     {{ bodyHtml | safe }}
   </div>
 
-  {% if s.notes %}<p class="notes"><span class="notes-label">Notes:</span> {{ s.notes | inlineMarkdown | safe }}</p>{% endif %}
+  {% if s.notes %}
+  <hr class="notes-sep" />
+  <p class="notes"><span class="notes-label">Notes:</span> {{ s.notes | inlineMarkdown | safe }}</p>
+  {% endif %}
 </article>
 {% endmacro %}
