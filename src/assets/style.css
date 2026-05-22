@@ -5,11 +5,11 @@
   --accent: #870101;
   --accent-dark: color-mix(in srgb, var(--accent) 70%, black);
 
-  --fg: black;
+  --fg: color-mix(in srgb, black 88%, white);
   --bg: white;
-  --muted: color-mix(in srgb, black 45%, white);
-  --border: color-mix(in srgb, black 12%, white);
-  --separator: color-mix(in srgb, black 30%, white);
+  --muted: color-mix(in srgb, black 60%, white);
+  --border: color-mix(in srgb, black 22%, white);
+  --separator: color-mix(in srgb, black 42%, white);
   --hover-bg: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
@@ -105,6 +105,7 @@ a:hover {
 
 h1 {
   font-family: "Cormorant Infant", "Cormorant", Georgia, serif;
+  color: var(--fg);
   margin-bottom: 0.25rem;
 }
 
@@ -394,7 +395,7 @@ h1 {
 
 .print-layout {
   background: white;
-  color: black;
+  color: var(--fg);
   max-width: none;
   padding: 0.5rem 0.6rem 1rem;
   font-size: 10.5pt;
@@ -506,10 +507,13 @@ h1 {
 
 /* Actual-paper print: hide the on-page toggle links (they're nav
    chrome, not content), reveal the print-tip on the screen song
-   page so readers know there's a dedicated print view, and pin
-   link color to currentColor so no accent ink hits paper. */
+   page so readers know there's a dedicated print view, force ink
+   to pure black so the on-screen soft-black --fg doesn't waste a
+   half-percent of toner, and pin link color to currentColor so no
+   accent ink hits paper. */
 @media print {
   .layout-toggle { display: none; }
   .print-tip { display: block; }
+  body { color: black; }
   a, a:hover { color: inherit; }
 }
