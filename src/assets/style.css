@@ -476,6 +476,13 @@ h1 { margin-bottom: 0.25rem; }
   display: block;
 }
 
+/* Center the range underneath the right-aligned Bop line. Targets
+   the dl containing .range so it's unaffected by reorderings or
+   when only one of the two vitals is present. */
+.print-layout .song-vitals .song-meta:has(.range) {
+  text-align: center;
+}
+
 /* Lyrics: shrink the generous screen line-height inside the chord
    code blocks so verses occupy less vertical space. */
 .print-layout .song-body pre {
