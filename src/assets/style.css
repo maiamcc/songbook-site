@@ -1,25 +1,15 @@
 :root {
-  /* Raw palette — the only literal hex values in the stylesheet. Every
-     other color is derived from these via color-mix(), so changing one
-     palette value updates borders, hover tints, etc. in lockstep. */
-  --primary: #073B3A;
-  --secondary: #0B6E4F;
-  --tertiary: #4DCCBD;
-  --quaternary: #5B2E48;
-  --quinary: #939196;
+  /* Black text, a single accent color, and neutral grays derived
+     from black via color-mix(). Change --accent to reskin every
+     link, hover state, and accented bar in the site. */
+  --accent: #870101;
 
-  /* Semantic aliases */
-  --fg: var(--primary);
-  --muted: var(--quinary);
-  --accent: var(--secondary);
-  --highlight: var(--tertiary);
-  --chord: var(--secondary);
-
-  /* Derived shades */
-  --bg: color-mix(in srgb, var(--tertiary) 8%, white);
-  --border: color-mix(in srgb, var(--primary) 14%, white);
-  --separator: color-mix(in srgb, var(--tertiary) 40%, var(--quinary));
-  --hover-bg: color-mix(in srgb, var(--tertiary) 18%, transparent);
+  --fg: black;
+  --bg: white;
+  --muted: color-mix(in srgb, black 45%, white);
+  --border: color-mix(in srgb, black 12%, white);
+  --separator: color-mix(in srgb, black 30%, white);
+  --hover-bg: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 * { box-sizing: border-box; }
@@ -320,7 +310,6 @@ h1 { margin-bottom: 0.25rem; }
   padding: 0.5rem 0.6rem;
   color: var(--fg);
   text-decoration: none;
-  font-weight: 600;
   border-radius: 3px;
 }
 
@@ -376,21 +365,6 @@ h1 { margin-bottom: 0.25rem; }
   content: "·";
   margin: 0 0.5rem;
   color: var(--separator);
-}
-
-.song-body pre {
-  font-family: "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.95rem;
-  background: transparent;
-  padding: 0;
-  white-space: pre-wrap;
-  line-height: 1.8;
-}
-
-/* Bracketed chords above lyrics, e.g. [G] */
-.song-body pre code {
-  background: none;
-  padding: 0;
 }
 
 /* Indented blocks in song markdown render as choruses. */
@@ -483,13 +457,6 @@ h1 { margin-bottom: 0.25rem; }
   text-align: center;
 }
 
-/* Lyrics: shrink the generous screen line-height inside the chord
-   code blocks so verses occupy less vertical space. */
-.print-layout .song-body pre {
-  font-size: 9.5pt;
-  line-height: 1.5;
-}
-
 .print-layout .song-body p {
   margin: 0.4rem 0;
 }
@@ -510,8 +477,7 @@ h1 { margin-bottom: 0.25rem; }
 
 /* Keep choruses and verse paragraphs from splitting across pages. */
 .print-layout .song-body .chorus,
-.print-layout .song-body p,
-.print-layout .song-body pre {
+.print-layout .song-body p {
   page-break-inside: avoid;
   break-inside: avoid;
 }
