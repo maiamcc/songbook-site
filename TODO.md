@@ -12,6 +12,7 @@
 * print indexes and lists
 * searching and filtering for songs on the homepage
 * search in navbar (harris recommends implementing search with pagefind so it's all client-side search)
+* document Bop Rating
 
 ### P3:
 * publish the site?!
@@ -22,3 +23,4 @@
 * customizable print layout: paper size, fields included, etc.
 * style the metadata drawer on the song view (currently default `<details>`/`<summary>` look)
 * other information to track, maybe: roud number, whether it's printed to my notebook, how well i know it, lineage/where i learned it from.
+* if print view page breaks, add page numbers, maybe "more" (or x/y)

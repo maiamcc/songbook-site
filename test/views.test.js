@@ -158,8 +158,22 @@ test("song view: title renders inside an h1", () => {
   assert.match(html, /<h1>[\s\S]*?TitleSentinel[\s\S]*?<\/h1>/);
 });
 
-test("song view: byline joins author and year_written with ·", () => {
+test("song view: byline contains author only (year_written lives in the drawer)", () => {
+  // On screen, the byline is just the author; year_written is one of
+  // the collapsedOn:["song"] fields and renders inside the .song-meta
+  // drawer instead. The drawer placement itself is covered by the
+  // schema-driven collapsedOn test further down.
   const html = render(SONG_NJK, fullSong);
+  const bylineMatch = html.match(/<p class="byline">[\s\S]*?<\/p>/);
+  assert.ok(bylineMatch, "expected a .byline paragraph");
+  assert.match(bylineMatch[0], /AuthorSentinel/);
+  assert.doesNotMatch(bylineMatch[0], /YearSentinel1492/);
+});
+
+test("print view: byline joins author and year_written with ·", () => {
+  // The print layout keeps the full byline since the drawer isn't a
+  // print concept — every field lives in source order on paper.
+  const html = renderPrint(fullSong, fullSong.content);
   assert.match(
     html,
     /<p class="byline">[\s\S]*AuthorSentinel[\s\S]*·[\s\S]*YearSentinel1492[\s\S]*<\/p>/

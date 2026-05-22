@@ -248,6 +248,16 @@ h1 { margin-bottom: 0.25rem; }
   margin-top: 0.15rem;
 }
 
+/* In the drawer the .song-meta dl holds multiple pairs, so replace
+   the global middot-between-pairs separator with a line break so each
+   "Label: value" sits on its own row. Vitals-box uses of .song-meta
+   are one-pair-per-dl, so they hit :last-of-type and aren't affected
+   by this rule. */
+.song-meta-drawer .song-meta dd:not(:last-of-type)::after {
+  content: "\A";
+  white-space: pre;
+}
+
 /* Inline links inside song-meta (song page) and index-meta (index page
    rows). Subtle dotted underline by default so users see they're
    actionable; accent color + accent underline on hover. */

@@ -16,17 +16,14 @@ layout: base.njk
     {% if author or year_written or genre or mood or structure or topics or bop_rating or rnge %}
     <div class="meta-row">
       <div class="meta-left">
-        {% if author or year_written %}
-        <p class="byline">
-          {%- if author %}{{ author }}{% endif -%}
-          {%- if author and year_written %} · {% endif -%}
-          {%- if year_written %}{{ year_written }}{% endif -%}
-        </p>
+        {% if author %}
+        <p class="byline">{{ author }}</p>
         {% endif %}
-        {% if genre or mood or structure or topics %}
+        {% if year_written or genre or mood or structure or topics %}
         <details class="song-meta-drawer">
           <summary>Metadata</summary>
           <dl class="song-meta">
+            {% if year_written %}<dt>Year</dt><dd>{{ year_written }}</dd>{% endif %}
             {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
             {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
             {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
