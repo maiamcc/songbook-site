@@ -10,31 +10,57 @@
 #   { <field>: { desc, values: { <key>: <description> } } }
 # and exposed to templates as the `enums` global (eleventy.config.js).
 
+# TODO: human readable names for e.g. "kids-song"
 genre:
-  # No song currently uses `genre`; add value: description pairs here
-  # as you start tagging songs by genre.
-  values: {}
+  values:
+    - chantey
+    - hymn
+    - parody
+    - kids-song
+    - drinking-song
+    - lullaby
+    - spiritual
+    - protest-song
+    - satire
 
 mood:
   values:
-    sad: TODO description for sad
-    uplifting: TODO description for uplifting
+    - rousing
+    - silly
+    - uplifting
+    - peaceful
+    - spooky
+    - sweet
+    - melancholy
+    - fun
+    - badass
+    - bawdy
+    - sad
 
 structure:
-  desc: TODO field description
   values:
-    chorus: TODO description for chorus
-    refrain-lines: TODO description for refrain-lines
+    chorus: it's a chorus.
+    zipper: stays the same with one or two words changed (e.g. "oh mothers" / "oh fathers" or "when we work/play/sing together, we grow our village stronger")
+    short-refrain: little refrain, shorter than true chorus # do i need this?
+    repeat-line-you-listen-for: repeat a line of a verse (either as an answer in the verse, or as a chorus)
+    call-and-response: call and response # redundant with repeat-line-you-listen-for?
+    2nd-4th-lines-repeat: 1st and 3rd lines are different per verse but 2nd/4th are the same
+    counting: verses count up or down (also applies to going through months, days of week etc.)
+    refrain-lines: repeating line(s) interspersed with verse
+#    round: it's a round.
+#    layer: parts layer on each other
+#    optional-chorus: chorus is optional
 
-# Stubbed for future use; `known` is declared in the schema with
-# display: [] so it isn't rendered anywhere on the site yet. Replace
-# the placeholder keys with the actual states you want to track.
+
+# Not for display(?), filtering only
 known:
-  desc: TODO field description
+  desc: how well I personally know the song
   values:
-    todo_value_1: TODO description for value 1
-    todo_value_2: TODO description for value 2
-    todo_value_3: TODO description for value 3
+    1: memorized
+    2: once memorized / back of mind
+    3: can lead off lyrics
+    4: only vaguely know
+    to-learn: n/a, want to learn
 
 joiny_inny:
   desc: how easy it is to join in on this one in a vacuum (i.e. in a place where it isn't known)

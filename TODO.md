@@ -2,16 +2,17 @@
 
 ## P1
 * more layout stuff
+* `mood` and `structure` should be []string
+* filtering for songs on the homepage
+* upload from csv
 
 ## P2:
-* print layout - multiple songs / check and print multiple songs
-* keep track of tags, topics, genres, formats -- don't reinvent the wheel every time
-  * maybe adding new ones to a big yaml file? bonus points if there's room to give a description for each song format.
-* print indexes and lists
-* filtering for songs on the homepage
-* search in navbar
+* adjust columns shown in home page / indexes
+* printable home page / indexes (with all selected columns)
+* printing multiple songs (e.g. put a checkbox, print all checked songs)
 
 ### P3:
+* search in navbar
 * publish the site?!
 * maybe add favicon
 * make tab titles not suck
@@ -19,5 +20,4 @@
 * make song types, topics etc. formatted better and more consistently. maybe color coded? pills??/bw
 * customizable print layout: paper size, fields included, etc.
 * style the metadata drawer on the song view (currently default `<details>`/`<summary>` look)
-* other information to track, maybe: roud number, whether it's printed to my notebook, how well i know it, lineage/where i learned it from.
-* if print view page breaks, add page numbers, maybe "more" (or x/y)
+* other information to track, maybe: roud number, lineage/where i learned it from.
