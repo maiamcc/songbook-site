@@ -19,7 +19,11 @@
 {% macro enumLink(field, value) -%}
   {%- set href = "/index/" ~ field ~ "/" ~ (value | slugify) ~ "/" -%}
   {%- set desc = enums[field].values[value] -%}
-  <a href="{{ href | relativeUrl(page.url) }}" title="{{ desc }}">{{ value | humanize }}</a>
+  {%- if desc -%}
+    <a href="{{ href | relativeUrl(page.url) }}" title="{{ desc }}">{{ value | humanize }}</a>
+  {%- else -%}
+    <a href="{{ href | relativeUrl(page.url) }}">{{ value | humanize }}</a>
+  {%- endif -%}
 {%- endmacro %}
 
 {# Render a "?" help affordance with a CSS-driven hover tooltip listing

@@ -350,6 +350,13 @@ h1 {
   content: ":";
 }
 
+/* When a value has no description (an empty <dd>), drop the trailing
+   colon on its <dt> so the row reads as a bare key rather than
+   "key:" with nothing after it. */
+.enum-tooltip dl dt:has(+ dd:empty)::after {
+  content: "";
+}
+
 .enum-tooltip dl dd::after {
   content: none;
 }

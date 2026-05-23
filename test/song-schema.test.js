@@ -99,8 +99,10 @@ test("ENUMS loads from lib/enums.yaml with the expected shape", () => {
       `${field}.values must be a map`);
     for (const [k, v] of Object.entries(body.values)) {
       assert.equal(typeof k, "string");
-      assert.equal(typeof v, "string", `${field}.values.${k} must be string`);
-      assert.ok(v.length > 0, `${field}.values.${k} should be non-empty`);
+      if (v !== null) {
+        assert.equal(typeof v, "string", `${field}.values.${k} must be a string or null`);
+        assert.ok(v.length > 0, `${field}.values.${k} description must be non-empty when set`);
+      }
     }
   }
 });
