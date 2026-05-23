@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
-import { FIELDS } from "../lib/song-schema.js";
+import { ENUMS, FIELDS } from "../lib/song-schema.js";
 import { slugify } from "../lib/slug.js";
 import { relativeUrl } from "../lib/url.js";
 import { configureMarkdown } from "../lib/markdown.js";
@@ -46,8 +46,38 @@ function render(filepath, ctx) {
     // Templates expect collections.indexEntries to exist. Default to
     // an empty list; individual tests can override.
     collections: { indexEntries: [], ...(ctx.collections || {}) },
+    // Mirror eleventy.config.js's addGlobalData("enums", ENUMS) so the
+    // enumLink macro can resolve `enums[field][value]` to a description.
+    // Tests can override by passing their own enums in ctx.
+    enums: ENUMS,
     ...ctx,
   });
+}
+
+// Slice out a <details class="X">…</details> block while honoring
+// nested <details> elements. A non-greedy regex would stop at the
+// first inner </details> (e.g. the enum-legend nested inside the
+// Metadata drawer); this walks open/close pairs to find the matching
+// outer close.
+function extractBalancedDetails(html, className) {
+  const open = `<details class="${className}">`;
+  const start = html.indexOf(open);
+  if (start < 0) return null;
+  let depth = 1;
+  let i = start + open.length;
+  while (depth > 0) {
+    const nextOpen = html.indexOf("<details", i);
+    const nextClose = html.indexOf("</details>", i);
+    if (nextClose < 0) return null;
+    if (nextOpen >= 0 && nextOpen < nextClose) {
+      depth++;
+      i = nextOpen + "<details".length;
+    } else {
+      depth--;
+      i = nextClose + "</details>".length;
+    }
+  }
+  return html.slice(start, i);
 }
 
 // Fixture values per field. Each value is paired with a "marker" string
@@ -70,6 +100,23 @@ const FIELD_FIXTURES = {
     printMarker: /<dt>Bop<\/dt><dd>3<\/dd>/,
   },
   structure: { value: "StructureSentinel", marker: "StructureSentinel" },
+  // joiny_inny is an enum field — value must be a legal key from
+  // lib/enums.yaml or validate() will reject it. Pick the first key
+  // from ENUMS at runtime rather than hardcoding one, so editing the
+  // YAML doesn't break this test as long as *some* values are defined.
+  // The marker is anchored to the link the enumLink macro emits so a
+  // passing test confirms not just text presence but the wiring (href
+  // to /index/joiny_inny/<slug>/ and the description in title=).
+  joiny_inny: (() => {
+    const value = Object.keys(ENUMS.joiny_inny.values)[0];
+    const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return {
+      value,
+      marker: new RegExp(
+        `href="/index/joiny_inny/${escape(slugify(value))}/"[^>]*title="[^"]+"[^>]*>${escape(value)}<`
+      ),
+    };
+  })(),
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
   // rnge is validated against [a-z]{2}-[a-z]{2} and rendered as the
   // two halves with an arrow between, so the raw "qz-rk" string never
@@ -272,11 +319,8 @@ test("song view: schema's collapsedOn:['song'] fields land inside the drawer", (
   // render outside the drawer (e.g. bop_rating sits in its own song-meta
   // dl so the rating stays visible by default).
   const html = render(SONG_NJK, fullSong);
-  const drawerMatch = html.match(
-    /<details class="song-meta-drawer">[\s\S]*?<\/details>/
-  );
-  assert.ok(drawerMatch, "expected a .song-meta-drawer <details> block");
-  const drawer = drawerMatch[0];
+  const drawer = extractBalancedDetails(html, "song-meta-drawer");
+  assert.ok(drawer, "expected a .song-meta-drawer <details> block");
   const outside = html.replace(drawer, "");
 
   for (const [field, spec] of Object.entries(FIELDS)) {

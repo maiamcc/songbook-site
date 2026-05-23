@@ -20,6 +20,12 @@ const SENTINELS = {
   mood: { value: "moodsentinel", marker: "moodsentinel" },
   bop_rating: { value: 3, marker: "3" },
   structure: { value: "structuresentinel", marker: "structuresentinel" },
+  // joiny_inny is an enum field — value must be a legal key from
+  // lib/enums.yaml. "easy" is one of the current values; the marker
+  // is just the lowercased string, which the index builder pipes
+  // through verbatim. If "easy" ever leaves enums.yaml, pick another
+  // current value here.
+  joiny_inny: { value: "easy", marker: "easy" },
   notes: { value: "notessentinel", marker: "notessentinel" },
   rnge: { value: "qz-rk", marker: "qz-rk" },
 };

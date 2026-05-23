@@ -62,6 +62,7 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `mood`            | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `bop_rating`      | integer         | yes      | 1–5 inclusive | ✓         |      | ✓     | ✓    | ✓     |
 | `structure`       | string          | no       |               | ✓         |      | ✓     | +    |       |
+| `joiny_inny`      | enum (string)   | no       | values + descriptions in `lib/enums.yaml` | ✓ |      | ✓     | +    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
 | `rnge`            | string          | yes      | format `aa-bb` (lowercase) |           |      |       | ✓    | ✓     |
 

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { validate } from "../lib/song-schema.js";
+import { ENUMS, FIELDS, enumField, validate } from "../lib/song-schema.js";
 
 // Minimal valid frontmatter: every required field set to a valid
 // value. Spread into a test fixture, then override the field under
@@ -69,6 +69,107 @@ test("bop_rating must be integer 1-5", () => {
   for (const ok of [1, 2, 3, 4, 5]) {
     assert.deepEqual(validate({ ...REQUIRED, bop_rating: ok }), []);
   }
+});
+
+// --- enum-field machinery ---------------------------------------------------
+
+test("ENUMS loads from lib/enums.yaml with the expected shape", () => {
+  // Each top-level enum entry is { desc: string, values: { key: string } }.
+  // joiny_inny is the seed entry; other fields can be added to enums.yaml
+  // without updating this test, since it iterates every loaded field.
+  assert.ok(ENUMS.joiny_inny, "expected ENUMS.joiny_inny to be loaded");
+  for (const [field, body] of Object.entries(ENUMS)) {
+    assert.equal(typeof body.desc, "string", `${field}.desc must be a string`);
+    assert.ok(body.desc.length > 0, `${field}.desc must be non-empty`);
+    assert.ok(body.values && typeof body.values === "object",
+      `${field}.values must be a map`);
+    for (const [k, v] of Object.entries(body.values)) {
+      assert.equal(typeof k, "string");
+      assert.equal(typeof v, "string", `${field}.values.${k} must be string`);
+      assert.ok(v.length > 0, `${field}.values.${k} should be non-empty`);
+    }
+  }
+});
+
+test("enumField: check accepts members, rejects non-members and non-strings", () => {
+  const f = enumField({
+    desc: "test enum",
+    values: { a: "alpha", b: "beta" },
+    required: false,
+    display: ["song"],
+  });
+  assert.equal(f.check("a"), true);
+  assert.equal(f.check("b"), true);
+  assert.equal(f.check("c"), false);
+  assert.equal(f.check(""), false);
+  assert.equal(f.check(1), false);
+  assert.equal(f.check(null), false);
+  assert.equal(f.check(undefined), false);
+});
+
+test("enumField: returned entry has the expected FIELDS shape", () => {
+  const values = { a: "alpha", b: "beta" };
+  const f = enumField({
+    desc: "test enum",
+    values,
+    required: false,
+    display: ["song", "index"],
+    indexable: true,
+    collapsedOn: ["song"],
+  });
+  assert.equal(f.required, false);
+  assert.equal(f.desc, "test enum");
+  assert.equal(f.values, values);
+  assert.deepEqual(f.display, ["song", "index"]);
+  assert.equal(f.indexable, true);
+  assert.deepEqual(f.collapsedOn, ["song"]);
+  // type string lists the legal values so the validate() error message
+  // points the reader at what's actually allowed.
+  assert.ok(f.type.includes("a"));
+  assert.ok(f.type.includes("b"));
+});
+
+test("enumField: indexable/collapsedOn are omitted when not passed", () => {
+  const f = enumField({
+    desc: "test enum",
+    values: { a: "alpha" },
+    required: false,
+    display: ["song"],
+  });
+  // Match the hand-written FIELDS entry shape: absent rather than
+  // explicitly undefined, so Object.keys() filters work cleanly.
+  assert.ok(!("indexable" in f));
+  assert.ok(!("collapsedOn" in f));
+});
+
+test("joiny_inny: validate rejects unknown enum values", () => {
+  const errs = validate({ ...REQUIRED, joiny_inny: "bogus" });
+  assert.equal(errs.length, 1);
+  // Error message references the actual legal values so the reader
+  // doesn't have to dig into the schema or the yaml.
+  for (const legal of Object.keys(ENUMS.joiny_inny.values)) {
+    assert.ok(
+      errs[0].includes(legal),
+      `expected error message to list legal value "${legal}", got: ${errs[0]}`
+    );
+  }
+});
+
+test("joiny_inny: validate accepts every legal value from enums.yaml", () => {
+  for (const legal of Object.keys(ENUMS.joiny_inny.values)) {
+    assert.deepEqual(
+      validate({ ...REQUIRED, joiny_inny: legal }),
+      [],
+      `expected legal value "${legal}" to pass validation`
+    );
+  }
+});
+
+test("joiny_inny: FIELDS entry was built by the enum factory", () => {
+  // Sanity: the entry exposes its value table, so templates can render
+  // a legend without re-reading the YAML.
+  assert.equal(FIELDS.joiny_inny.values, ENUMS.joiny_inny.values);
+  assert.equal(FIELDS.joiny_inny.desc, ENUMS.joiny_inny.desc);
 });
 
 test("rnge must match [a-z]{2}-[a-z]{2}", () => {

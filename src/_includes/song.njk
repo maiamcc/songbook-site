@@ -19,13 +19,14 @@ layout: base.njk
         {% if author %}
         <p class="byline">{{ author }}</p>
         {% endif %}
-        {% if genre or mood or structure or topics %}
+        {% if genre or mood or structure or joiny_inny or topics %}
         <details class="song-meta-drawer">
           <summary>Metadata</summary>
           <dl class="song-meta">
             {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
             {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
             {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
+            {% if joiny_inny %}<dt title="{{ enums.joiny_inny.desc }}">Joiny-inny</dt><dd>{{ m.enumLink("joiny_inny", joiny_inny) }}<details class="enum-legend"><summary aria-label="Joiny-inny legend">?</summary><dl>{% for k, v in enums.joiny_inny.values %}<dt>{{ k }}</dt><dd>{{ v }}</dd>{% endfor %}</dl></details></dd>{% endif %}
             {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
           </dl>
         </details>

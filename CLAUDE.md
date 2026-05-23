@@ -41,10 +41,50 @@ enforce that the rest of the project agrees with the schema:
   Print column in the README, and render the field in the
   `renderSongPrint` macro.
 
+### Closed-set (enum) fields
+
+Fields whose value must be one of a known set of strings are defined
+via the `enumField()` factory in `lib/song-schema.js`, with the legal
+values and their user-facing descriptions in `lib/enums.yaml`:
+
+```yaml
+# lib/enums.yaml
+joiny_inny:
+  desc: how easy it is to join in on this one in a vacuum
+  values:
+    easy: easy in a pub sing context, e.g. simple chorus or repeated lines
+    hard: fast, wordy, Nancy Kerr bullshit etc.
+```
+
+```js
+// lib/song-schema.js
+joiny_inny: enumField({
+  ...ENUMS.joiny_inny,          // spreads in desc + values
+  required: false,
+  display: ["song", "index"],
+  collapsedOn: ["song"],
+  indexable: true,
+}),
+```
+
+The factory builds a membership `check`, an informative `type` string
+(`"one of: very_easy, easy, moderate, hard"` — surfaces in validate() error messages and
+the `new-song` script's prompt), and carries both `desc` and `values`
+through so templates can render the field-level tooltip and the
+per-value legend. The same map is exposed as the `enums` template
+global (registered in `eleventy.config.js`), so song.njk can show the
+field description via `enums.joiny_inny.desc` and list the legal
+values+descriptions via `{% for k, v in enums.joiny_inny.values %}`.
+The `enumLink` macro in `src/_includes/macros.njk` uses the per-value
+description as the link `title=`, replacing the standard `indexLink`'s
+"N songs" tooltip.
+
 ### Workflow for changing the schema
 
 1. Edit `lib/song-schema.js` — add, remove, or rename the field, and
    set its `required`, `type`, `check`, and `display` properties.
+   For a closed-set string field, add the values to `lib/enums.yaml`
+   first and define the FIELDS entry via `enumField({ values: ENUMS.foo, ... })`.
 2. Run `npm test`. The README and view tests will fail until the rest
    of the project agrees.
 3. Update the **frontmatter table in `README.md`** so the row matches

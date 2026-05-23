@@ -1,0 +1,19 @@
+# Closed-set values for enum fields in the song schema. Each top-level
+# key is the field name; under it:
+#   - `desc` is the field-level description, surfaced as a tooltip on
+#     the field label in the song view.
+#   - `values` is a map from legal value (the raw frontmatter string)
+#     to its user-facing description (the tooltip on the value link
+#     and the right-hand side of the legend).
+#
+# Loaded by loadEnums() in song-schema.js into:
+#   { <field>: { desc, values: { <key>: <description> } } }
+# and exposed to templates as the `enums` global (eleventy.config.js).
+
+joiny_inny:
+  desc: how easy it is to join in on this one in a vacuum (i.e. in a place where it isn't known)
+  values:
+    very_easy: suitable for non singers
+    easy: easy in a pub sing context, e.g. simple chorus or repeated lines
+    moderate: the bulk of pub sing songs
+    hard: fast, wordy, Nancy Kerr bullshit etc.

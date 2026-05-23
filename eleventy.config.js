@@ -5,7 +5,7 @@ import { configureMarkdown } from "./lib/markdown.js";
 import { sortKey } from "./lib/title.js";
 import { slugify } from "./lib/slug.js";
 import { relativeUrl } from "./lib/url.js";
-import { INDEXABLE_FIELDS, validate } from "./lib/song-schema.js";
+import { ENUMS, INDEXABLE_FIELDS, validate } from "./lib/song-schema.js";
 import { buildSongIndexRecord } from "./lib/search-index.js";
 
 // A standalone markdown-it instance configured the same way Eleventy's
@@ -38,6 +38,12 @@ function assertValidSongs(songs) {
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+
+  // Expose the schema's enum value+description tables to every
+  // template under `enums.<field>` (e.g. enums.joiny_inny.easy).
+  // Loaded once by song-schema.js from lib/enums.yaml; re-exposing it
+  // here lets templates render a legend without re-parsing YAML.
+  eleventyConfig.addGlobalData("enums", ENUMS);
 
   eleventyConfig.amendLibrary("md", configureMarkdown);
 
