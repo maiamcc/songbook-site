@@ -39,7 +39,7 @@ function render(filepath, ctx) {
   env.addFilter("relativeUrl", relativeUrl);
   env.addFilter("inlineMarkdown", inlineMarkdown);
   env.addFilter("humanize", (s) =>
-    typeof s === "string" ? s.replace(/_/g, " ") : s
+    typeof s === "string" ? s.replace(/[_-]/g, " ") : s
   );
   env.addFilter("indexCount", (entries, field, value) => {
     const entry = entries.find((e) => e.field === field && e.value === value);
@@ -110,10 +110,19 @@ const FIELD_FIXTURES = {
   // The marker is anchored to the link the enumLink macro emits so a
   // passing test confirms not just text presence but the wiring (href
   // to /index/joiny_inny/<slug>/ and the description in title=).
+  // `in_nb` is a boolean reference flag (display: []). Marker just
+  // needs to be a string that won't show up in any rendered view —
+  // the test asserts absence everywhere.
+  in_nb: { value: true, marker: "InNbSentinel" },
+  // `known` is declared with display: [] so it shouldn't render
+  // anywhere. The schema-driven loop below uses this marker to assert
+  // the field stays out of every view; the sentinel doesn't need to be
+  // a legal enum value (the views test doesn't run validate()).
+  known: { value: "KnownSentinel", marker: "KnownSentinel" },
   joiny_inny: (() => {
     const value = Object.keys(ENUMS.joiny_inny.values)[0];
     const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const humanized = value.replace(/_/g, " ");
+    const humanized = value.replace(/[_-]/g, " ");
     return {
       value,
       marker: new RegExp(

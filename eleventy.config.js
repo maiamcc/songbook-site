@@ -71,11 +71,12 @@ export default function (eleventyConfig) {
     return entry ? entry.songs.length : 0;
   });
 
-  // Underscore → space, so enum keys like "very_easy" render as
-  // "very easy" wherever they're shown to the reader. Slugs and
-  // schema keys still use the raw underscored form.
+  // Underscore or dash → space, so enum keys like "very_easy" or
+  // "refrain-lines" read as "very easy" / "refrain lines" wherever
+  // they're shown to the reader. Slugs and schema keys keep their
+  // raw underscored / hyphenated form.
   eleventyConfig.addFilter("humanize", (s) =>
-    typeof s === "string" ? s.replace(/_/g, " ") : s
+    typeof s === "string" ? s.replace(/[_-]/g, " ") : s
   );
 
   eleventyConfig.addCollection("songs", (api) => {

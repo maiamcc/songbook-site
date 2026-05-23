@@ -33,7 +33,7 @@
 <span class="enum-help">
   <span class="enum-legend" tabindex="0" aria-label="{{ label }}">?</span>
   <span class="enum-tooltip" role="tooltip">
-    <span class="enum-tooltip-desc">{{ enums[field].desc }}</span>
+    {% if enums[field].desc %}<span class="enum-tooltip-desc">{{ enums[field].desc }}</span>{% endif %}
     <dl>{% for k, v in enums[field].values %}<dt>{{ k | humanize }}</dt><dd>{{ v }}</dd>{% endfor %}</dl>
   </span>
 </span>

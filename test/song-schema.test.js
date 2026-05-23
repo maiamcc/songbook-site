@@ -31,13 +31,15 @@ test("unknown field rejected", () => {
 });
 
 test("all optional fields with valid types", () => {
+  // mood/structure are enums now; use values that exist in enums.yaml.
+  // genre is also an enum but its values map is intentionally empty
+  // (no current songs use it), so we just omit it from this fixture.
   const data = {
     ...REQUIRED,
     alternate_title: "Alt",
     topics: ["a", "b"],
-    genre: "folk",
-    mood: "happy",
-    structure: "verse-chorus",
+    mood: "sad",
+    structure: "chorus",
     notes: "n/a",
   };
   assert.deepEqual(validate(data), []);
@@ -53,7 +55,10 @@ test("topics must be list[string]", () => {
 });
 
 test("string fields reject non-strings", () => {
-  for (const field of ["genre", "mood", "structure", "notes"]) {
+  // Plain-string fields only — enum-typed string fields surface
+  // "must be one of: …" errors covered by the enum-field tests above.
+  // The loop lets future plain-string fields slot in with a one-line edit.
+  for (const field of ["notes"]) {
     assert.deepEqual(validate({ ...REQUIRED, [field]: 5 }), [
       `field "${field}" must be string`,
     ]);
@@ -78,13 +83,18 @@ test("bop_rating must be integer 1-5", () => {
 // --- enum-field machinery ---------------------------------------------------
 
 test("ENUMS loads from lib/enums.yaml with the expected shape", () => {
-  // Each top-level enum entry is { desc: string, values: { key: string } }.
-  // joiny_inny is the seed entry; other fields can be added to enums.yaml
-  // without updating this test, since it iterates every loaded field.
+  // Each top-level enum entry is { desc?: string|null, values: { key: string } }.
+  // desc is optional (an enum without a field-level description loads as
+  // null and its tooltip just omits the desc line); values must be a
+  // map of non-empty string descriptions. joiny_inny is the seed
+  // entry; other fields slot in without updating this test, since it
+  // iterates every loaded field.
   assert.ok(ENUMS.joiny_inny, "expected ENUMS.joiny_inny to be loaded");
   for (const [field, body] of Object.entries(ENUMS)) {
-    assert.equal(typeof body.desc, "string", `${field}.desc must be a string`);
-    assert.ok(body.desc.length > 0, `${field}.desc must be non-empty`);
+    if (body.desc !== null) {
+      assert.equal(typeof body.desc, "string", `${field}.desc must be a string when set`);
+      assert.ok(body.desc.length > 0, `${field}.desc must be non-empty when set`);
+    }
     assert.ok(body.values && typeof body.values === "object",
       `${field}.values must be a map`);
     for (const [k, v] of Object.entries(body.values)) {

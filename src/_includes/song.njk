@@ -25,7 +25,7 @@ layout: base.njk
           <dl class="song-meta">
             {% if genre %}<dt>Genre</dt><dd>{{ m.indexLink("genre", genre, genre) }}</dd>{% endif %}
             {% if mood %}<dt>Mood</dt><dd>{{ m.indexLink("mood", mood, mood) }}</dd>{% endif %}
-            {% if structure %}<dt>Structure</dt><dd>{{ m.indexLink("structure", structure, structure) }}</dd>{% endif %}
+            {% if structure %}<dt>Structure</dt><dd>{{ m.enumLink("structure", structure) }}{{ m.enumHelp("structure", "Structure help") }}</dd>{% endif %}
             {% if joiny_inny %}<dt>Joiny-inny</dt><dd>{{ m.enumLink("joiny_inny", joiny_inny) }}{{ m.enumHelp("joiny_inny", "Joiny-inny help") }}</dd>{% endif %}
             {% if topics %}<dt>Topics</dt><dd>{% for t in topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
           </dl>

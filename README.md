@@ -58,10 +58,12 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `alternate_title` | string          | no       |               |           | ✓    | ✓     | ✓    | ✓     |
 | `author`          | string          | yes      |               |           | ✓    |       | ✓    | ✓     |
 | `topics`          | list of strings | no       |               | ✓         |      | ✓     | +    |       |
-| `genre`           | string          | no       |               | ✓         |      | ✓     | +    |       |
-| `mood`            | string          | no       |               | ✓         |      | ✓     | +    |       |
+| `genre`           | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
+| `mood`            | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
 | `bop_rating`      | enum (integer)  | yes      | 1–5 inclusive; descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | ✓    | ✓     |
-| `structure`       | string          | no       |               | ✓         |      | ✓     | +    |       |
+| `structure`       | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
+| `known`           | enum (string)   | no       | reference-only; not rendered anywhere yet | ✓ |      |       |      |       |
+| `in_nb`           | boolean         | no       | reference-only; not rendered anywhere yet; absent ≡ false |   |      |       |      |       |
 | `joiny_inny`      | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
 | `rnge`            | string          | yes      | format `aa-bb` (lowercase) |           |      |       | ✓    | ✓     |

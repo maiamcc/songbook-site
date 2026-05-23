@@ -20,6 +20,12 @@ const SENTINELS = {
   mood: { value: "moodsentinel", marker: "moodsentinel" },
   bop_rating: { value: 3, marker: "3" },
   structure: { value: "structuresentinel", marker: "structuresentinel" },
+  // `known` is reference-only (display: []) but still indexed for
+  // search, since search blobs are built from every schema field.
+  known: { value: "knownsentinel", marker: "knownsentinel" },
+  // `in_nb` is a boolean; buildSongIndexRecord stringifies it. The
+  // index blob is lowercased, so the marker matches "true".
+  in_nb: { value: true, marker: "true" },
   // joiny_inny is an enum field — value must be a legal key from
   // lib/enums.yaml. "easy" is one of the current values; the marker
   // is just the lowercased string, which the index builder pipes

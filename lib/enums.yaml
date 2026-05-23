@@ -10,6 +10,32 @@
 #   { <field>: { desc, values: { <key>: <description> } } }
 # and exposed to templates as the `enums` global (eleventy.config.js).
 
+genre:
+  # No song currently uses `genre`; add value: description pairs here
+  # as you start tagging songs by genre.
+  values: {}
+
+mood:
+  values:
+    sad: TODO description for sad
+    uplifting: TODO description for uplifting
+
+structure:
+  desc: TODO field description
+  values:
+    chorus: TODO description for chorus
+    refrain-lines: TODO description for refrain-lines
+
+# Stubbed for future use; `known` is declared in the schema with
+# display: [] so it isn't rendered anywhere on the site yet. Replace
+# the placeholder keys with the actual states you want to track.
+known:
+  desc: TODO field description
+  values:
+    todo_value_1: TODO description for value 1
+    todo_value_2: TODO description for value 2
+    todo_value_3: TODO description for value 3
+
 joiny_inny:
   desc: how easy it is to join in on this one in a vacuum (i.e. in a place where it isn't known)
   values:
