@@ -6,6 +6,7 @@ import { sortKey } from "./lib/title.js";
 import { slugify } from "./lib/slug.js";
 import { relativeUrl } from "./lib/url.js";
 import { INDEXABLE_FIELDS, validate } from "./lib/song-schema.js";
+import { buildSongIndexRecord } from "./lib/search-index.js";
 
 // A standalone markdown-it instance configured the same way Eleventy's
 // instance is (via configureMarkdown), used to pre-render each song's
@@ -74,6 +75,20 @@ export default function (eleventyConfig) {
     return songs.sort((a, b) =>
       sortKey(a.data.title).localeCompare(sortKey(b.data.title))
     );
+  });
+
+  // Per-song search blob: every schema field's value plus the body
+  // markdown, lowercased, for substring matching by src/assets/search.js
+  // on the home page. New schema fields are picked up automatically;
+  // there's no opt-in needed. Emitted as /search-index.json by
+  // src/search-index.njk. Record shape is defined in lib/search-index.js
+  // and exercised by test/search.test.js.
+  eleventyConfig.addCollection("searchIndex", (api) => {
+    const songs = api.getFilteredByGlob("src/songs/*.md");
+    return songs.map((song) => {
+      const { data, content } = matter(readFileSync(song.inputPath, "utf8"));
+      return buildSongIndexRecord(song.url, data, content);
+    });
   });
 
   // One entry per (indexable field, distinct value) pair. Drives the

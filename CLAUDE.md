@@ -65,6 +65,17 @@ enforce that the rest of the project agrees with the schema:
 6. Update the example YAML block in the README if the new field is
    worth illustrating.
 
+### Home-page search is schema-driven
+
+The home page has a client-side search box (`src/assets/search.js`)
+that filters the song list by substring matching against a JSON index
+emitted at `/search-index.json` by `src/search-index.njk` (driven by
+the `searchIndex` collection in `eleventy.config.js`). The collection
+iterates every key in `FIELDS` plus the body markdown, so a new schema
+field is automatically searchable — no template edit needed for
+search. The search blob is lowercased and stored as a single string
+per song; tokens in the query are ANDed.
+
 ### What you should *not* do
 
 - Don't edit the README table without also updating the schema (or vice

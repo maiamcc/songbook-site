@@ -290,6 +290,55 @@ h1 {
   color: var(--fg);
 }
 
+/* Home-page search box above the song list. Inherits the body's
+   serif so it doesn't visually fight the song titles below; accent
+   border on focus to match the rest of the site's focus styling.
+   The wrapper holds an absolutely-positioned magnifying-glass SVG on
+   the left; the input reserves room for it via padding-left. */
+.song-search-wrap {
+  position: relative;
+  margin: 0 0 1rem;
+}
+
+.song-search-icon {
+  position: absolute;
+  left: 0.6rem;
+  top: 50%;
+  width: 1em;
+  height: 1em;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.song-search {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--fg);
+  background: var(--bg);
+  padding: 0.4rem 0.6rem 0.4rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+
+.song-search:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.song-search:disabled {
+  color: var(--muted);
+  background: color-mix(in srgb, var(--border) 30%, var(--bg));
+}
+
+.song-search-empty {
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 0.5rem 0.6rem;
+}
+
 .song-list {
   list-style: none;
   padding: 0;

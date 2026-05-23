@@ -3,9 +3,23 @@ layout: base.njk
 title: Songbook
 ---
 <h1>Songbook</h1>
-<ul class="song-list">
+<div class="song-search-wrap">
+  <svg class="song-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" fill="none" />
+    <line x1="14.5" y1="14.5" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+  <input
+    type="search"
+    id="song-search"
+    class="song-search"
+    placeholder="Search titles, lyrics, notes, metadata…"
+    autocomplete="off"
+    aria-label="Search songs"
+  />
+</div>
+<ul class="song-list" id="song-list">
   {% for song in collections.songs %}
-    <li>
+    <li data-url="{{ song.url }}">
       <a href="{{ song.url | relativeUrl(page.url) }}">
         {{ song.data.title }}{% if song.data.alternate_title %}<span class="alt-title"> ({{ song.data.alternate_title }})</span>{% endif %}{% if song.data.author %}<span class="author"> — {{ song.data.author }}</span>{% endif %}
       </a>
@@ -14,3 +28,5 @@ title: Songbook
     <li><em>No songs yet. Add a markdown file under <code>src/songs/</code>.</em></li>
   {% endfor %}
 </ul>
+<p id="song-search-empty" class="song-search-empty" hidden><em>No songs match.</em></p>
+<script type="module" src="{{ '/assets/search.js' | relativeUrl(page.url) }}"></script>
