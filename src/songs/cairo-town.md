@@ -5,6 +5,7 @@ author: Dillon Bustin
 bop_rating: 3
 structure: chorus
 rnge: so-la
+joiny_inny: hard
 ---
     I'm rolling, flowing, around these hills; 
     I must take my rest, but this river never will.

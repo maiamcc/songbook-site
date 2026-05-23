@@ -7,6 +7,7 @@ bop_rating: 4
 structure: refrain-lines
 topics: [monks, buildings]
 rnge: so-la
+joiny_inny: easy
 notes: >-
     According to Carter, Julian lived at about the time of Chaucer, in a cell
     (she was a hermit and a mystic) in what is now the Chapel of Julian in Norwich,
