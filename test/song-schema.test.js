@@ -61,9 +61,13 @@ test("string fields reject non-strings", () => {
 });
 
 test("bop_rating must be integer 1-5", () => {
+  // bop_rating now goes through enumField with a custom isBopRating
+  // check, so the error message lists the legal values rather than
+  // saying "integer 1-5". The check itself still enforces integer in
+  // the [1, 5] range — string "5" and float 3.5 still fail.
   for (const bad of [0, 6, 3.5, "5", -1]) {
     assert.deepEqual(validate({ ...REQUIRED, bop_rating: bad }), [
-      'field "bop_rating" must be integer 1-5',
+      'field "bop_rating" must be one of: 1, 2, 3, 4, 5',
     ]);
   }
   for (const ok of [1, 2, 3, 4, 5]) {

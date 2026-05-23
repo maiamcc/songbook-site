@@ -36,7 +36,7 @@ layout: base.njk
       <div class="song-vitals">
         {% if bop_rating %}
         <dl class="song-meta">
-          <dt>Bop</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}</dd>
+          <dt>Bop</dt><dd class="rating">{{ m.indexLink("bop_rating", bop_rating, bop_rating ~ " / 5") }}<span class="enum-legend" title="{{ enums.bop_rating | enumHelpText }}" aria-label="Bop rating help">?</span></dd>
         </dl>
         {% endif %}
         {% if rnge %}

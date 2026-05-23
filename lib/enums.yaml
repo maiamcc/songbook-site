@@ -17,3 +17,18 @@ joiny_inny:
     easy: easy in a pub sing context, e.g. simple chorus or repeated lines
     moderate: the bulk of pub sing songs
     hard: fast, wordy, Nancy Kerr bullshit etc.
+
+# Bop-rating values are integers 1–5. js-yaml parses integer-looking
+# keys as numbers, but JS object keys coerce to strings, so they read
+# as "1".."5" once loaded — fine for the help-tooltip lookup and the
+# legend formatting. The type check stays as isBopRating (passed via
+# enumField's `check` override) so frontmatter still validates as
+# integer, not string.
+bop_rating:
+  desc: expresses the energy of the song
+  values:
+    1: slow, sad, bring room down (e.g. Davy Cross)
+    2: melancholy but non-tear-jerkers, or relaxed lullaby vibes (e.g. Grey Funnel Line, Oars and Row)
+    3: middle of the road. May be gentle positivity or just kinda misc. (e.g. Cairo, Bonnet and Shawl, Lovely Agnes, East for the Winter)
+    4: fun, zippy, engaging and/or groovy and badass (e.g. I Like to Rise, Death Came A-Knockin)
+    5: certified banger, high-energy intensity (e.g. I Can Hew, Bringing In the Sheaves) or has the whole room losing their shit (e.g. Cow's Can't Swim, I've Got No Trousers On)

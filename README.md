@@ -60,9 +60,9 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `topics`          | list of strings | no       |               | ✓         |      | ✓     | +    |       |
 | `genre`           | string          | no       |               | ✓         |      | ✓     | +    |       |
 | `mood`            | string          | no       |               | ✓         |      | ✓     | +    |       |
-| `bop_rating`      | integer         | yes      | 1–5 inclusive | ✓         |      | ✓     | ✓    | ✓     |
+| `bop_rating`      | enum (integer)  | yes      | 1–5 inclusive; descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | ✓    | ✓     |
 | `structure`       | string          | no       |               | ✓         |      | ✓     | +    |       |
-| `joiny_inny`      | enum (string)   | no       | values + descriptions in `lib/enums.yaml` | ✓ |      | ✓     | +    |       |
+| `joiny_inny`      | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
 | `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
 | `rnge`            | string          | yes      | format `aa-bb` (lowercase) |           |      |       | ✓    | ✓     |
 
