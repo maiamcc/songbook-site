@@ -21,3 +21,20 @@
   {%- set desc = enums[field].values[value] -%}
   <a href="{{ href | relativeUrl(page.url) }}" title="{{ desc }}">{{ value | humanize }}</a>
 {%- endmacro %}
+
+{# Render a "?" help affordance with a CSS-driven hover tooltip listing
+   the field's description and every legal value + description (pulled
+   from the `enums` global). Replaces the native title-attribute
+   tooltip so the content can be styled — values render as a <dl>
+   laid out as a grid so wrapped description lines hang-indent under
+   the description column rather than wrapping flush-left under the
+   value name. `label` is the screen-reader name for the trigger. #}
+{% macro enumHelp(field, label) -%}
+<span class="enum-help">
+  <span class="enum-legend" tabindex="0" aria-label="{{ label }}">?</span>
+  <span class="enum-tooltip" role="tooltip">
+    <span class="enum-tooltip-desc">{{ enums[field].desc }}</span>
+    <dl>{% for k, v in enums[field].values %}<dt>{{ k | humanize }}</dt><dd>{{ v }}</dd>{% endfor %}</dl>
+  </span>
+</span>
+{%- endmacro %}

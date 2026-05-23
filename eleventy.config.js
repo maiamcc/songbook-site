@@ -78,22 +78,6 @@ export default function (eleventyConfig) {
     typeof s === "string" ? s.replace(/_/g, " ") : s
   );
 
-  // Format an ENUMS[field] record ({desc, values}) as the multi-line
-  // plaintext shown in the "?" help-tooltip next to an enum value on
-  // the song page. Field desc first, then a blank line, then one
-  // "name: description" line per legal value, where the name is the
-  // raw key with underscores swapped for spaces ("very_easy" reads as
-  // "very easy" to the reader). Newlines render as line breaks in
-  // native title-attribute tooltips in modern browsers.
-  eleventyConfig.addFilter("enumHelpText", (enumDef) => {
-    if (!enumDef) return "";
-    const lines = [enumDef.desc, ""];
-    for (const [k, v] of Object.entries(enumDef.values || {})) {
-      lines.push(`${k.replace(/_/g, " ")}: ${v}`);
-    }
-    return lines.join("\n");
-  });
-
   eleventyConfig.addCollection("songs", (api) => {
     const songs = api.getFilteredByGlob("src/songs/*.md");
     assertValidSongs(songs);

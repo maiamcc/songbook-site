@@ -252,18 +252,24 @@ h1 {
   white-space: pre;
 }
 
-/* Compact "?" affordance next to an enum value (e.g. joiny_inny in
-   the Metadata drawer). Hovering reveals a native browser tooltip
-   built from lib/enums.yaml via the `enumHelpText` filter — field
-   description first, then one "key: description" line per legal
-   value. `cursor: help` signals to the user that the affordance is
-   informational, not clickable. */
+/* Compact "?" affordance next to an enum value, plus a CSS-driven
+   tooltip listing the field description and every legal value with
+   its description (pulled from lib/enums.yaml). The .enum-help
+   wrapper anchors the absolutely-positioned tooltip; the tooltip is
+   hidden by default and revealed on hover or keyboard focus of
+   anything inside the wrapper — so moving the mouse from the "?"
+   into the tooltip itself keeps it open. */
+.enum-help {
+  position: relative;
+  display: inline-block;
+  margin-left: 0.4em;
+}
+
 .enum-legend {
   display: inline-block;
   width: 1.3em;
   height: 1.3em;
   line-height: 1.2em;
-  margin-left: 0.4em;
   font-size: 0.85em;
   text-align: center;
   color: var(--muted);
@@ -273,9 +279,79 @@ h1 {
   user-select: none;
 }
 
-.enum-legend:hover {
+.enum-legend:focus {
+  outline: none;
   color: var(--accent);
   border-color: var(--accent);
+}
+
+.enum-help:hover .enum-legend {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.enum-tooltip {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 0.4em);
+  left: 0;
+  min-width: 18em;
+  max-width: 28em;
+  padding: 0.6em 0.8em;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: left;
+  cursor: default;
+}
+
+.enum-help:hover .enum-tooltip,
+.enum-help:focus-within .enum-tooltip {
+  display: block;
+}
+
+.enum-tooltip-desc {
+  display: block;
+  margin-bottom: 0.5em;
+  color: var(--muted);
+}
+
+/* Values laid out as a 2-column grid: dt in column 1 (auto-sized to
+   the widest key, with a colon suffix), dd in column 2 (wraps within
+   its column, so continued lines hang-indent under the description
+   instead of under the dt). The dt/dd rules below explicitly reset
+   the surrounding .song-meta styles (display: inline, dd middot/
+   newline ::after content), which would otherwise leak in because
+   the tooltip is rendered inside a .song-meta dd. */
+.enum-tooltip dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.2em 0.5em;
+}
+
+.enum-tooltip dl dt,
+.enum-tooltip dl dd {
+  display: block;
+  margin: 0;
+  color: var(--fg);
+}
+
+.enum-tooltip dl dt {
+  font-weight: 600;
+}
+
+.enum-tooltip dl dt::after {
+  content: ":";
+}
+
+.enum-tooltip dl dd::after {
+  content: none;
 }
 
 /* Inline links inside song-meta (song page) and index-meta (index page

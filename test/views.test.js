@@ -45,16 +45,6 @@ function render(filepath, ctx) {
     const entry = entries.find((e) => e.field === field && e.value === value);
     return entry ? entry.songs.length : 0;
   });
-  // Mirror the eleventy.config.js enumHelpText filter so song.njk's
-  // "?" tooltip can render without registering a separate Nunjucks env.
-  env.addFilter("enumHelpText", (enumDef) => {
-    if (!enumDef) return "";
-    const lines = [enumDef.desc, ""];
-    for (const [k, v] of Object.entries(enumDef.values || {})) {
-      lines.push(`${k.replace(/_/g, " ")}: ${v}`);
-    }
-    return lines.join("\n");
-  });
   return env.renderString(content, {
     // Templates expect collections.indexEntries to exist. Default to
     // an empty list; individual tests can override.

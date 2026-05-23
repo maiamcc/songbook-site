@@ -25,7 +25,7 @@ joiny_inny:
 # enumField's `check` override) so frontmatter still validates as
 # integer, not string.
 bop_rating:
-  desc: expresses the energy of the song
+  desc: energy of the song / how much of a bop it is, low -> high
   values:
     1: slow, sad, bring room down (e.g. Davy Cross)
     2: melancholy but non-tear-jerkers, or relaxed lullaby vibes (e.g. Grey Funnel Line, Oars and Row)
