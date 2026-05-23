@@ -6,11 +6,11 @@
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
-    "clean": "rm -rf _site",
+    "clean": "find _site -mindepth 1 -maxdepth 1 -not -name .git -exec rm -rf {} + 2>/dev/null || true",
     "test": "node --test test/*.test.js",
     "new-song": "node scripts/new-song.js",
     "check-print-pages": "npm run build && node scripts/check-print-pages.js",
-    "deploy": "npm run build && cd _site && git add -A && (git diff --cached --quiet && echo 'No changes to commit; pushing any prior unpushed commits.' || git commit -m \"Deploy $(date -u +%Y-%m-%dT%H:%M:%SZ)\") && git push"
+    "deploy": "npm run clean && npm run build && cd _site && git add -A && (git diff --cached --quiet && echo 'No changes to commit; pushing any prior unpushed commits.' || git commit -m \"Deploy $(date -u +%Y-%m-%dT%H:%M:%SZ)\") && git push"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
