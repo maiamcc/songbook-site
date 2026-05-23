@@ -19,5 +19,5 @@
 {% macro enumLink(field, value) -%}
   {%- set href = "/index/" ~ field ~ "/" ~ (value | slugify) ~ "/" -%}
   {%- set desc = enums[field].values[value] -%}
-  <a href="{{ href | relativeUrl(page.url) }}" title="{{ desc }}">{{ value }}</a>
+  <a href="{{ href | relativeUrl(page.url) }}" title="{{ desc }}">{{ value | humanize }}</a>
 {%- endmacro %}

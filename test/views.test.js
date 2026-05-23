@@ -38,9 +38,22 @@ function render(filepath, ctx) {
   env.addFilter("slugify", slugify);
   env.addFilter("relativeUrl", relativeUrl);
   env.addFilter("inlineMarkdown", inlineMarkdown);
+  env.addFilter("humanize", (s) =>
+    typeof s === "string" ? s.replace(/_/g, " ") : s
+  );
   env.addFilter("indexCount", (entries, field, value) => {
     const entry = entries.find((e) => e.field === field && e.value === value);
     return entry ? entry.songs.length : 0;
+  });
+  // Mirror the eleventy.config.js enumHelpText filter so song.njk's
+  // "?" tooltip can render without registering a separate Nunjucks env.
+  env.addFilter("enumHelpText", (enumDef) => {
+    if (!enumDef) return "";
+    const lines = [enumDef.desc, ""];
+    for (const [k, v] of Object.entries(enumDef.values || {})) {
+      lines.push(`${k.replace(/_/g, " ")}: ${v}`);
+    }
+    return lines.join("\n");
   });
   return env.renderString(content, {
     // Templates expect collections.indexEntries to exist. Default to
@@ -110,10 +123,11 @@ const FIELD_FIXTURES = {
   joiny_inny: (() => {
     const value = Object.keys(ENUMS.joiny_inny.values)[0];
     const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const humanized = value.replace(/_/g, " ");
     return {
       value,
       marker: new RegExp(
-        `href="/index/joiny_inny/${escape(slugify(value))}/"[^>]*title="[^"]+"[^>]*>${escape(value)}<`
+        `href="/index/joiny_inny/${escape(slugify(value))}/"[^>]*title="[^"]+"[^>]*>${escape(humanized)}<`
       ),
     };
   })(),

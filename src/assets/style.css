@@ -252,52 +252,30 @@ h1 {
   white-space: pre;
 }
 
-/* Compact "?" disclosure next to an enum value (e.g. joiny_inny in
-   the Metadata drawer) that opens a legend listing every legal value
-   and its description, pulled from lib/enums.yaml via the `enums`
-   global. Inline so it sits beside the value; the inner <dl> picks up
-   the drawer's existing .song-meta-drawer dt/dd styling for free
-   (colon after dt, newline between dd's), so the expansion renders as
-   one "label: description" row per legal value. */
+/* Compact "?" affordance next to an enum value (e.g. joiny_inny in
+   the Metadata drawer). Hovering reveals a native browser tooltip
+   built from lib/enums.yaml via the `enumHelpText` filter — field
+   description first, then one "key: description" line per legal
+   value. `cursor: help` signals to the user that the affordance is
+   informational, not clickable. */
 .enum-legend {
-  display: inline-block;
-  margin-left: 0.4em;
-  font-size: 0.85em;
-}
-
-.enum-legend summary {
-  cursor: pointer;
   display: inline-block;
   width: 1.3em;
   height: 1.3em;
   line-height: 1.2em;
+  margin-left: 0.4em;
+  font-size: 0.85em;
   text-align: center;
   color: var(--muted);
   border: 1px solid var(--border);
   border-radius: 50%;
-  list-style: none;
+  cursor: help;
   user-select: none;
 }
 
-.enum-legend summary::-webkit-details-marker {
-  display: none;
-}
-
-.enum-legend summary:hover {
+.enum-legend:hover {
   color: var(--accent);
   border-color: var(--accent);
-}
-
-.enum-legend[open] > dl {
-  display: block;
-  margin: 0.4rem 0 0.2rem 0.2em;
-  padding: 0.1rem 0 0.1rem 0.6em;
-  border-left: 1px dotted var(--border);
-  color: var(--muted);
-}
-
-.enum-legend[open] > dl dt {
-  color: var(--fg);
 }
 
 /* Inline links inside song-meta (song page) and index-meta (index page
