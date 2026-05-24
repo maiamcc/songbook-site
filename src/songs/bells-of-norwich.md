@@ -4,10 +4,11 @@ author: Sydney Carter
 alternate_title: All Shall Be Well
 mood: [uplifting, rousing]
 bop_rating: 4
-structure: [refrain-lines, chorus]
-topics: [monks, buildings]
+structure: [chorus, repeat-line-you-listen-for]
+topics: [flowers / plants, love, seasons]
 rnge: so-la
 joiny_inny: easy
+known: "2"
 notes: >-
     According to Carter, Julian lived at about the time of Chaucer, in a cell
     (she was a hermit and a mystic) in what is now the Chapel of Julian in Norwich,
@@ -18,7 +19,7 @@ notes: >-
     peace to the troubles of her area at one time by repeating that message.
 
 
-    First recorded in 1997.
+    First recorded in 1997. Learned at EGSN from Chris Carpenter.
 ---
 
 Loud are the bells of Norwich
