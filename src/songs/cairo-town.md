@@ -3,7 +3,7 @@ title: Cairo Town
 alternate_title: The Roustabout Song
 author: Dillon Bustin
 bop_rating: 3
-structure: chorus
+structure: [chorus]
 rnge: so-la
 joiny_inny: hard
 ---

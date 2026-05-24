@@ -93,7 +93,7 @@ const FIELD_FIXTURES = {
   author: { value: "AuthorSentinel", marker: "AuthorSentinel" },
   topics: { value: ["TopicSentinel"], marker: "TopicSentinel" },
   genre: { value: "GenreSentinel", marker: "GenreSentinel" },
-  mood: { value: "MoodSentinel", marker: "MoodSentinel" },
+  mood: { value: ["MoodSentinel"], marker: "MoodSentinel" },
   // bop_rating renders as "N / 5" on screen (and on index pages); the
   // print view drops the "/ 5" and the index link, so it gets its own
   // distinctive marker that targets the <dt>Bop</dt><dd>N</dd> pair.
@@ -102,7 +102,7 @@ const FIELD_FIXTURES = {
     marker: /3 \/ 5/,
     printMarker: /<dt>Bop<\/dt><dd>3<\/dd>/,
   },
-  structure: { value: "StructureSentinel", marker: "StructureSentinel" },
+  structure: { value: ["StructureSentinel"], marker: "StructureSentinel" },
   // joiny_inny is an enum field — value must be a legal key from
   // lib/enums.yaml or validate() will reject it. Pick the first key
   // from ENUMS at runtime rather than hardcoding one, so editing the

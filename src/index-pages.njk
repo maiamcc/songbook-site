@@ -29,11 +29,11 @@ layout: base.njk
       </a>
       <div class="index-meta">
         {% if song.data.genre %}<span>{{ m.indexLink("genre", song.data.genre, song.data.genre) }}</span>{% endif %}
-        {% if song.data.mood %}<span>{{ m.indexLink("mood", song.data.mood, song.data.mood) }}</span>{% endif %}
+        {% if song.data.mood %}<span>{% for v in song.data.mood %}{{ m.indexLink("mood", v, v) }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
         {% if song.data.bop_rating %}
           <span class="rating">{{ m.indexLink("bop_rating", song.data.bop_rating, song.data.bop_rating ~ " / 5") }}</span>
         {% endif %}
-        {% if song.data.structure %}<span>{{ m.indexLink("structure", song.data.structure, song.data.structure) }}</span>{% endif %}
+        {% if song.data.structure %}<span>{% for v in song.data.structure %}{{ m.enumLink("structure", v) }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
         {% if song.data.joiny_inny %}<span>{{ m.indexLink("joiny_inny", song.data.joiny_inny, song.data.joiny_inny | humanize) }}</span>{% endif %}
         {% if song.data.topics %}<span>{% for t in song.data.topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
       </div>

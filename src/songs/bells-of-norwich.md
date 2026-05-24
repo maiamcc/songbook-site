@@ -2,9 +2,9 @@
 title: The Bells of Norwich
 author: Sydney Carter
 alternate_title: All Shall Be Well
-mood: uplifting
+mood: [uplifting]
 bop_rating: 4
-structure: refrain-lines
+structure: [refrain-lines]
 topics: [monks, buildings]
 rnge: so-la
 joiny_inny: easy

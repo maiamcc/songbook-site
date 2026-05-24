@@ -31,15 +31,15 @@ test("unknown field rejected", () => {
 });
 
 test("all optional fields with valid types", () => {
-  // mood/structure are enums now; use values that exist in enums.yaml.
+  // mood/structure are list-of-enum; use values that exist in enums.yaml.
   // genre is also an enum but its values map is intentionally empty
   // (no current songs use it), so we just omit it from this fixture.
   const data = {
     ...REQUIRED,
     alternate_title: "Alt",
     topics: ["a", "b"],
-    mood: "sad",
-    structure: "chorus",
+    mood: ["sad"],
+    structure: ["chorus"],
     notes: "n/a",
   };
   assert.deepEqual(validate(data), []);

@@ -1,9 +1,9 @@
 ---
 title: Davy Cross
 author: Paul Davenport
-mood: sad
+mood: [sad]
 bop_rating: 1
-structure: chorus
+structure: [chorus]
 rnge: ti-so
 joiny_inny: easy
 notes: >-

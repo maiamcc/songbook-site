@@ -23,25 +23,23 @@ export function defaultSlug(title) {
 }
 
 // Convert one raw input string into the typed value the schema expects.
-// Returns undefined for blank input (the user is skipping). For bop_rating,
-// non-numeric input is passed through as-is so the validator surfaces the
-// canonical type error message.
+// Returns undefined for blank input (the user is skipping).
+// List fields (type starts with "list") accept comma-separated input.
+// Integer-valued enums (all enum keys are digits, e.g. bop_rating) coerce
+// to int; non-numeric input passes through as-is so validate() surfaces
+// the canonical error message.
 export function parse(field, raw) {
   const trimmed = raw.trim();
   if (trimmed === "") return undefined;
-  switch (field) {
-    case "topics":
-      return trimmed
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
-    case "bop_rating": {
-      const n = Number(trimmed);
-      return Number.isInteger(n) ? n : trimmed;
-    }
-    default:
-      return trimmed;
+  const spec = FIELDS[field];
+  if (spec.type.startsWith("list")) {
+    return trimmed.split(",").map((s) => s.trim()).filter(Boolean);
   }
+  if (spec.values && Object.keys(spec.values).every((k) => /^\d+$/.test(k))) {
+    const n = Number(trimmed);
+    return Number.isInteger(n) ? n : trimmed;
+  }
+  return trimmed;
 }
 
 function promptFor(field) {

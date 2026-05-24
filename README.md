@@ -30,7 +30,7 @@ That installs Eleventy and the few dev dependencies (`gray-matter`, `markdown-it
 
 After all fields are entered, the script proposes a slug derived from the title (with a leading `the`/`a` stripped) and asks you to accept it or enter a custom one. The file is written to `src/songs/<slug>.md` with the frontmatter populated and an empty body ready for lyrics. If the slug collides with an existing song, you're re-prompted.
 
-For list-valued fields like `topics`, enter a comma-separated string (e.g. `home, travel`).
+For list-valued fields like `topics`, `mood`, and `structure`, enter a comma-separated string (e.g. `uplifting, sweet`).
 
 ### Checking print-page count with `npm run check-print-pages`
 
@@ -59,9 +59,9 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `author`          | string          | yes      |               |           | ✓    |       | ✓    | ✓     |
 | `topics`          | list of strings | no       |               | ✓         |      | ✓     | +    |       |
 | `genre`           | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
-| `mood`            | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
+| `mood`            | list of enums (string) | no | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
 | `bop_rating`      | enum (integer)  | yes      | 1–5 inclusive; descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | ✓    | ✓     |
-| `structure`       | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
+| `structure`       | list of enums (string) | no | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
 | `known`           | enum (string)   | no       | reference-only; not rendered anywhere yet | ✓ |      |       |      |       |
 | `in_nb`           | boolean         | no       | reference-only; not rendered anywhere yet; absent ≡ false |   |      |       |      |       |
 | `joiny_inny`      | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
@@ -84,9 +84,9 @@ title: Country Roads
 author: John Denver
 topics: [home, travel]
 genre: folk
-mood: nostalgic
+mood: [uplifting, sweet]
 bop_rating: 5
-structure: verse-chorus
+structure: [chorus, zipper]
 rnge: do-mi
 notes: capo 2 sounds nicer
 ---
