@@ -16,7 +16,7 @@
 // Rows that fail schema validation or whose slug already exists are skipped
 // with an error/warning printed to stderr. All other rows are written.
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, openSync, readSync, closeSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
@@ -75,10 +75,24 @@ function parseCSV(text) {
   return rows;
 }
 
+function promptYN(question) {
+  process.stdout.write(`${question} [y/N] `);
+  const ttyFd = openSync("/dev/tty", "r");
+  const buf = Buffer.alloc(128);
+  const n = readSync(ttyFd, buf, 0, buf.length, null);
+  closeSync(ttyFd);
+  const answer = buf.slice(0, n).toString().trim().toLowerCase();
+  return answer === "y" || answer === "yes";
+}
+
 function main() {
-  const csvPath = process.argv[2];
+  const args = process.argv.slice(2);
+  const autoOverwrite = args.includes("--auto-overwrite");
+  const csvPath = args.find((a) => !a.startsWith("--"));
   if (!csvPath) {
-    console.error("Usage: node scripts/import-songs.js <path/to/songs.csv>");
+    console.error(
+      "Usage: node scripts/import-songs.js [--auto-overwrite] <path/to/songs.csv>"
+    );
     process.exit(1);
   }
 
@@ -109,6 +123,7 @@ function main() {
   }
 
   let created = 0;
+  let overwritten = 0;
   let skipped = 0;
 
   for (const [i, row] of dataRows.entries()) {
@@ -141,19 +156,33 @@ function main() {
     }
 
     const filepath = join(SONGS_DIR, `${slug}.md`);
-    if (existsSync(filepath)) {
-      console.warn(`row ${rowNum} (${data.title}): ${slug}.md already exists, skipping`);
-      skipped++;
-      continue;
+    const isExisting = existsSync(filepath);
+    if (isExisting) {
+      let doOverwrite;
+      if (autoOverwrite) {
+        console.log(`row ${rowNum} (${data.title}): ${slug}.md already exists, overwriting (--auto-overwrite)`);
+        doOverwrite = true;
+      } else {
+        doOverwrite = promptYN(`row ${rowNum} (${data.title}): ${slug}.md already exists. Overwrite?`);
+      }
+      if (!doOverwrite) {
+        skipped++;
+        continue;
+      }
     }
 
     const body = bodyCol >= 0 ? (row[bodyCol] ?? "") : "";
     writeFileSync(filepath, matter.stringify(body, data));
-    console.log(`created ${slug}.md`);
-    created++;
+    if (isExisting) {
+      console.log(`overwrote ${slug}.md`);
+      overwritten++;
+    } else {
+      console.log(`created ${slug}.md`);
+      created++;
+    }
   }
 
-  console.log(`\ndone: ${created} created, ${skipped} skipped`);
+  console.log(`\ndone: ${created} created, ${overwritten} overwritten, ${skipped} skipped`);
 }
 
 main();
