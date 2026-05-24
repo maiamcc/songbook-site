@@ -47,6 +47,8 @@ structure:
     2nd-4th-lines-repeat: 1st and 3rd lines are different per verse but 2nd/4th are the same
     counting: verses count up or down (also applies to going through months, days of week etc.)
     refrain-lines: repeating line(s) interspersed with verse
+    no-chorus: no chorus or other joiny-inny bits
+    folderol: nonsense words  # is this structural??
 #    round: it's a round.
 #    layer: parts layer on each other
 #    optional-chorus: chorus is optional

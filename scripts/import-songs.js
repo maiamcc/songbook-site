@@ -29,7 +29,7 @@ const SONGS_DIR = join(__dirname, "..", "src", "songs");
 // Minimal RFC-4180-compatible CSV parser. Handles quoted fields (commas and
 // newlines inside quotes), "" for a literal quote, CRLF and LF line endings.
 // Returns an array of row arrays (each row is an array of field strings).
-function parseCSV(text) {
+export function parseCSV(text) {
   const rows = [];
   let row = [];
   let field = "";
@@ -75,47 +75,27 @@ function parseCSV(text) {
   return rows;
 }
 
-function promptYN(question) {
-  process.stdout.write(`${question} [y/N] `);
-  const ttyFd = openSync("/dev/tty", "r");
-  const buf = Buffer.alloc(128);
-  const n = readSync(ttyFd, buf, 0, buf.length, null);
-  closeSync(ttyFd);
-  const answer = buf.slice(0, n).toString().trim().toLowerCase();
-  return answer === "y" || answer === "yes";
-}
-
-function main() {
-  const args = process.argv.slice(2);
-  const autoOverwrite = args.includes("--auto-overwrite");
-  const overwriteEmpty = args.includes("--overwrite-empty");
-  const csvPath = args.find((a) => !a.startsWith("--"));
-  if (!csvPath) {
-    console.error(
-      "Usage: node scripts/import-songs.js [--auto-overwrite] [--overwrite-empty] <path/to/songs.csv>"
-    );
-    process.exit(1);
-  }
-
-  let text;
-  try {
-    text = readFileSync(csvPath, "utf8");
-  } catch {
-    console.error(`Cannot read file: ${csvPath}`);
-    process.exit(1);
-  }
-
-  const rows = parseCSV(text);
+// Core import logic. Separated from main() so it can be tested without
+// touching the real songs directory or /dev/tty.
+//
+// options:
+//   autoOverwrite  — overwrite existing files without calling onConflict
+//   overwriteEmpty — skip the merge; write only what the CSV row contains
+//   onConflict(slug, title, rowNum) => boolean
+//                  — called on collision when autoOverwrite is false;
+//                    return true to overwrite, false to skip
+//
+// Returns { created, overwritten, skipped }.
+export function importSongs(songsDir, csvText, { autoOverwrite = false, overwriteEmpty = false, onConflict = null } = {}) {
+  const rows = parseCSV(csvText);
   if (rows.length < 2) {
-    console.error("CSV must have a header row and at least one data row");
-    process.exit(1);
+    throw new Error("CSV must have a header row and at least one data row");
   }
 
   const [headers, ...dataRows] = rows;
   const slugCol = headers.indexOf("slug");
   const bodyCol = headers.indexOf("body");
 
-  // Warn about unrecognised column names upfront (excluding reserved ones).
   const reserved = new Set(["slug", "body"]);
   for (const h of headers) {
     if (!reserved.has(h) && !FIELDS[h]) {
@@ -156,7 +136,7 @@ function main() {
       continue;
     }
 
-    const filepath = join(SONGS_DIR, `${slug}.md`);
+    const filepath = join(songsDir, `${slug}.md`);
     const isExisting = existsSync(filepath);
     if (isExisting) {
       let doOverwrite;
@@ -164,7 +144,7 @@ function main() {
         console.log(`row ${rowNum} (${data.title}): ${slug}.md already exists, overwriting (--auto-overwrite)`);
         doOverwrite = true;
       } else {
-        doOverwrite = promptYN(`row ${rowNum} (${data.title}): ${slug}.md already exists. Overwrite?`);
+        doOverwrite = onConflict ? onConflict(slug, data.title, rowNum) : false;
       }
       if (!doOverwrite) {
         skipped++;
@@ -192,7 +172,56 @@ function main() {
     }
   }
 
+  return { created, overwritten, skipped };
+}
+
+function promptYN(question) {
+  process.stdout.write(`${question} [y/N] `);
+  const ttyFd = openSync("/dev/tty", "r");
+  const buf = Buffer.alloc(128);
+  const n = readSync(ttyFd, buf, 0, buf.length, null);
+  closeSync(ttyFd);
+  const answer = buf.slice(0, n).toString().trim().toLowerCase();
+  return answer === "y" || answer === "yes";
+}
+
+function main() {
+  const args = process.argv.slice(2);
+  const autoOverwrite = args.includes("--auto-overwrite");
+  const overwriteEmpty = args.includes("--overwrite-empty");
+  const csvPath = args.find((a) => !a.startsWith("--"));
+  if (!csvPath) {
+    console.error(
+      "Usage: node scripts/import-songs.js [--auto-overwrite] [--overwrite-empty] <path/to/songs.csv>"
+    );
+    process.exit(1);
+  }
+
+  let text;
+  try {
+    text = readFileSync(csvPath, "utf8");
+  } catch {
+    console.error(`Cannot read file: ${csvPath}`);
+    process.exit(1);
+  }
+
+  let result;
+  try {
+    result = importSongs(SONGS_DIR, text, {
+      autoOverwrite,
+      overwriteEmpty,
+      onConflict: (slug, title, rowNum) =>
+        promptYN(`row ${rowNum} (${title}): ${slug}.md already exists. Overwrite?`),
+    });
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+
+  const { created, overwritten, skipped } = result;
   console.log(`\ndone: ${created} created, ${overwritten} overwritten, ${skipped} skipped`);
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
