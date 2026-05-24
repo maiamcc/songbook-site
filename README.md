@@ -39,8 +39,10 @@ For list-valued fields like `topics`, `mood`, and `structure`, enter a comma-sep
 
 ```sh
 npm run import-songs path/to/songs.csv
-# or, to automatically overwrite any existing song files without prompting:
+# skip the overwrite prompt and always overwrite:
 npm run import-songs -- --auto-overwrite path/to/songs.csv
+# also allow empty CSV cells to clear existing field values:
+npm run import-songs -- --auto-overwrite --overwrite-empty path/to/songs.csv
 ```
 
 The header row should use field names from the schema (`title`, `author`, `mood`, etc.). Two extra columns are also recognised:
@@ -48,7 +50,7 @@ The header row should use field names from the schema (`title`, `author`, `mood`
 - **`slug`** — if present and non-empty, used as the file slug; otherwise derived from the title (same rule as `new-song`).
 - **`body`** — if present, written as the song's markdown body (lyrics).
 
-For list-valued fields (`topics`, `mood`, `structure`), put a comma-separated string in the cell (e.g. `uplifting, rousing`). Rows that fail schema validation are skipped with an error message. If a song file already exists for a slug, you'll be prompted to confirm whether to overwrite it; pass `--auto-overwrite` to skip the prompt and always overwrite. All other rows are written. Unknown column names are ignored with a warning.
+For list-valued fields (`topics`, `mood`, `structure`), put a comma-separated string in the cell (e.g. `uplifting, rousing`). Rows that fail schema validation are skipped with an error message. If a song file already exists for a slug, you'll be prompted to confirm whether to overwrite it; pass `--auto-overwrite` to skip the prompt and always overwrite. When overwriting, empty CSV cells leave existing field values intact — pass `--overwrite-empty` to allow empty cells to clear existing values. All other rows are written. Unknown column names are ignored with a warning.
 
 ### Checking print-page count with `npm run check-print-pages`
 

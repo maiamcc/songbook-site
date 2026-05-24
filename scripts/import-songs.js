@@ -88,10 +88,11 @@ function promptYN(question) {
 function main() {
   const args = process.argv.slice(2);
   const autoOverwrite = args.includes("--auto-overwrite");
+  const overwriteEmpty = args.includes("--overwrite-empty");
   const csvPath = args.find((a) => !a.startsWith("--"));
   if (!csvPath) {
     console.error(
-      "Usage: node scripts/import-songs.js [--auto-overwrite] <path/to/songs.csv>"
+      "Usage: node scripts/import-songs.js [--auto-overwrite] [--overwrite-empty] <path/to/songs.csv>"
     );
     process.exit(1);
   }
@@ -172,7 +173,16 @@ function main() {
     }
 
     const body = bodyCol >= 0 ? (row[bodyCol] ?? "") : "";
-    writeFileSync(filepath, matter.stringify(body, data));
+
+    let fileData = data;
+    let fileBody = body;
+    if (isExisting && !overwriteEmpty) {
+      const existing = matter(readFileSync(filepath, "utf8"));
+      fileData = { ...existing.data, ...data };
+      fileBody = body !== "" ? body : existing.content.trimStart();
+    }
+
+    writeFileSync(filepath, matter.stringify(fileBody, fileData));
     if (isExisting) {
       console.log(`overwrote ${slug}.md`);
       overwritten++;
