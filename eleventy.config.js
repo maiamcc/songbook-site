@@ -7,6 +7,8 @@ import { slugify } from "./lib/slug.js";
 import { relativeUrl } from "./lib/url.js";
 import { ENUMS, INDEXABLE_FIELDS, validate } from "./lib/song-schema.js";
 import { buildSongIndexRecord } from "./lib/search-index.js";
+import { buildFilterRecord } from "./lib/filter-index.js";
+import { filterFields } from "./lib/filter-config.js";
 
 // A standalone markdown-it instance configured the same way Eleventy's
 // instance is (via configureMarkdown), used to pre-render each song's
@@ -44,6 +46,11 @@ export default function (eleventyConfig) {
   // Loaded once by song-schema.js from lib/enums.yaml; re-exposing it
   // here lets templates render a legend without re-parsing YAML.
   eleventyConfig.addGlobalData("enums", ENUMS);
+
+  // Per-field config for the home-page filter UI (field keys, labels,
+  // and enum value ordering). Derived from the schema; add new filterable
+  // fields to lib/filter-config.js to surface them in the filter panel.
+  eleventyConfig.addGlobalData("filterFields", filterFields);
 
   eleventyConfig.amendLibrary("md", configureMarkdown);
 
@@ -101,6 +108,18 @@ export default function (eleventyConfig) {
     return songs.sort((a, b) =>
       sortKey(a.data.title).localeCompare(sortKey(b.data.title))
     );
+  });
+
+  // Per-song filter data: one record per song containing only the
+  // filterable fields (schema.filterable === true) that are set.
+  // Emitted as /filter-index.json by src/filter-index.njk; consumed by
+  // the client-side filter UI in src/assets/search.js.
+  eleventyConfig.addCollection("filterIndex", (api) => {
+    const songs = api.getFilteredByGlob("src/songs/*.md");
+    return songs.map((song) => {
+      const { data } = matter(readFileSync(song.inputPath, "utf8"));
+      return buildFilterRecord(song.url, data);
+    });
   });
 
   // Per-song search blob: every schema field's value plus the body

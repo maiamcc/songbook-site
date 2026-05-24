@@ -17,6 +17,10 @@ title: Songbook
     aria-label="Search songs"
   />
 </div>
+<details class="song-filters" id="song-filter-details">
+  <summary class="song-filter-summary">Filters</summary>
+  <div class="filter-panel" id="filter-panel"></div>
+</details>
 <ul class="song-list" id="song-list">
   {% for song in collections.songs %}
     <li data-url="{{ song.url }}">
@@ -29,4 +33,7 @@ title: Songbook
   {% endfor %}
 </ul>
 <p id="song-search-empty" class="song-search-empty" hidden><em>No songs match.</em></p>
+<script id="filter-config" type="application/json">
+{"fields": {{ filterFields | dump | safe }}}
+</script>
 <script type="module" src="{{ '/assets/search.js' | relativeUrl(page.url) }}"></script>

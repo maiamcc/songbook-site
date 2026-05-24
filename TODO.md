@@ -1,6 +1,7 @@
 # TODO
 
 ## P1
+* `known` as int
 * filtering for songs on the homepage
   * should be encoded in url so can share
 * index view should have labels for info shown -- maybe just columns w headers?
@@ -10,6 +11,8 @@
 * printable home page / indexes (with all selected columns)
 * printing multiple songs (e.g. put a checkbox, print all checked songs)
 * more layout stuff ???
+* somewhat rein in all possible topics
+* tweak tooltip formatting for better margins and line continuation esp on mobile
 
 ### P3:
 * search in navbar

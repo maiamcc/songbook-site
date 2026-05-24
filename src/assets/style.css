@@ -681,3 +681,95 @@ h1 {
   body { color: black; }
   a, a:hover { color: inherit; }
 }
+
+/* Home-page filter panel (below search box). A <details> element
+   collapses the whole panel; inside, one row per filterable field
+   with toggle-button pills for each distinct value present in songs. */
+.song-filters {
+  margin: 0 0 1rem;
+}
+
+.song-filter-summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--muted);
+  user-select: none;
+  width: max-content;
+}
+
+.song-filter-summary:hover {
+  color: var(--accent);
+}
+
+.filter-panel {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.filter-clear {
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  width: max-content;
+  margin-bottom: 0.15rem;
+}
+
+.filter-clear:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.filter-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.5rem;
+}
+
+.filter-label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  flex-shrink: 0;
+  min-width: 6rem;
+}
+
+.filter-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.filter-btn {
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.1rem 0.4rem;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.filter-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.filter-btn--active {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.filter-btn--active:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}

@@ -7,6 +7,7 @@ import nunjucks from "nunjucks";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
 import { ENUMS, FIELDS } from "../lib/song-schema.js";
+import { filterFields } from "../lib/filter-config.js";
 import { slugify } from "../lib/slug.js";
 import { relativeUrl } from "../lib/url.js";
 import { configureMarkdown } from "../lib/markdown.js";
@@ -62,6 +63,9 @@ function render(filepath, ctx) {
     // enumLink macro can resolve `enums[field][value]` to a description.
     // Tests can override by passing their own enums in ctx.
     enums: ENUMS,
+    // Mirror eleventy.config.js's addGlobalData("filterFields", ...) so
+    // the home page template can render the filter config script tag.
+    filterFields,
     ...ctx,
   });
 }

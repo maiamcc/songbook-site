@@ -72,21 +72,21 @@ Internal URLs in the built HTML are relative (see `lib/url.js` and the `relative
 
 Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is defined in `lib/song-schema.js` and enforced both in tests (`test/songs.test.js`) and at build time (the `songs` collection in `eleventy.config.js`).
 
-| Field             | Type            | Required | Notes         | Indexable | Home | Index | Song | Print |
-| ----------------- | --------------- | -------- | ------------- | --------- | ---- | ----- | ---- | ----- |
-| `title`           | string          | yes      |               |           | ✓    | ✓     | ✓    | ✓     |
-| `alternate_title` | string          | no       |               |           | ✓    | ✓     | ✓    | ✓     |
-| `author`          | string          | yes      |               |           | ✓    |       | ✓    | ✓     |
-| `topics`          | list of strings | no       |               | ✓         |      | ✓     | +    |       |
-| `genre`           | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
-| `mood`            | list of enums (string) | no | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
-| `bop_rating`      | enum (integer)  | yes      | 1–5 inclusive; descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | ✓    | ✓     |
-| `structure`       | list of enums (string) | no | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
-| `known`           | enum (string)   | no       | reference-only; not rendered anywhere yet | ✓ |      |       |      |       |
-| `in_nb`           | boolean         | no       | reference-only; not rendered anywhere yet; absent ≡ false |   |      |       |      |       |
-| `joiny_inny`      | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ |      | ✓     | +    |       |
-| `notes`           | string          | no       |               |           |      |       | ✓    | ✓     |
-| `rnge`            | string          | yes      | format `aa-bb` (lowercase) |           |      |       | ✓    | ✓     |
+| Field             | Type            | Required | Notes         | Indexable | Filter | Home | Index | Song | Print |
+| ----------------- | --------------- | -------- | ------------- | --------- | ------ | ---- | ----- | ---- | ----- |
+| `title`           | string          | yes      |               |           |        | ✓    | ✓     | ✓    | ✓     |
+| `alternate_title` | string          | no       |               |           |        | ✓    | ✓     | ✓    | ✓     |
+| `author`          | string          | yes      |               |           |        | ✓    |       | ✓    | ✓     |
+| `topics`          | list of strings | no       |               | ✓         | ✓      |      | ✓     | +    |       |
+| `genre`           | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ |      | ✓     | +    |       |
+| `mood`            | list of enums (string) | no | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ |      | ✓     | +    |       |
+| `bop_rating`      | enum (integer)  | yes      | 1–5 inclusive; descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ |      | ✓     | ✓    | ✓     |
+| `structure`       | list of enums (string) | no | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ |      | ✓     | +    |       |
+| `known`           | enum (string)   | no       | reference-only; not rendered anywhere yet | ✓ | ✓ |      |       |      |       |
+| `in_nb`           | boolean         | no       | reference-only; not rendered anywhere yet; absent ≡ false |   | ✓  |      |       |      |       |
+| `joiny_inny`      | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ |      | ✓     | +    |       |
+| `notes`           | string          | no       |               |           |        |      |       | ✓    | ✓     |
+| `rnge`            | string          | yes      | format `aa-bb` (lowercase) |           |        |      |       | ✓    | ✓     |
 
 The Home, Index, Song, and Print columns mark which fields, when present, are surfaced on which view. A `✓` means the field is visible by default; a `+` means the field is rendered but hidden by default behind a collapsible drawer (the "Metadata" `<details>` element on the song view).
 - `Home`: the homepage list
@@ -95,6 +95,8 @@ The Home, Index, Song, and Print columns mark which fields, when present, are su
 - `Print`: on a song's print page at `/songs/<slug>/print/` (linked from each screen song page).
 
 The Indexable column marks fields whose values can serve as the *key* of an index page — e.g. an index of all songs with `mood: uplifting`.
+
+The Filter column marks fields that appear as toggle-button filter controls on the home page. Selecting one or more values for a field hides songs that don't match (OR within a field, AND across fields). Filter state is reflected in the URL as query params (`?mood=rousing&mood=fun`) so a filtered view is shareable.
 
 Example:
 

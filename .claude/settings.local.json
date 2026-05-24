@@ -16,7 +16,8 @@
       "Bash(chmod +x /Users/maia/code/songbook-site/scripts/check-print-pages.js)",
       "Bash(sh -c 'afplay /System/Library/Sounds/Glass.aiff && osascript -e '\"'\"'display notification \"Ready for input\" with title \"Claude Code\"'\"'\"'')",
       "Bash(echo \"exit=$?\")",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npx eleventy *)"
     ]
   }
 }
