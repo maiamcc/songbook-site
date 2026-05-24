@@ -6,6 +6,51 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { FIELDS, validate } from "../lib/song-schema.js";
+
+// Serialize a single YAML value inline (no trailing newline).
+// Handles the types that appear in song frontmatter: string, number,
+// boolean, and array of strings.
+function yamlValue(v) {
+  if (typeof v === "number") return String(v);
+  if (typeof v === "boolean") return String(v);
+  if (Array.isArray(v)) return `[${v.map(yamlScalar).join(", ")}]`;
+  return yamlScalar(v);
+}
+
+// Quote a string if it contains characters that would confuse a YAML parser.
+const YAML_KEYWORDS = new Set(["true", "false", "null", "yes", "no", "on", "off"]);
+function yamlScalar(s) {
+  if (
+    s === "" ||
+    s !== s.trim() ||
+    YAML_KEYWORDS.has(s.toLowerCase()) ||
+    /^[{[\|>&*!%@`'"#:?,-]/.test(s) ||
+    s.includes(": ") ||
+    s.includes(" #")
+  ) {
+    return `"${s.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n")}"`;
+  }
+  return s;
+}
+
+// Build a complete song .md file string. Present fields are emitted as
+// normal YAML; absent optional fields are emitted as commented-out
+// placeholders so the user can see every field and fill it in later.
+export function buildSongFile(data, body = "") {
+  const lines = ["---"];
+  for (const field of Object.keys(FIELDS)) {
+    const v = data[field];
+    if (v !== undefined && v !== null) {
+      lines.push(`${field}: ${yamlValue(v)}`);
+    } else if (!FIELDS[field].required) {
+      lines.push(`# ${field}: TK`);
+    }
+  }
+  lines.push("---");
+  lines.push("");
+  if (body.trim()) lines.push(body.trimEnd());
+  return lines.join("\n") + "\n";
+}
 import { slugify } from "../lib/slug.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -106,7 +151,7 @@ async function main() {
       }
     }
 
-    await writeFile(filepath, matter.stringify("", data));
+    await writeFile(filepath, buildSongFile(data));
     console.log(`created ${filepath}`);
   } finally {
     rl.close();

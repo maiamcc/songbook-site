@@ -21,7 +21,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { FIELDS, validate } from "../lib/song-schema.js";
-import { defaultSlug, parse, slugify } from "./new-song.js";
+import { defaultSlug, parse, slugify, buildSongFile } from "./new-song.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SONGS_DIR = join(__dirname, "..", "src", "songs");
@@ -163,7 +163,7 @@ export function importSongs(songsDir, csvText, { autoOverwrite = false, overwrit
       fileBody = body !== "" ? body : existing.content.trimStart();
     }
 
-    writeFileSync(filepath, matter.stringify(fileBody, fileData));
+    writeFileSync(filepath, buildSongFile(fileData, fileBody));
     if (isExisting) {
       console.log(`overwrote ${slug}.md`);
       overwritten++;
