@@ -106,19 +106,39 @@ test("importSongs: unknown column is ignored, song still created", () => {
   });
 });
 
-test("importSongs: unknown column emits a warning naming the column", () => {
+test("importSongs: column names matched case-insensitively", () => {
+  withTempDir((dir) => {
+    const csv = `TITLE,AUTHOR,BOP_RATING,RNGE\nMy Song,Test Author,3,ab-cd\n`;
+    const { created } = importSongs(dir, csv);
+    assert.equal(created, 1);
+    const { data } = matter(readFileSync(join(dir, "my-song.md"), "utf8"));
+    assert.equal(data.title, "My Song");
+    assert.equal(data.bop_rating, 3);
+  });
+});
+
+test("importSongs: reserved columns slug and body matched case-insensitively", () => {
+  withTempDir((dir) => {
+    const csv = `${REQUIRED_CSV_HEADER},SLUG,BODY\n${REQUIRED_CSV_VALUES},my-slug,Some lyrics\n`;
+    importSongs(dir, csv);
+    const raw = readFileSync(join(dir, "my-slug.md"), "utf8");
+    assert.ok(raw.includes("Some lyrics"));
+  });
+});
+
+test("importSongs: unknown column emits a warning with original casing", () => {
   withTempDir((dir) => {
     const warnings = [];
     const origWarn = console.warn;
     console.warn = (msg) => warnings.push(msg);
     try {
-      importSongs(dir, `${REQUIRED_CSV_HEADER},bogus_col\n${REQUIRED_CSV_VALUES},whatever\n`);
+      importSongs(dir, `${REQUIRED_CSV_HEADER},Bogus_Col\n${REQUIRED_CSV_VALUES},whatever\n`);
     } finally {
       console.warn = origWarn;
     }
     assert.ok(
-      warnings.some((w) => w.includes("bogus_col")),
-      `expected a warning mentioning "bogus_col", got: ${JSON.stringify(warnings)}`
+      warnings.some((w) => w.includes("Bogus_Col")),
+      `expected a warning mentioning "Bogus_Col", got: ${JSON.stringify(warnings)}`
     );
   });
 });

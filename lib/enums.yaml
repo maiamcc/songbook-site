@@ -67,7 +67,7 @@ known:
 joiny_inny:
   desc: how easy it is to join in on this one in a vacuum (i.e. in a place where it isn't known)
   values:
-    very_easy: suitable for non singers
+    very-easy: suitable for non singers
     easy: easy in a pub sing context, e.g. simple chorus or repeated lines
     moderate: the bulk of pub sing songs
     hard: fast, wordy, Nancy Kerr bullshit etc.

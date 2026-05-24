@@ -47,10 +47,10 @@ test("all optional fields with valid types", () => {
 
 test("topics must be list[string]", () => {
   assert.deepEqual(validate({ ...REQUIRED, topics: "home" }), [
-    'field "topics" must be list[string]',
+    'field "topics" must be list[string] (got: "home")',
   ]);
   assert.deepEqual(validate({ ...REQUIRED, topics: ["a", 2] }), [
-    'field "topics" must be list[string]',
+    'field "topics" must be list[string] (got: ["a",2])',
   ]);
 });
 
@@ -60,7 +60,7 @@ test("string fields reject non-strings", () => {
   // The loop lets future plain-string fields slot in with a one-line edit.
   for (const field of ["notes"]) {
     assert.deepEqual(validate({ ...REQUIRED, [field]: 5 }), [
-      `field "${field}" must be string`,
+      `field "${field}" must be string (got: 5)`,
     ]);
   }
 });
@@ -72,7 +72,7 @@ test("bop_rating must be integer 1-5", () => {
   // the [1, 5] range — string "5" and float 3.5 still fail.
   for (const bad of [0, 6, 3.5, "5", -1]) {
     assert.deepEqual(validate({ ...REQUIRED, bop_rating: bad }), [
-      'field "bop_rating" must be one of: 1, 2, 3, 4, 5',
+      `field "bop_rating" must be one of: 1, 2, 3, 4, 5 (got: ${JSON.stringify(bad)})`,
     ]);
   }
   for (const ok of [1, 2, 3, 4, 5]) {
@@ -169,6 +169,7 @@ test("joiny_inny: validate rejects unknown enum values", () => {
       `expected error message to list legal value "${legal}", got: ${errs[0]}`
     );
   }
+  assert.ok(errs[0].includes('(got: "bogus")'), `expected (got: "bogus") in: ${errs[0]}`);
 });
 
 test("joiny_inny: validate accepts every legal value from enums.yaml", () => {
@@ -207,7 +208,7 @@ test("rnge must match [a-z]{2}-[a-z]{2}", () => {
   for (const v of bad) {
     if (v === null) continue; // null is dropped by validate before check
     assert.deepEqual(validate({ ...REQUIRED, rnge: v }), [
-      'field "rnge" must be string matching [a-z]{2}-[a-z]{2}',
+      `field "rnge" must be string matching [a-z]{2}-[a-z]{2} (got: ${JSON.stringify(v)})`,
     ]);
   }
   for (const ok of ["ab-cd", "aa-aa", "zz-yz"]) {

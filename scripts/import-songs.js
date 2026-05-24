@@ -92,14 +92,15 @@ export function importSongs(songsDir, csvText, { autoOverwrite = false, overwrit
     throw new Error("CSV must have a header row and at least one data row");
   }
 
-  const [headers, ...dataRows] = rows;
+  const [rawHeaders, ...dataRows] = rows;
+  const headers = rawHeaders.map((h) => h.toLowerCase());
   const slugCol = headers.indexOf("slug");
   const bodyCol = headers.indexOf("body");
 
   const reserved = new Set(["slug", "body"]);
-  for (const h of headers) {
+  for (const [i, h] of headers.entries()) {
     if (!reserved.has(h) && !FIELDS[h]) {
-      console.warn(`warning: unknown column "${h}" will be ignored`);
+      console.warn(`warning: unknown column "${rawHeaders[i]}" will be ignored`);
     }
   }
 
