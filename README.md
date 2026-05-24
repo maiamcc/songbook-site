@@ -21,6 +21,7 @@ That installs Eleventy and the few dev dependencies (`gray-matter`, `markdown-it
 | `npm run clean`    | Remove the `_site/` build output.                                                               |
 | `npm test`         | Run the Node test suite (`node --test test/*.test.js`). Validates every song, asserts the README table matches the schema, and renders the view templates against fixtures. |
 | `npm run new-song` | Launch the interactive new-song script (see below).                                             |
+| `npm run import-songs <file.csv>` | Bulk-import songs from a CSV file (see below).                              |
 | `npm run check-print-pages` | Build the site, render each song's `/print/` page through headless Chrome as A5 PDF, and list any that span 2+ pages (see below). |
 | `npm run deploy`   | Build the site, commit the resulting `_site/` to its own git repo with a timestamp, and push to GitHub Pages (see below). |
 
@@ -31,6 +32,21 @@ That installs Eleventy and the few dev dependencies (`gray-matter`, `markdown-it
 After all fields are entered, the script proposes a slug derived from the title (with a leading `the`/`a` stripped) and asks you to accept it or enter a custom one. The file is written to `src/songs/<slug>.md` with the frontmatter populated and an empty body ready for lyrics. If the slug collides with an existing song, you're re-prompted.
 
 For list-valued fields like `topics`, `mood`, and `structure`, enter a comma-separated string (e.g. `uplifting, sweet`).
+
+### Importing songs from a CSV with `npm run import-songs`
+
+`scripts/import-songs.js` bulk-creates song files from a CSV. Pass the CSV path as an argument:
+
+```sh
+npm run import-songs path/to/songs.csv
+```
+
+The header row should use field names from the schema (`title`, `author`, `mood`, etc.). Two extra columns are also recognised:
+
+- **`slug`** — if present and non-empty, used as the file slug; otherwise derived from the title (same rule as `new-song`).
+- **`body`** — if present, written as the song's markdown body (lyrics).
+
+For list-valued fields (`topics`, `mood`, `structure`), put a comma-separated string in the cell (e.g. `uplifting, rousing`). Rows that fail schema validation or whose slug already exists are skipped with an error message; all other rows are written. Unknown column names are ignored with a warning.
 
 ### Checking print-page count with `npm run check-print-pages`
 
