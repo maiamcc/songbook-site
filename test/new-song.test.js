@@ -7,7 +7,12 @@ test("slugify: basic kebab-case", () => {
 });
 
 test("slugify: lowercases, collapses runs of non-alphanumeric", () => {
-  assert.equal(slugify("Don't Stop -- Believin'!"), "don-t-stop-believin");
+  assert.equal(slugify("Don't Stop -- Believin'!"), "dont-stop-believin");
+});
+
+test("slugify: apostrophes are stripped, not converted to hyphens", () => {
+  assert.equal(slugify("It's a Pleasure to Know You"), "its-a-pleasure-to-know-you");
+  assert.equal(slugify("Don’t You (Forget About Me)"), "dont-you-forget-about-me");
 });
 
 test("slugify: trims surrounding whitespace and stray hyphens", () => {
@@ -25,7 +30,7 @@ test("defaultSlug: strips leading 'the' article", () => {
 });
 
 test("defaultSlug: strips leading 'a' article", () => {
-  assert.equal(defaultSlug("A Hard Day's Night"), "hard-day-s-night");
+  assert.equal(defaultSlug("A Hard Day's Night"), "hard-days-night");
 });
 
 test("defaultSlug: does not strip mid-word matches", () => {
