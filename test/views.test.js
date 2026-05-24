@@ -45,6 +45,15 @@ function render(filepath, ctx) {
     const entry = entries.find((e) => e.field === field && e.value === value);
     return entry ? entry.songs.length : 0;
   });
+  env.addFilter("adjacentSongs", (songs, url) => {
+    if (!Array.isArray(songs)) return { prev: null, next: null };
+    const idx = songs.findIndex((s) => s.url === url);
+    if (idx < 0) return { prev: null, next: null };
+    return {
+      prev: idx > 0 ? songs[idx - 1] : null,
+      next: idx < songs.length - 1 ? songs[idx + 1] : null,
+    };
+  });
   return env.renderString(content, {
     // Templates expect collections.indexEntries to exist. Default to
     // an empty list; individual tests can override.

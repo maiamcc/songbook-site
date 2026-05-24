@@ -1,7 +1,6 @@
 # TODO
 
 ## P1
-* upload from csv
 * filtering for songs on the homepage
   * should be encoded in url so can share
 * index view should have labels for info shown -- maybe just columns w headers?
@@ -22,3 +21,4 @@
 * customizable print layout: paper size, fields included, etc.
 * style the metadata drawer on the song view (currently default `<details>`/`<summary>` look)
 * other information to track, maybe: roud number, lineage/where i learned it from, do EYE have it memorized
+* command to `list-todo`: show songs that don't have lyrics

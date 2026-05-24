@@ -64,6 +64,18 @@ export default function (eleventyConfig) {
     str == null ? "" : md.renderInline(String(str))
   );
 
+  // Returns the previous and next songs (alphabetically) relative to `url`.
+  // Used by song.njk to render prev/next navigation links.
+  eleventyConfig.addFilter("adjacentSongs", (songs, url) => {
+    if (!Array.isArray(songs)) return { prev: null, next: null };
+    const idx = songs.findIndex((s) => s.url === url);
+    if (idx < 0) return { prev: null, next: null };
+    return {
+      prev: idx > 0 ? songs[idx - 1] : null,
+      next: idx < songs.length - 1 ? songs[idx + 1] : null,
+    };
+  });
+
   // Returns the number of songs sharing this (field, value) pair.
   // Used by templates to put a "N songs" tooltip on index-page links.
   eleventyConfig.addFilter("indexCount", (entries, field, value) => {

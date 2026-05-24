@@ -51,6 +51,7 @@ layout: base.njk
     {% endif %}
 
   </header>
+  <hr class="section-sep" />
 
   <div class="song-body">
     {{ content | safe }}
@@ -61,3 +62,17 @@ layout: base.njk
   <p class="notes"><span class="notes-label">Notes:</span> {{ notes | inlineMarkdown | safe }}</p>
   {% endif %}
 </article>
+
+{% set adj = collections.songs | adjacentSongs(page.url) %}
+{% if adj.prev or adj.next %}
+<hr class="section-sep" />
+
+<nav class="song-nav">
+  <div class="song-nav-prev">
+    {% if adj.prev %}<a href="{{ adj.prev.url | relativeUrl(page.url) }}">← Prev.: "{{ adj.prev.data.title }}"</a>{% endif %}
+  </div>
+  <div class="song-nav-next">
+    {% if adj.next %}<a href="{{ adj.next.url | relativeUrl(page.url) }}">Next: "{{ adj.next.data.title }}" →</a>{% endif %}
+  </div>
+</nav>
+{% endif %}

@@ -380,6 +380,15 @@ h1 {
 /* Thin rule between the lyric body and the notes paragraph (screen
    and print). Lives inside the {% if notes %} block, so absent when
    notes are. Owns the vertical spacing — .notes itself is margin:0. */
+.section-sep {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1.25rem 0;
+  width: 8rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .notes-sep {
   border: 0;
   border-top: 1px solid var(--border);
@@ -662,6 +671,12 @@ h1 {
    to pure black so the on-screen soft-black --fg doesn't waste a
    half-percent of toner, and pin link color to currentColor so no
    accent ink hits paper. */
+.song-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
 @media print {
   .layout-toggle { display: none; }
   .print-tip { display: block; }
