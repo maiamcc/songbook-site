@@ -35,7 +35,7 @@ export function parseCSV(text) {
   let field = "";
   let inQuotes = false;
   let i = 0;
-  const s = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  const s = text.replace(/^﻿/, "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
   while (i < s.length) {
     const ch = s[i];
@@ -95,9 +95,9 @@ export function importSongs(songsDir, csvText, { autoOverwrite = false, overwrit
   const [rawHeaders, ...dataRows] = rows;
   const headers = rawHeaders.map((h) => h.toLowerCase());
   const slugCol = headers.indexOf("slug");
-  const bodyCol = headers.indexOf("body");
+  const bodyCol = headers.indexOf("body") !== -1 ? headers.indexOf("body") : headers.indexOf("lyrics");
 
-  const reserved = new Set(["slug", "body"]);
+  const reserved = new Set(["slug", "body", "lyrics"]);
   for (const [i, h] of headers.entries()) {
     if (!reserved.has(h) && !FIELDS[h]) {
       console.warn(`warning: unknown column "${rawHeaders[i]}" will be ignored`);
