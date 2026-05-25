@@ -593,6 +593,18 @@ h1 {
   background: var(--hover-bg);
 }
 
+/* Index links inside table cells — same dotted-underline as song-meta links. */
+.song-table .song-td a {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.song-table .song-td a:hover {
+  text-decoration-color: var(--accent-dark);
+}
+
 /* Chips for list-valued fields in table cells (mood, structure, topics). */
 .cell-chips {
   display: flex;
@@ -606,6 +618,17 @@ h1 {
   padding: 0.05rem 0.35rem;
   font-size: 0.82rem;
   white-space: nowrap;
+}
+
+/* When a chip is itself a link, keep the chip visual and suppress the
+   default underline (the chip border provides enough affordance). */
+a.cell-chip {
+  text-decoration: none;
+}
+
+a.cell-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* Index pages: one page per (field, value) pair, rich per-song rows. */

@@ -299,21 +299,34 @@ const DEFAULT_COL_LABELS = {
   function renderCellContent(td, song, col) {
     const val = song[col];
     if (val === undefined || val === null) return;
+    const indexUrl = song.indexUrls?.[col];
     if (Array.isArray(val)) {
       const wrap = document.createElement("span");
       wrap.className = "cell-chips";
-      for (const item of val) {
-        const chip = document.createElement("span");
+      for (let i = 0; i < val.length; i++) {
+        const itemUrl = Array.isArray(indexUrl) ? indexUrl[i] : null;
+        const chip = itemUrl
+          ? makeIndexLink(itemUrl, String(val[i]))
+          : document.createElement("span");
         chip.className = "cell-chip";
-        chip.textContent = humanizeVal(String(item));
+        if (!itemUrl) chip.textContent = humanizeVal(String(val[i]));
         wrap.appendChild(chip);
       }
       td.appendChild(wrap);
     } else if (typeof val === "boolean") {
       td.textContent = val ? "yes" : "no";
+    } else if (indexUrl) {
+      td.appendChild(makeIndexLink(indexUrl, String(val)));
     } else {
       td.textContent = humanizeVal(String(val));
     }
+  }
+
+  function makeIndexLink(url, val) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.textContent = humanizeVal(val);
+    return a;
   }
 })();
 
