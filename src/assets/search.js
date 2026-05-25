@@ -83,9 +83,6 @@ const DEFAULT_COL_LABELS = {
   let sortDir = "asc"; // "asc" | "desc"
 
   // ── Build table skeleton ───────────────────────────────────────────────────
-  const controlsRow = document.createElement("div");
-  controlsRow.className = "song-table-controls";
-
   const tableScroll = document.createElement("div");
   tableScroll.className = "song-table-scroll";
 
@@ -104,11 +101,6 @@ const DEFAULT_COL_LABELS = {
   const scrollHintLeft = document.createElement("div");
   scrollHintLeft.className = "table-scroll-hint table-scroll-hint--left";
   scrollHintLeft.setAttribute("aria-hidden", "true");
-
-  tableWrap.appendChild(controlsRow);
-  tableWrap.appendChild(tableScroll);
-  tableWrap.appendChild(scrollHintRight);
-  tableWrap.appendChild(scrollHintLeft);
 
   // ── Meatball menu (column picker) ──────────────────────────────────────────
   let menuOpen = false;
@@ -139,8 +131,17 @@ const DEFAULT_COL_LABELS = {
     meatballMenu.appendChild(label);
   }
 
-  controlsRow.appendChild(meatballMenu);
-  controlsRow.appendChild(meatballBtn);
+  // Meatball button and menu sit in a wrapper that's absolutely positioned
+  // at the top-right of song-table-wrap, level with the thead row.
+  const meatballWrap = document.createElement("div");
+  meatballWrap.className = "song-table-controls";
+  meatballWrap.appendChild(meatballBtn);
+  meatballWrap.appendChild(meatballMenu);
+
+  tableWrap.appendChild(tableScroll);
+  tableWrap.appendChild(meatballWrap);
+  tableWrap.appendChild(scrollHintRight);
+  tableWrap.appendChild(scrollHintLeft);
 
   meatballBtn.addEventListener("click", (e) => {
     e.stopPropagation();

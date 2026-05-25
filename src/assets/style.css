@@ -530,17 +530,18 @@ h1 {
   background: linear-gradient(to left, transparent, var(--bg));
 }
 
-/* Controls row: meatball button at far right, menu drops below it. */
+/* Meatball wrapper: absolutely positioned at the top-right of
+   .song-table-wrap so it sits level with the thead row. z-index keeps
+   it above the scroll-hint gradient. */
 .song-table-controls {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 0.3rem;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 20;
 }
 
 .table-cols-btn {
-  background: none;
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.15rem 0.55rem;
@@ -551,6 +552,12 @@ h1 {
 }
 .table-cols-btn:hover {
   background: var(--hover-bg);
+}
+
+/* Reserve space in the last header cell so its text doesn't run under
+   the absolutely-positioned meatball button. */
+.song-table thead th:last-child {
+  padding-right: 2.5rem;
 }
 
 .table-cols-menu {
