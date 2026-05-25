@@ -13,8 +13,11 @@ structure:
   - refrain-lines
   - folderol
 joiny_inny: easy
-author: trad. (after Nancy & Sandra Kerr’s version), ed. Emma Azelborn
+#author: trad. (after Nancy & Sandra Kerr’s version), ed. Emma Azelborn
+author: trad.
 known: 3
+notes: >-
+    Originally learned from Ruthie; slight lyric tweaks from Emma.
 ---
 Down into this country
 There lived a wealthy squire;
