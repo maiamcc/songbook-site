@@ -944,6 +944,13 @@ a.cell-chip:hover {
   background: none;
 }
 
+/* Sort direction indicator in print table headers: subdued so it reads as
+   annotation rather than emphasis. */
+.print-sort-arrow {
+  font-size: 0.65em;
+  color: var(--muted);
+}
+
 /* Active search notice rendered above the print table when ?q= is set. */
 .print-search-notice {
   font-size: 0.85rem;

@@ -126,9 +126,13 @@ const DEFAULT_COL_LABELS = { title: "Title", author: "Author", bop_rating: "Bop"
   for (const col of cols) {
     const th = document.createElement("th");
     th.className = "song-th";
-    let label = colLabels[col] || col;
-    if (sortField === col) label += sortDir === "asc" ? " ▲" : " ▼";
-    th.textContent = label;
+    th.textContent = colLabels[col] || col;
+    if (sortField === col) {
+      const arrow = document.createElement("span");
+      arrow.className = "print-sort-arrow";
+      arrow.textContent = sortDir === "asc" ? " ▲" : " ▼";
+      th.appendChild(arrow);
+    }
     headerRow.appendChild(th);
   }
   thead.appendChild(headerRow);
@@ -144,9 +148,10 @@ const DEFAULT_COL_LABELS = { title: "Title", author: "Author", bop_rating: "Bop"
       if (col === "title") {
         td.textContent = song.title || "(untitled)";
         if (song.alternate_title) {
+          td.appendChild(document.createTextNode(" "));
           const alt = document.createElement("span");
           alt.className = "alt-title";
-          alt.textContent = ` (${song.alternate_title})`;
+          alt.textContent = `(${song.alternate_title})`;
           td.appendChild(alt);
         }
       } else {
