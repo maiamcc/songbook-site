@@ -13,7 +13,7 @@ structure:
   - chorus
   - repeat-line-you-listen-for
 joiny_inny: easy
-author: TK
+author: trad. English
 known: 2
 notes: >-
     Roud 660, alt. "A Sailor and His True Love"; 19th cen. broadside.
@@ -30,7 +30,7 @@ And the larks they sang melodious at the dawning of the day.
 Said the sailor to his true love, "I am bound far away,
 I am bound for the East Indies, I no longer can stay.
 I am bound for the East Indies where the loud cannons roar,
-I am going to leave my Nancy, she’s the girl I adore."
+I am going to leave my Nancy, she's the girl I adore."
     
     I am going to leave my Nancy (3x) etc.
 

@@ -1,0 +1,37 @@
+#!/bin/sh
+# Replace curly (typographic) quotes with straight ASCII quotes in staged
+# text files before committing. Re-stages any file it modifies.
+#
+# Curly quotes replaced:
+#   \x{201C} " left double quotation mark  -> "
+#   \x{201D} " right double quotation mark -> "
+#   \x{2018} ' left single quotation mark  -> '
+#   \x{2019} ' right single quotation mark -> '
+#
+# Activated via core.hooksPath = .githooks (set by `npm install` through
+# the prepare script in package.json).
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+for file in $staged; do
+  [ -f "$file" ] || continue
+
+  # Replace curly quotes in-place. -CSD tells perl to treat stdin/stdout/args
+  # as UTF-8. \x27 is a plain ASCII single quote, avoiding shell-quoting
+  # issues inside the heredoc-less -pe string.
+  perl -i -CSD -pe '
+    s/\x{201C}/"/g;
+    s/\x{201D}/"/g;
+    s/\x{2018}/\x27/g;
+    s/\x{2019}/\x27/g;
+  ' "$file" 2>/dev/null || continue
+
+  # Re-stage the file if perl actually changed anything.
+  if ! git diff --quiet -- "$file"; then
+    git add "$file"
+    printf 'pre-commit: straightened curly quotes in %s\n' "$file"
+  fi
+done
+
+exit 0

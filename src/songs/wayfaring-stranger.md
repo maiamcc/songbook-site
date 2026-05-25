@@ -12,7 +12,7 @@ structure:
   - chorus
   - zipper
 joiny_inny: easy
-author: trad.
+author: trad. American
 known: 2
 ---
 I am a poor wayfaring stranger,

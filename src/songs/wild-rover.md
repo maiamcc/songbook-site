@@ -11,8 +11,10 @@ bop_rating: 5
 structure:
   - chorus
 joiny_inny: easy
-author: trad.
+author: trad. English or Irish
 known: 2
+notes: >-
+    The English and Irish both lay claim to this one?
 ---
 I've been a wild rover for many's the year,
 And I've spent all me money on whiskey and beer;
