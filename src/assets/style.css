@@ -484,7 +484,8 @@ h1 {
   background: var(--hover-bg);
 }
 
-.song-list .alt-title {
+.song-list .alt-title,
+.song-table .alt-title {
   color: var(--muted);
   font-style: italic;
 }
