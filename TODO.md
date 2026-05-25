@@ -1,18 +1,17 @@
 # TODO
 
 ## P1
-* song print: line spacing and font size play
-* double check about refrains lines without big space before them / no line break before preceeding verse
 * show range with single or double arrow for how many octaves it spans
+* double check about refrains lines without big space before them / no line break before preceeding verse
+* See davy cross: break the left-side bar when there are linebreaks in chorus material
 
 ## P2:
-* printing multiple songs (e.g. put a checkbox, print all checked songs)
 * mobile layout?
+* hitbox on checkboxes on table should be bigger
 * tweak tooltip formatting for better margins and line continuation esp on mobile
 * what do I do with really long e.g. authors gumming up the song table? author_display escape hatch field, or?
 * make pill link layout less weird.
 * freeze title col of table when scrolling
-* See davy cross: break the left-side bar when there are linebreaks in chorus material
 
 ### P3:
 * somewhat rein in all possible topics

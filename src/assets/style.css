@@ -985,6 +985,11 @@ a.cell-chip:hover {
   color: var(--muted);
 }
 
+/* Position context for the absolutely-positioned per-page number labels. */
+.multi-print-song {
+  position: relative;
+}
+
 /* Page break after each non-last song section in multi-print. */
 .multi-print-song--break {
   page-break-after: always;
@@ -993,11 +998,34 @@ a.cell-chip:hover {
 
 /* Blank page inserted by JS after a song that ends on an odd page.
    Sits at the top of the page created by the preceding section's break-after,
-   then forces another break so the next song starts two pages later (odd). */
+   then forces another break so the next song starts two pages later (odd).
+   The `page: blank` name opts these divs into the @page blank rule below
+   so no page number is printed on them. */
 .multi-print-blank {
+  page: blank;
   page-break-after: always;
   break-after: page;
   min-height: 1px;
+}
+
+@page blank {
+  @bottom-right { content: none; }
+}
+
+/* Per-song page number label injected by JS into each song section.
+   Each div spans exactly one PAGE_PX block and aligns its text to the
+   bottom-right corner, matching where @bottom-right content would appear. */
+.song-page-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+  font-family: "Cormorant", Georgia, serif;
+  font-size: 9pt;
+  color: #666;
 }
 
 /* Active search notice rendered above the print table when ?q= is set. */
