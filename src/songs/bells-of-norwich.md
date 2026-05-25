@@ -2,7 +2,7 @@
 title: The Bells of Norwich
 author: Sydney Carter
 alternate_title: All Shall Be Well
-mood: [uplifting, rousing]
+mood: [uplifting]
 bop_rating: 4
 structure: [chorus, repeat-line-you-listen-for]
 topics: [flowers / plants, love, seasons]

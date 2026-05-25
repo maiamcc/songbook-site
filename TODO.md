@@ -3,6 +3,8 @@
 ## P1
 * printable home page / indexes (with all selected columns)
 * song print: line spacing and font size play
+* by default, index pages sort alphabetically by title
+* clicking anywhere in table when a row is highlighted BESIDES the carve-out index links should take you to the song
 
 ## P2:
 * printing multiple songs (e.g. put a checkbox, print all checked songs)
@@ -10,6 +12,8 @@
 * tweak tooltip formatting for better margins and line continuation esp on mobile
 * what do I do with really long e.g. authors gumming up the song table? author_display escape hatch field, or?
 * make pill link layout less weird.
+* freeze title col of table when scrolling
+* See davy cross: break the left-side bar when there are linebreaks in chorus material
 
 ### P3:
 * somewhat rein in all possible topics

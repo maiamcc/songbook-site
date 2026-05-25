@@ -6,6 +6,7 @@ bop_rating: 3
 structure: [chorus]
 rnge: so-la
 joiny_inny: hard
+topics: [sea / sailors]
 known: 1
 ---
     I'm rolling, flowing, around these hills; 

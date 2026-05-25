@@ -205,25 +205,6 @@ for (const [field, spec] of Object.entries(FIELDS)) {
     });
   }
 
-  test(`index view: ${field} ${spec.display.includes("index") ? "renders" : "does NOT render"}`, () => {
-    // Pick a non-special field for the entry key so the heading doesn't
-    // collide with the per-song row's content for that same field.
-    const html = render(INDEX_NJK, {
-      entry: {
-        field: "genre",
-        value: "FilterSentinel",
-        slug: "filtersentinel",
-        songs: [{ url: "/songs/x/", data: fullSong }],
-      },
-    });
-    const shouldRender = spec.display.includes("index");
-    assert.equal(
-      contains(html, fixture.marker),
-      shouldRender,
-      `expected ${field} marker to ${shouldRender ? "" : "not "}appear in index view`
-    );
-  });
-
   test(`print view: ${field} ${spec.display.includes("print") ? "renders" : "does NOT render"}`, () => {
     const html = renderPrint(fullSong, fullSong.content);
     const shouldRender = spec.display.includes("print");
@@ -395,6 +376,21 @@ test("home view: song table container and filter config script are present", () 
   // and the filter-config data blob the JS reads are present.
   assert.match(html, /id="song-table-wrap"/);
   assert.match(html, /id="filter-config"/);
+});
+
+test("index view: has table wrap, filter-config, and table-config with locked filter", () => {
+  const html = render(INDEX_NJK, {
+    entry: {
+      field: "mood",
+      value: "uplifting",
+      slug: "uplifting",
+      songs: [{ url: "/songs/x/", data: { title: "X" } }],
+    },
+  });
+  assert.match(html, /id="song-table-wrap"/);
+  assert.match(html, /id="filter-config"/);
+  assert.match(html, /id="table-config"/);
+  assert.match(html, /"lockedFilter":\s*\{\s*"field":\s*"mood",\s*"value":\s*"uplifting"\s*\}/);
 });
 
 test("index view: heading shows field name (underscore→space) and value", () => {

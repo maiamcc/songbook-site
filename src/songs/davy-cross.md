@@ -6,6 +6,7 @@ bop_rating: 1
 structure: [chorus]
 rnge: ti-so
 joiny_inny: easy
+topics: [sea / sailors, death]
 notes: >-
     From the liner notes of The Melrose Quartet's album _Dominion_: "Ganseys are
     intricately knitted fishermen's sweaters. Mary Cross of Flamborough told Paul

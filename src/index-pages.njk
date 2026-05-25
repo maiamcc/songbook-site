@@ -21,22 +21,38 @@ layout: base.njk
 </h1>
 <p class="index-count">{{ entry.songs.length }} song{% if entry.songs.length != 1 %}s{% endif %}</p>
 
-<ul class="song-list">
-  {% for song in entry.songs %}
-    <li>
-      <a href="{{ song.url | relativeUrl(page.url) }}">
-        {{ song.data.title }}{% if song.data.alternate_title %}<span class="alt-title"> ({{ song.data.alternate_title }})</span>{% endif %}
-      </a>
-      <div class="index-meta">
-        {% if song.data.genre %}<span>{{ m.indexLink("genre", song.data.genre, song.data.genre) }}</span>{% endif %}
-        {% if song.data.mood %}<span>{% for v in song.data.mood %}{{ m.indexLink("mood", v, v) }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
-        {% if song.data.bop_rating %}
-          <span class="rating">{{ m.indexLink("bop_rating", song.data.bop_rating, song.data.bop_rating ~ " / 5") }}</span>
-        {% endif %}
-        {% if song.data.structure %}<span>{% for v in song.data.structure %}{{ m.enumLink("structure", v) }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
-        {% if song.data.joiny_inny %}<span>{{ m.indexLink("joiny_inny", song.data.joiny_inny, song.data.joiny_inny | humanize) }}</span>{% endif %}
-        {% if song.data.topics %}<span>{% for t in song.data.topics %}{{ m.indexLink("topics", t, t) }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
-      </div>
-    </li>
-  {% endfor %}
-</ul>
+{#
+  Search and filter are commented out for now. To re-enable:
+  1. Uncomment the song-search-wrap, song-filter-details, and song-search-empty blocks below.
+  2. The lockedFilter in table-config (already active) pre-restricts the song list to this index value,
+     and table.js's visibleFilterFields logic already excludes the locked field from the filter panel,
+     so the filter panel won't redundantly offer the field you're already filtering by.
+  (filter-config is always present — it drives column labels and the meatball menu regardless.)
+#}
+{# <div class="song-search-wrap">
+  <svg class="song-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" fill="none" />
+    <line x1="14.5" y1="14.5" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+  <input
+    type="search"
+    id="song-search"
+    class="song-search"
+    placeholder="Search titles, lyrics, notes, metadata…"
+    autocomplete="off"
+    aria-label="Search songs"
+  />
+</div>
+<details class="song-filters" id="song-filter-details">
+  <summary class="song-filter-summary">Filters</summary>
+  <div class="filter-panel" id="filter-panel"></div>
+</details> #}
+<div id="song-table-wrap" class="song-table-wrap"></div>
+{# <p id="song-search-empty" class="song-search-empty" hidden><em>No songs match.</em></p> #}
+<script id="filter-config" type="application/json">
+{"fields": {{ filterFields | dump | safe }}}
+</script>
+<script id="table-config" type="application/json">
+{"searchIndexUrl": "/search-index.json", "filterIndexUrl": "/filter-index.json", "lockedFilter": {"field": "{{ entry.field }}", "value": {{ entry.value | dump | safe }}}}
+</script>
+<script type="module" src="{{ '/assets/table.js' | relativeUrl(page.url) }}"></script>

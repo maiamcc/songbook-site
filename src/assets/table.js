@@ -31,35 +31,49 @@ const DEFAULT_COL_LABELS = {
   const searchInput = document.getElementById("song-search");
   const tableWrap = document.getElementById("song-table-wrap");
   const empty = document.getElementById("song-search-empty");
-  if (!searchInput || !tableWrap) return;
+  if (!tableWrap) return;
 
   const configEl = document.getElementById("filter-config");
   const filterFields = configEl ? JSON.parse(configEl.textContent).fields : [];
 
-  // Full label map: defaults first, then filterable field labels.
+  const tableConfigEl = document.getElementById("table-config");
+  const tableConfig = tableConfigEl ? JSON.parse(tableConfigEl.textContent) : {};
+  const searchIndexUrl = tableConfig.searchIndexUrl || "search-index.json";
+  const filterIndexUrl = tableConfig.filterIndexUrl || "filter-index.json";
+  const lockedFilter = tableConfig.lockedFilter || null; // { field, value } — always-on, hidden from UI
+
+  // Fields used for the filter panel and active state — the locked field is
+  // pre-applied and doesn't appear as a toggleable filter button.
+  const visibleFilterFields = lockedFilter
+    ? filterFields.filter((f) => f.key !== lockedFilter.field)
+    : filterFields;
+
+  // Full label map: defaults first, then all filterable field labels.
   const colLabels = { ...DEFAULT_COL_LABELS };
   for (const f of filterFields) {
     if (!(f.key in colLabels)) colLabels[f.key] = f.label;
   }
 
-  // Optional columns: filterable fields not already in the default set.
-  const optionalCols = filterFields.filter((f) => !DEFAULT_COL_KEYS.includes(f.key));
+  // Optional columns: visible filterable fields not already in the default set.
+  const optionalCols = visibleFilterFields.filter((f) => !DEFAULT_COL_KEYS.includes(f.key));
 
   // ── Fetch data ─────────────────────────────────────────────────────────────
   let searchByUrl, songs;
   try {
-    const sr = await fetch("search-index.json");
+    const sr = await fetch(searchIndexUrl);
     if (!sr.ok) throw new Error(sr.status);
     const entries = await sr.json();
     searchByUrl = new Map(entries.map((e) => [e.url, e.text]));
   } catch {
-    searchInput.disabled = true;
-    searchInput.placeholder = "Search unavailable";
+    if (searchInput) {
+      searchInput.disabled = true;
+      searchInput.placeholder = "Search unavailable";
+    }
     return;
   }
 
   try {
-    const fr = await fetch("filter-index.json");
+    const fr = await fetch(filterIndexUrl);
     if (fr.ok) songs = await fr.json();
   } catch {
     // Filter index unavailable — filtering and table unavailable.
@@ -67,13 +81,24 @@ const DEFAULT_COL_LABELS = {
 
   if (!songs || songs.length === 0) {
     tableWrap.textContent = "No songs yet. Add a markdown file under src/songs/.";
-    searchInput.disabled = true;
+    if (searchInput) searchInput.disabled = true;
     return;
+  }
+
+  // Pre-filter by locked value before building any state or UI.
+  if (lockedFilter) {
+    const { field, value } = lockedFilter;
+    songs = songs.filter((song) => {
+      const val = song[field];
+      if (val === undefined || val === null) return false;
+      const vals = Array.isArray(val) ? val.map(String) : [String(val)];
+      return vals.includes(String(value));
+    });
   }
 
   // ── State ──────────────────────────────────────────────────────────────────
   // active: { fieldKey -> Set<string> } — currently active filter values.
-  const active = Object.fromEntries(filterFields.map((f) => [f.key, new Set()]));
+  const active = Object.fromEntries(visibleFilterFields.map((f) => [f.key, new Set()]));
 
   // activeCols: Set<string> — optional column keys currently shown.
   const activeCols = new Set();
@@ -171,8 +196,8 @@ const DEFAULT_COL_LABELS = {
   const filterPanel = document.getElementById("filter-panel");
   let clearBtn = null;
   const filterByUrl = new Map(songs.map((s) => [s.url, s]));
-  if (filterPanel && filterFields.length > 0) {
-    clearBtn = buildFilterUI(filterPanel, filterFields, filterByUrl, active, renderAll);
+  if (filterPanel && visibleFilterFields.length > 0) {
+    clearBtn = buildFilterUI(filterPanel, visibleFilterFields, filterByUrl, active, renderAll);
   }
 
   // ── Restore state from URL ─────────────────────────────────────────────────
@@ -180,12 +205,12 @@ const DEFAULT_COL_LABELS = {
 
   // Search
   const initialQ = initialParams.get("q");
-  if (initialQ) searchInput.value = initialQ;
+  if (initialQ && searchInput) searchInput.value = initialQ;
 
   // Filters
   if (filterPanel) {
     let anyInitialFilter = false;
-    for (const { key } of filterFields) {
+    for (const { key } of visibleFilterFields) {
       for (const val of initialParams.getAll(key)) {
         if (!active[key]) continue;
         active[key].add(val);
@@ -220,7 +245,7 @@ const DEFAULT_COL_LABELS = {
   }
 
   // ── Event listeners ────────────────────────────────────────────────────────
-  searchInput.addEventListener("input", renderAll);
+  if (searchInput) searchInput.addEventListener("input", renderAll);
 
   // ── Initial render ─────────────────────────────────────────────────────────
   renderAll();
@@ -234,7 +259,7 @@ const DEFAULT_COL_LABELS = {
   }
 
   function renderAll() {
-    const q = searchInput.value;
+    const q = searchInput ? searchInput.value : "";
     const anyFilter = Object.values(active).some((s) => s.size > 0);
 
     const visible = songs.filter(
