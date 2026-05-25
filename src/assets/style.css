@@ -551,7 +551,7 @@ h1 {
   color: var(--fg);
 }
 .table-cols-btn:hover {
-  background: var(--hover-bg);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg));
 }
 
 /* Reserve space in the last header cell so its text doesn't run under
