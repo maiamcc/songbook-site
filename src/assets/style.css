@@ -626,8 +626,15 @@ h1 {
   color: var(--accent);
 }
 
+/* Row hover highlights the whole row. Suppress it when the pointer is
+   directly over a cell link so hovering an index link feels distinct
+   from hovering empty row space to navigate to the song. */
 .song-tr:hover {
   background: var(--hover-bg);
+}
+
+.song-tr:has(.song-td a:hover) {
+  background: none;
 }
 
 /* Index links inside table cells — same dotted-underline as song-meta links. */
