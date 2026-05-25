@@ -6,8 +6,8 @@ import { sortSongs, getSortVal } from "../src/assets/sort.js";
 // getSortVal
 // ---------------------------------------------------------------------------
 
-test("getSortVal: returns string value for a string field", () => {
-  assert.equal(getSortVal({ title: "Bells" }, "title"), "Bells");
+test("getSortVal: title field returns lowercase sort key", () => {
+  assert.equal(getSortVal({ title: "Bells" }, "title"), "bells");
 });
 
 test("getSortVal: returns number value for a numeric field", () => {
@@ -135,4 +135,48 @@ test("sortSongs: empty array treated as missing → sorts last", () => {
   const result = sortSongs(songs, "mood", "asc");
   assert.equal(result[0].mood[0], "rousing");
   assert.deepEqual(result[1].mood, []);
+});
+
+// ---------------------------------------------------------------------------
+// sortSongs — title field strips leading articles
+// ---------------------------------------------------------------------------
+
+test("sortSongs: title field ignores leading 'The'", () => {
+  const songs = [
+    { title: "The Bells of Norwich" },
+    { title: "Apple Tree" },
+    { title: "Mango Song" },
+  ];
+  const result = sortSongs(songs, "title", "asc");
+  // "The Bells…" sorts as "bells…" → B, after "apple…" → A, before "mango…" → M
+  assert.deepEqual(
+    result.map((s) => s.title),
+    ["Apple Tree", "The Bells of Norwich", "Mango Song"]
+  );
+});
+
+test("sortSongs: title field ignores leading 'A'", () => {
+  const songs = [
+    { title: "A Roving" },
+    { title: "Bold Mariner" },
+  ];
+  const result = sortSongs(songs, "title", "asc");
+  // "A Roving" sorts as "roving" → after "bold"
+  assert.deepEqual(
+    result.map((s) => s.title),
+    ["Bold Mariner", "A Roving"]
+  );
+});
+
+test("sortSongs: title 'The' stripping does not affect words starting with 'The'", () => {
+  // "Theatre" should NOT be stripped — only "the " (article + space)
+  const songs = [{ title: "Theatre" }, { title: "Bells" }];
+  const result = sortSongs(songs, "title", "asc");
+  assert.deepEqual(result.map((s) => s.title), ["Bells", "Theatre"]);
+});
+
+test("getSortVal: title field returns de-articled lowercase key", () => {
+  assert.equal(getSortVal({ title: "The Bells of Norwich" }, "title"), "bells of norwich");
+  assert.equal(getSortVal({ title: "A Roving" }, "title"), "roving");
+  assert.equal(getSortVal({ title: "Apple" }, "title"), "apple");
 });

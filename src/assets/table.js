@@ -103,8 +103,8 @@ const DEFAULT_COL_LABELS = {
   // activeCols: Set<string> — optional column keys currently shown.
   const activeCols = new Set();
 
-  // sortField / sortDir: currently active sort (null = unsorted).
-  let sortField = null;
+  // sortField / sortDir: currently active sort.
+  let sortField = "title";
   let sortDir = "asc"; // "asc" | "desc"
 
   // ── Build table skeleton ───────────────────────────────────────────────────
