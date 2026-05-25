@@ -5,7 +5,7 @@ alternate_title: All Shall Be Well
 mood: [uplifting]
 bop_rating: 4
 structure: [chorus, repeat-line-you-listen-for]
-topics: [flowers / plants, love, seasons]
+topics: [flowers / plants, love, seasons, religion / God]
 rnge: so-la
 joiny_inny: easy
 known: 2
