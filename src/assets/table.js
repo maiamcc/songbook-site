@@ -288,6 +288,21 @@ const DEFAULT_COL_LABELS = {
         renderAll();
       });
 
+      if (activeCols.has(col)) {
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "col-remove-btn";
+        removeBtn.setAttribute("aria-label", `Remove ${colLabels[col] || col} column`);
+        removeBtn.textContent = "[X]";
+        removeBtn.addEventListener("click", () => {
+          activeCols.delete(col);
+          const cb = meatballMenu.querySelector(`input[value="${CSS.escape(col)}"]`);
+          if (cb) cb.checked = false;
+          renderAll();
+        });
+        th.appendChild(removeBtn);
+      }
+
       th.appendChild(btn);
       tr.appendChild(th);
     }
