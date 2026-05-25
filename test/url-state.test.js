@@ -7,10 +7,11 @@ function params({
   q = "",
   active = {},
   activeCols = new Set(),
+  defaultOptionalCols = [],
   sortField = null,
   sortDir = "asc",
 } = {}) {
-  return buildSearchParams(q, active, activeCols, sortField, sortDir);
+  return buildSearchParams(q, active, activeCols, defaultOptionalCols, sortField, sortDir);
 }
 
 // ---------------------------------------------------------------------------
@@ -74,6 +75,30 @@ test("buildSearchParams: multiple active cols are comma-joined", () => {
   const p = params({ activeCols: new Set(["mood", "genre"]) });
   // Set preserves insertion order.
   assert.equal(p.get("cols"), "mood,genre");
+});
+
+test("buildSearchParams: activeCols matching defaults produces no cols param", () => {
+  const p = params({
+    activeCols: new Set(["author", "bop_rating"]),
+    defaultOptionalCols: ["author", "bop_rating"],
+  });
+  assert.equal(p.get("cols"), null);
+});
+
+test("buildSearchParams: activeCols with one default removed writes cols", () => {
+  const p = params({
+    activeCols: new Set(["bop_rating"]),
+    defaultOptionalCols: ["author", "bop_rating"],
+  });
+  assert.equal(p.get("cols"), "bop_rating");
+});
+
+test("buildSearchParams: empty activeCols when defaults exist writes cols=", () => {
+  const p = params({
+    activeCols: new Set(),
+    defaultOptionalCols: ["author", "bop_rating"],
+  });
+  assert.equal(p.get("cols"), "");
 });
 
 // ---------------------------------------------------------------------------

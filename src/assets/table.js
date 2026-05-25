@@ -16,11 +16,15 @@ import { songMatchesFilters } from "./filter-match.js";
 import { sortSongs } from "./sort.js";
 import { buildSearchParams } from "./url-state.js";
 
-// Always-visible columns. These are never in the meatball-menu column picker.
-const DEFAULT_COL_KEYS = ["title", "author", "bop_rating"];
+// Pinned columns: always visible, never in the meatball-menu column picker.
+const PINNED_COL_KEYS = ["title"];
 
-// Human-readable labels for default columns (filterable field labels come
-// from the filter-config JSON blob injected by index.njk).
+// Removable default columns: shown by default (pre-checked in the menu) but
+// the user can hide them via the meatball menu or the [X] header button.
+const REMOVABLE_DEFAULT_COL_KEYS = ["author", "bop_rating"];
+
+// Human-readable labels for non-filterable columns (filterable field labels
+// come from the filter-config JSON blob injected by the page template).
 const DEFAULT_COL_LABELS = {
   title: "Title",
   author: "Author",
@@ -54,8 +58,15 @@ const DEFAULT_COL_LABELS = {
     if (!(f.key in colLabels)) colLabels[f.key] = f.label;
   }
 
-  // Optional columns: visible filterable fields not already in the default set.
-  const optionalCols = visibleFilterFields.filter((f) => !DEFAULT_COL_KEYS.includes(f.key));
+  // Optional columns: removable defaults first, then other visible filterable
+  // fields. All appear in the meatball menu; removable defaults are pre-checked.
+  const removableDefaultKeySet = new Set(REMOVABLE_DEFAULT_COL_KEYS);
+  const optionalCols = [
+    ...REMOVABLE_DEFAULT_COL_KEYS.map((key) => ({ key })),
+    ...visibleFilterFields.filter(
+      (f) => !PINNED_COL_KEYS.includes(f.key) && !removableDefaultKeySet.has(f.key)
+    ),
+  ];
 
   // ── Fetch data ─────────────────────────────────────────────────────────────
   let searchByUrl, songs;
@@ -101,7 +112,7 @@ const DEFAULT_COL_LABELS = {
   const active = Object.fromEntries(visibleFilterFields.map((f) => [f.key, new Set()]));
 
   // activeCols: Set<string> — optional column keys currently shown.
-  const activeCols = new Set();
+  const activeCols = new Set(REMOVABLE_DEFAULT_COL_KEYS);
 
   // sortField / sortDir: currently active sort.
   let sortField = "title";
@@ -146,6 +157,7 @@ const DEFAULT_COL_LABELS = {
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.value = col.key;
+    cb.checked = removableDefaultKeySet.has(col.key);
     cb.addEventListener("change", () => {
       if (cb.checked) activeCols.add(col.key);
       else activeCols.delete(col.key);
@@ -226,10 +238,12 @@ const DEFAULT_COL_LABELS = {
     }
   }
 
-  // Optional columns
+  // Optional columns — restore only when cols param is explicitly present,
+  // otherwise keep the defaults already in activeCols.
   const colsParam = initialParams.get("cols");
-  if (colsParam) {
-    for (const col of colsParam.split(",")) {
+  if (colsParam !== null) {
+    activeCols.clear();
+    for (const col of colsParam.split(",").filter(Boolean)) {
       if (optionalCols.some((f) => f.key === col)) activeCols.add(col);
     }
     for (const cb of meatballMenu.querySelectorAll("input[type=checkbox]")) {
@@ -253,7 +267,7 @@ const DEFAULT_COL_LABELS = {
   // ── Core render functions ──────────────────────────────────────────────────
   function getActiveCols() {
     return [
-      ...DEFAULT_COL_KEYS,
+      ...PINNED_COL_KEYS,
       ...optionalCols.filter((f) => activeCols.has(f.key)).map((f) => f.key),
     ];
   }
@@ -406,7 +420,7 @@ const DEFAULT_COL_LABELS = {
 // buildSearchParams lives in url-state.js (imported above).
 
 function syncUrl(q, active, activeCols, sortField, sortDir) {
-  const params = buildSearchParams(q, active, activeCols, sortField, sortDir);
+  const params = buildSearchParams(q, active, activeCols, REMOVABLE_DEFAULT_COL_KEYS, sortField, sortDir);
   const qs = params.toString();
   history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
 }
