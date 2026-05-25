@@ -497,7 +497,37 @@ h1 {
 /* ── Home page song table ─────────────────────────────────────────────────── */
 
 .song-table-wrap {
+  position: relative;
+}
+
+.song-table-scroll {
   overflow-x: auto;
+}
+
+/* Edge gradient fades: signal scrollable content to the left or right.
+   JS toggles .visible based on scroll position. */
+.table-scroll-hint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.table-scroll-hint.visible {
+  opacity: 1;
+}
+
+.table-scroll-hint--right {
+  right: 0;
+  background: linear-gradient(to right, transparent, var(--bg));
+}
+
+.table-scroll-hint--left {
+  left: 0;
+  background: linear-gradient(to left, transparent, var(--bg));
 }
 
 /* Controls row: meatball button at far right, menu drops below it. */

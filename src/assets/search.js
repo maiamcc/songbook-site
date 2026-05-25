@@ -86,15 +86,29 @@ const DEFAULT_COL_LABELS = {
   const controlsRow = document.createElement("div");
   controlsRow.className = "song-table-controls";
 
+  const tableScroll = document.createElement("div");
+  tableScroll.className = "song-table-scroll";
+
   const table = document.createElement("table");
   table.className = "song-table";
   const thead = document.createElement("thead");
   const tbody = document.createElement("tbody");
   table.appendChild(thead);
   table.appendChild(tbody);
+  tableScroll.appendChild(table);
+
+  const scrollHintRight = document.createElement("div");
+  scrollHintRight.className = "table-scroll-hint table-scroll-hint--right";
+  scrollHintRight.setAttribute("aria-hidden", "true");
+
+  const scrollHintLeft = document.createElement("div");
+  scrollHintLeft.className = "table-scroll-hint table-scroll-hint--left";
+  scrollHintLeft.setAttribute("aria-hidden", "true");
 
   tableWrap.appendChild(controlsRow);
-  tableWrap.appendChild(table);
+  tableWrap.appendChild(tableScroll);
+  tableWrap.appendChild(scrollHintRight);
+  tableWrap.appendChild(scrollHintLeft);
 
   // ── Meatball menu (column picker) ──────────────────────────────────────────
   let menuOpen = false;
@@ -141,6 +155,15 @@ const DEFAULT_COL_LABELS = {
       meatballBtn.setAttribute("aria-expanded", "false");
     }
   });
+
+  // ── Scroll affordance ──────────────────────────────────────────────────────
+  function updateScrollHint() {
+    const { scrollLeft, scrollWidth, clientWidth } = tableScroll;
+    scrollHintRight.classList.toggle("visible", scrollLeft + clientWidth < scrollWidth - 1);
+    scrollHintLeft.classList.toggle("visible", scrollLeft > 1);
+  }
+  tableScroll.addEventListener("scroll", updateScrollHint, { passive: true });
+  new ResizeObserver(updateScrollHint).observe(tableScroll);
 
   // ── Filter UI ──────────────────────────────────────────────────────────────
   const filterPanel = document.getElementById("filter-panel");
@@ -227,6 +250,7 @@ const DEFAULT_COL_LABELS = {
     renderTbody(tbody, sorted, cols);
 
     syncUrl(q, active, activeCols, sortField, sortDir);
+    updateScrollHint();
   }
 
   function renderThead(thead, cols) {
