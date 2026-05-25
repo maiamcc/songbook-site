@@ -25,6 +25,8 @@ const SONG_NJK = join(INCLUDES, "song.njk");
 const SONG_PRINT_NJK = join(INCLUDES, "song-print.njk");
 const HOME_NJK = join(SRC, "index.njk");
 const INDEX_NJK = join(SRC, "index-pages.njk");
+const LIST_PRINT_NJK = join(SRC, "list-print.njk");
+const INDEX_PRINT_NJK = join(SRC, "index-pages-print.njk");
 
 // Render an .njk file with the given context, after stripping the
 // Eleventy frontmatter block (which Nunjucks doesn't understand).
@@ -403,6 +405,28 @@ test("index view: heading shows literal value for non-bop_rating fields", () => 
   assert.match(html, /<span class="index-field">mood:<\/span>\s*uplifting/);
 });
 
+test("home view: print link is present above the table with correct base href", () => {
+  const html = render(HOME_NJK, {
+    collections: { songs: [] },
+  });
+  assert.match(html, /id="table-print-link"/);
+  assert.match(html, /data-href-base="\/list-print\/"/);
+  assert.match(html, /href="\/list-print\/"/);
+});
+
+test("index view: print link is present above the table pointing at the index print page", () => {
+  const html = render(INDEX_NJK, {
+    entry: {
+      field: "mood",
+      value: "uplifting",
+      slug: "uplifting",
+      songs: [],
+    },
+  });
+  assert.match(html, /id="table-print-link"/);
+  assert.match(html, /data-href-base="\/index\/mood\/uplifting\/print\/"/);
+});
+
 test("index view: count line pluralizes correctly", () => {
   const one = render(INDEX_NJK, {
     entry: {
@@ -426,5 +450,109 @@ test("index view: count line pluralizes correctly", () => {
     },
   });
   assert.match(two, /2 songs/);
+});
+
+// ── list-print.njk ────────────────────────────────────────────────────────
+
+test("list-print view: has song-table-wrap, filter-config, and table-config", () => {
+  const html = render(LIST_PRINT_NJK, {});
+  assert.match(html, /id="song-table-wrap"/);
+  assert.match(html, /id="filter-config"/);
+  assert.match(html, /id="table-config"/);
+});
+
+test("list-print view: table-config points at root-absolute search and filter index URLs", () => {
+  const html = render(LIST_PRINT_NJK, {});
+  assert.match(html, /"searchIndexUrl":\s*"\/search-index\.json"/);
+  assert.match(html, /"filterIndexUrl":\s*"\/filter-index\.json"/);
+});
+
+test("list-print view: loads table-print.js", () => {
+  const html = render(LIST_PRINT_NJK, {});
+  assert.match(html, /table-print\.js/);
+});
+
+test("list-print view: has an h1 with Songbook", () => {
+  const html = render(LIST_PRINT_NJK, {});
+  assert.match(html, /<h1>Songbook<\/h1>/);
+});
+
+// ── index-pages-print.njk ─────────────────────────────────────────────────
+
+test("index-print view: has song-table-wrap, filter-config, and table-config with locked filter", () => {
+  const html = render(INDEX_PRINT_NJK, {
+    entry: {
+      field: "mood",
+      value: "uplifting",
+      slug: "uplifting",
+      songs: [{ url: "/songs/x/", data: { title: "X" } }],
+    },
+  });
+  assert.match(html, /id="song-table-wrap"/);
+  assert.match(html, /id="filter-config"/);
+  assert.match(html, /id="table-config"/);
+  assert.match(html, /"lockedFilter":\s*\{\s*"field":\s*"mood",\s*"value":\s*"uplifting"\s*\}/);
+});
+
+test("index-print view: heading shows field name (underscore→space) and value", () => {
+  const html = render(INDEX_PRINT_NJK, {
+    entry: {
+      field: "mood",
+      value: "uplifting",
+      slug: "uplifting",
+      songs: [{ url: "/songs/x/", data: { title: "X" } }],
+    },
+  });
+  assert.match(html, /<span class="index-field">mood:<\/span>\s*uplifting/);
+});
+
+test("index-print view: bop_rating heading shows N / 5", () => {
+  const html = render(INDEX_PRINT_NJK, {
+    entry: {
+      field: "bop_rating",
+      value: 4,
+      slug: "4",
+      songs: [{ url: "/songs/x/", data: { title: "X" } }],
+    },
+  });
+  assert.match(html, /<span class="index-field">bop rating:<\/span>/);
+  assert.match(html, /<span class="rating">4 \/ 5<\/span>/);
+});
+
+test("index-print view: count line pluralizes correctly", () => {
+  const one = render(INDEX_PRINT_NJK, {
+    entry: {
+      field: "mood",
+      value: "x",
+      slug: "x",
+      songs: [{ url: "/s/a/", data: { title: "A" } }],
+    },
+  });
+  assert.match(one, /1 song[^s]/);
+
+  const two = render(INDEX_PRINT_NJK, {
+    entry: {
+      field: "mood",
+      value: "x",
+      slug: "x",
+      songs: [
+        { url: "/s/a/", data: { title: "A" } },
+        { url: "/s/b/", data: { title: "B" } },
+      ],
+    },
+  });
+  assert.match(two, /2 songs/);
+});
+
+test("index-print view: loads table-print.js", () => {
+  const html = render(INDEX_PRINT_NJK, {
+    entry: {
+      field: "mood",
+      value: "uplifting",
+      slug: "uplifting",
+      songs: [],
+    },
+  });
+  assert.match(html, /table-print\.js/);
 });
 

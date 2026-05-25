@@ -47,6 +47,9 @@ layout: base.njk
   <summary class="song-filter-summary">Filters</summary>
   <div class="filter-panel" id="filter-panel"></div>
 </details> #}
+<div class="table-print-link-wrap">
+  <a id="table-print-link" class="layout-toggle" data-href-base="/index/{{ entry.field }}/{{ entry.slug }}/print/" href="/index/{{ entry.field }}/{{ entry.slug }}/print/">Print view →</a>
+</div>
 <div id="song-table-wrap" class="song-table-wrap"></div>
 {# <p id="song-search-empty" class="song-search-empty" hidden><em>No songs match.</em></p> #}
 <script id="filter-config" type="application/json">

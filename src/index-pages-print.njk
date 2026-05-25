@@ -1,0 +1,30 @@
+---
+pagination:
+  data: collections.indexEntries
+  size: 1
+  alias: entry
+permalink: "/index/{{ entry.field }}/{{ entry.slug }}/print/"
+layout: base-print.njk
+eleventyComputed:
+  title: "{{ entry.field | replace('_', ' ') }}: {{ entry.value }} — Print View"
+  screenUrl: "/index/{{ entry.field }}/{{ entry.slug }}/"
+---
+<h1 class="index-heading">
+  <span class="index-field">{{ entry.field | replace("_", " ") }}:</span>
+  {% if entry.field == "bop_rating" -%}
+    <span class="rating">{{ entry.value }} / 5</span>
+  {%- elif enums[entry.field] -%}
+    {{ entry.value | humanize }}
+  {%- else -%}
+    {{ entry.value }}
+  {%- endif %}
+</h1>
+<p class="index-count">{{ entry.songs.length }} song{% if entry.songs.length != 1 %}s{% endif %}</p>
+<div id="song-table-wrap" class="song-table-wrap"></div>
+<script id="filter-config" type="application/json">
+{"fields": {{ filterFields | dump | safe }}}
+</script>
+<script id="table-config" type="application/json">
+{"searchIndexUrl": "{{ '/search-index.json' | relativeUrl(page.url) }}", "filterIndexUrl": "{{ '/filter-index.json' | relativeUrl(page.url) }}", "lockedFilter": {"field": "{{ entry.field }}", "value": {{ entry.value | dump | safe }}}}
+</script>
+<script type="module" src="{{ '/assets/table-print.js' | relativeUrl(page.url) }}"></script>

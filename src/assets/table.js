@@ -423,6 +423,11 @@ function syncUrl(q, active, activeCols, sortField, sortDir) {
   const params = buildSearchParams(q, active, activeCols, REMOVABLE_DEFAULT_COL_KEYS, sortField, sortDir);
   const qs = params.toString();
   history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
+  const printLink = document.getElementById("table-print-link");
+  if (printLink) {
+    const base = printLink.dataset.hrefBase || "";
+    printLink.href = base + (qs ? `?${qs}` : "");
+  }
 }
 
 function buildFilterUI(panel, fields, filterByUrl, active, onUpdate) {

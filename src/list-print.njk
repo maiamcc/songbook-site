@@ -1,0 +1,15 @@
+---
+layout: base-print.njk
+title: Songbook — Print View
+permalink: /list-print/
+screenUrl: "/"
+---
+<h1>Songbook</h1>
+<div id="song-table-wrap" class="song-table-wrap"></div>
+<script id="filter-config" type="application/json">
+{"fields": {{ filterFields | dump | safe }}}
+</script>
+<script id="table-config" type="application/json">
+{"searchIndexUrl": "/search-index.json", "filterIndexUrl": "/filter-index.json"}
+</script>
+<script type="module" src="/assets/table-print.js"></script>

@@ -501,6 +501,14 @@ h1 {
   color: var(--muted);
 }
 
+/* Right-aligned print link that sits just above the song table on the home
+   and index pages. The link itself uses .layout-toggle for consistent
+   styling with the song-page print toggle. */
+.table-print-link-wrap {
+  text-align: right;
+  margin-bottom: 0.4rem;
+}
+
 /* ── Home page song table ─────────────────────────────────────────────────── */
 
 .song-table-wrap {
@@ -910,6 +918,38 @@ a.cell-chip:hover {
   .print-tip { display: block; }
   body { color: black; }
   a, a:hover { color: inherit; }
+}
+
+/* Print layout: table adjustments for list-print and index-print pages.
+   No overflow scroll (table is the full content), no row hover effects,
+   smaller text and padding to fit more rows on A5. */
+.print-layout .song-table-scroll {
+  overflow: visible;
+}
+
+.print-layout .song-table {
+  font-size: 9pt;
+}
+
+.print-layout .song-table th,
+.print-layout .song-table td {
+  padding: 0.2rem 0.4rem;
+}
+
+.print-layout .song-tr {
+  cursor: default;
+}
+
+.print-layout .song-tr:hover {
+  background: none;
+}
+
+/* Active search notice rendered above the print table when ?q= is set. */
+.print-search-notice {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+  font-style: italic;
 }
 
 /* Home-page filter panel (below search box). A <details> element

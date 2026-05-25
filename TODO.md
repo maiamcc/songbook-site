@@ -3,6 +3,7 @@
 ## P1
 * printable home page / indexes (with all selected columns)
 * song print: line spacing and font size play
+* double check about refrains lines without big space before them / no line break before preceeding verse
 
 ## P2:
 * printing multiple songs (e.g. put a checkbox, print all checked songs)
