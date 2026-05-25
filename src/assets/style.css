@@ -985,10 +985,19 @@ a.cell-chip:hover {
   color: var(--muted);
 }
 
-/* Page break between songs in the multi-print view. Applied to every section
-   except the last so the final song doesn't get a trailing blank page. */
+/* Page break after each non-last song section in multi-print. */
 .multi-print-song--break {
+  page-break-after: always;
   break-after: page;
+}
+
+/* Blank page inserted by JS after a song that ends on an odd page.
+   Sits at the top of the page created by the preceding section's break-after,
+   then forces another break so the next song starts two pages later (odd). */
+.multi-print-blank {
+  page-break-after: always;
+  break-after: page;
+  min-height: 1px;
 }
 
 /* Active search notice rendered above the print table when ?q= is set. */

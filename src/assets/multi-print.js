@@ -34,10 +34,30 @@
     return;
   }
 
-  for (let i = 0; i < valid.length; i++) {
+  const sections = valid.map((html, i) => {
     const section = document.createElement("section");
-    if (i < valid.length - 1) section.className = "multi-print-song--break";
-    section.innerHTML = valid[i];
+    section.className =
+      i < valid.length - 1 ? "multi-print-song multi-print-song--break" : "multi-print-song";
+    section.innerHTML = html;
     wrap.appendChild(section);
+    return section;
+  });
+
+  // `break-after: right` (CSS recto page break) is not reliably implemented
+  // in current browsers. Instead, measure each non-last section's rendered
+  // height, calculate its page count, and insert a blank page after any section
+  // that ends on an odd page so the next song starts on an odd page.
+  //
+  // A5 content height: 210mm paper − 24mm top+bottom @page margins = 186mm.
+  // At 96 CSS px/inch and 25.4 mm/inch: 186 × 96 / 25.4 ≈ 703 px.
+  const PAGE_PX = Math.round((186 / 25.4) * 96);
+
+  for (let i = 0; i < sections.length - 1; i++) {
+    const pages = Math.ceil(sections[i].offsetHeight / PAGE_PX);
+    if (pages % 2 === 1) {
+      const blank = document.createElement("div");
+      blank.className = "multi-print-blank";
+      sections[i].after(blank);
+    }
   }
 })();
