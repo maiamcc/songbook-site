@@ -86,7 +86,7 @@ test("buildFilterRecord: includes all filterable fields that are present", () =>
   const rec = buildFilterRecord("/songs/x/", data);
   assert.equal(rec.url, "/songs/x/");
   assert.equal(rec.genre, "chantey");
-  assert.deepEqual(rec.mood, ["rousing", "fun"]);
+  assert.deepEqual(rec.mood, ["fun", "rousing"]);
   assert.equal(rec.bop_rating, 4);
   assert.deepEqual(rec.topics, ["sea"]);
   assert.deepEqual(rec.structure, ["chorus"]);

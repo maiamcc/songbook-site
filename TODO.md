@@ -3,8 +3,6 @@
 ## P1
 * printable home page / indexes (with all selected columns)
 * song print: line spacing and font size play
-* by default, index pages sort alphabetically by title
-* clicking anywhere in table when a row is highlighted BESIDES the carve-out index links should take you to the song
 
 ## P2:
 * printing multiple songs (e.g. put a checkbox, print all checked songs)
