@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parse, slugify, defaultSlug } from "../scripts/new-song.js";
+import { parse, slugify, defaultSlug, buildSongFile } from "../scripts/new-song.js";
 
 test("slugify: basic kebab-case", () => {
   assert.equal(slugify("Country Roads"), "country-roads");
@@ -71,4 +71,125 @@ test("parse: string fields are trimmed but otherwise untouched", () => {
   assert.equal(parse("title", "  Country Roads  "), "Country Roads");
   assert.equal(parse("genre", "folk"), "folk");
   assert.equal(parse("notes", "capo 2"), "capo 2");
+});
+
+// ---------------------------------------------------------------------------
+// buildSongFile
+// ---------------------------------------------------------------------------
+
+// Minimum required data; rnge must match [a-z]{2}-[a-z]{2}.
+const REQUIRED = { title: "My Song", author: "A. Person", bop_rating: 3, rnge: "do-re" };
+
+function parseFrontmatter(fileStr) {
+  // Split on the closing --- to get the frontmatter block.
+  const inner = fileStr.replace(/^---\n/, "").split("\n---\n")[0];
+  return inner;
+}
+
+test("buildSongFile: opens and closes with --- delimiters", () => {
+  const out = buildSongFile(REQUIRED);
+  assert.ok(out.startsWith("---\n"), "should start with ---");
+  assert.ok(out.includes("\n---\n"), "should have closing ---");
+});
+
+test("buildSongFile: required fields present emit as plain YAML", () => {
+  const out = buildSongFile(REQUIRED);
+  const fm = parseFrontmatter(out);
+  assert.match(fm, /^title: My Song$/m);
+  assert.match(fm, /^author: A\. Person$/m);
+  assert.match(fm, /^bop_rating: 3$/m);
+  assert.match(fm, /^rnge: do-re$/m);
+});
+
+test("buildSongFile: absent optional fields appear as # field: TK comments", () => {
+  const out = buildSongFile(REQUIRED);
+  const fm = parseFrontmatter(out);
+  // A sampling of optional fields that won't be in REQUIRED.
+  assert.match(fm, /^# alternate_title: TK$/m);
+  assert.match(fm, /^# genre: TK$/m);
+});
+
+test("buildSongFile: absent notes uses block scalar placeholder instead of a comment", () => {
+  const out = buildSongFile(REQUIRED);
+  const fm = parseFrontmatter(out);
+  assert.doesNotMatch(fm, /^# notes: TK$/m, "notes should not be a comment");
+  assert.match(fm, /^notes: >-$/m, "notes should have a block scalar indicator");
+  assert.match(fm, /^    TK$/m, "notes body should be indented TK");
+});
+
+test("buildSongFile: absent required fields are silently omitted (no TK comment)", () => {
+  // bop_rating is required — if missing it should not appear at all.
+  const out = buildSongFile({ title: "X", author: "Y", rnge: "ab-cd" });
+  assert.doesNotMatch(out, /bop_rating/);
+});
+
+test("buildSongFile: number values are unquoted", () => {
+  const out = buildSongFile(REQUIRED);
+  assert.match(out, /^bop_rating: 3$/m);
+  assert.doesNotMatch(out, /bop_rating: "3"/);
+});
+
+test("buildSongFile: boolean values are unquoted", () => {
+  const out = buildSongFile({ ...REQUIRED, in_nb: true });
+  assert.match(out, /^in_nb: true$/m);
+  assert.doesNotMatch(out, /in_nb: "true"/);
+});
+
+test("buildSongFile: array values render as inline YAML list", () => {
+  const out = buildSongFile({ ...REQUIRED, topics: ["sea", "work"] });
+  assert.match(out, /^topics: \[sea, work\]$/m);
+});
+
+test("buildSongFile: strings containing ': ' are quoted", () => {
+  const out = buildSongFile({ ...REQUIRED, notes: "capo: 2" });
+  assert.match(out, /^notes: "capo: 2"$/m);
+});
+
+test("buildSongFile: YAML keyword strings are quoted", () => {
+  // "no" is a YAML boolean keyword; must be quoted to remain a string.
+  const out = buildSongFile({ ...REQUIRED, notes: "no" });
+  assert.match(out, /^notes: "no"$/m);
+});
+
+test("buildSongFile: strings starting with # are quoted", () => {
+  const out = buildSongFile({ ...REQUIRED, notes: "#1 hit" });
+  assert.match(out, /^notes: "#1 hit"$/m);
+});
+
+test("buildSongFile: array items that are YAML keywords are quoted", () => {
+  const out = buildSongFile({ ...REQUIRED, topics: ["yes", "normal"] });
+  assert.match(out, /^topics: \["yes", normal\]$/m);
+});
+
+test("buildSongFile: backslash is escaped when quoting is triggered", () => {
+  // "#path\to" starts with # → triggers quoting → the backslash must be escaped.
+  // File should contain the literal characters:  notes: "#path\\to"
+  const out = buildSongFile({ ...REQUIRED, notes: "#path\\to" });
+  assert.ok(out.includes('notes: "#path\\\\to"'), `actual: ${JSON.stringify(out)}`);
+});
+
+test("buildSongFile: embedded double-quotes are escaped when quoting is triggered", () => {
+  // '"hello"' starts with " → triggers quoting → embedded quotes must be escaped.
+  // File should contain the literal characters:  notes: "\"hello\""
+  const out = buildSongFile({ ...REQUIRED, notes: '"hello"' });
+  assert.ok(out.includes('notes: "\\"hello\\""'), `actual: ${JSON.stringify(out)}`);
+});
+
+test("buildSongFile: body content appears after the closing ---", () => {
+  const out = buildSongFile(REQUIRED, "Verse one\nVerse two");
+  const parts = out.split("\n---\n");
+  assert.equal(parts.length, 2);
+  assert.match(parts[1], /Verse one/);
+  assert.match(parts[1], /Verse two/);
+});
+
+test("buildSongFile: whitespace-only body is omitted", () => {
+  const withBody = buildSongFile(REQUIRED, "   \n  ");
+  const noBody = buildSongFile(REQUIRED);
+  assert.equal(withBody, noBody);
+});
+
+test("buildSongFile: output always ends with a single newline", () => {
+  assert.ok(buildSongFile(REQUIRED).endsWith("\n"));
+  assert.ok(buildSongFile(REQUIRED, "lyrics").endsWith("\n"));
 });

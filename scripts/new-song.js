@@ -43,7 +43,14 @@ export function buildSongFile(data, body = "") {
     if (v !== undefined && v !== null) {
       lines.push(`${field}: ${yamlValue(v)}`);
     } else if (!FIELDS[field].required) {
-      lines.push(`# ${field}: TK`);
+      const ph = FIELDS[field].placeholder;
+      if (ph) {
+        const [first, ...rest] = ph.split("\n");
+        lines.push(`${field}: ${first}`);
+        for (const l of rest) lines.push(l);
+      } else {
+        lines.push(`# ${field}: TK`);
+      }
     }
   }
   lines.push("---");

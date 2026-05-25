@@ -13,6 +13,8 @@
 // history.replaceState keeps the URL current without creating history entries.
 import { matchTokens } from "./match.js";
 import { songMatchesFilters } from "./filter-match.js";
+import { sortSongs } from "./sort.js";
+import { buildSearchParams } from "./url-state.js";
 
 // Always-visible columns. These are never in the meatball-menu column picker.
 const DEFAULT_COL_KEYS = ["title", "author", "bop_rating"];
@@ -315,42 +317,12 @@ const DEFAULT_COL_LABELS = {
   }
 })();
 
-// ── Pure helpers (module-level, testable) ──────────────────────────────────
-
-function sortSongs(songs, field, dir) {
-  if (!field) return songs;
-  return [...songs].sort((a, b) => {
-    const av = getSortVal(a, field);
-    const bv = getSortVal(b, field);
-    if (av === null && bv === null) return 0;
-    if (av === null) return 1;  // nulls sort last
-    if (bv === null) return -1;
-    const cmp =
-      typeof av === "number" && typeof bv === "number"
-        ? av - bv
-        : String(av).localeCompare(String(bv));
-    return dir === "desc" ? -cmp : cmp;
-  });
-}
-
-function getSortVal(song, field) {
-  const v = song[field];
-  if (v === undefined || v === null) return null;
-  if (Array.isArray(v)) return v.length > 0 ? String(v[0]) : null;
-  return v;
-}
+// ── Pure helpers (module-level) ────────────────────────────────────────────
+// sortSongs and getSortVal live in sort.js (imported above).
+// buildSearchParams lives in url-state.js (imported above).
 
 function syncUrl(q, active, activeCols, sortField, sortDir) {
-  const params = new URLSearchParams();
-  if (q.trim()) params.set("q", q);
-  for (const [key, selected] of Object.entries(active)) {
-    for (const val of selected) params.append(key, val);
-  }
-  if (activeCols.size > 0) params.set("cols", [...activeCols].join(","));
-  if (sortField) {
-    params.set("sort", sortField);
-    if (sortDir !== "asc") params.set("dir", sortDir);
-  }
+  const params = buildSearchParams(q, active, activeCols, sortField, sortDir);
   const qs = params.toString();
   history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
 }
