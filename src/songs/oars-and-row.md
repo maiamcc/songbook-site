@@ -1,5 +1,6 @@
 ---
-title: Oars and Row (Tide and the River Rising)
+title: Oars and Row
+alternate_title: Tide and the River Rising
 rnge: so-so
 topics:
   - childhood
