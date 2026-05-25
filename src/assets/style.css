@@ -649,6 +649,18 @@ h1 {
   text-decoration-color: var(--accent-dark);
 }
 
+/* Non-chip index links get a pill background on hover. Padding is applied
+   at rest too (offset by negative margin) so the text doesn't shift. */
+.song-table .song-td a:not(.cell-chip) {
+  padding: 0.1rem 0.2rem;
+  margin: -0.1rem -0.2rem;
+  border-radius: 3px;
+}
+
+.song-table .song-td a:not(.cell-chip):hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+}
+
 /* Chips for list-valued fields in table cells (mood, structure, topics). */
 .cell-chips {
   display: flex;
