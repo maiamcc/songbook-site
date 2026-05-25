@@ -149,6 +149,7 @@ const DEFAULT_COL_LABELS = {
     meatballMenu.hidden = !menuOpen;
     meatballBtn.setAttribute("aria-expanded", String(menuOpen));
   });
+  meatballMenu.addEventListener("click", (e) => e.stopPropagation());
   document.addEventListener("click", () => {
     if (menuOpen) {
       menuOpen = false;
