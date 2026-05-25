@@ -339,9 +339,13 @@ const DEFAULT_COL_LABELS = {
     for (const song of songs) {
       const tr = document.createElement("tr");
       tr.className = "song-tr";
+      tr.addEventListener("click", (e) => {
+        if (e.target.closest("a")) return;
+        window.location.href = song.url;
+      });
       for (const col of cols) {
         const td = document.createElement("td");
-        td.className = "song-td";
+        td.className = col === "title" ? "song-td song-td--title" : "song-td";
         if (col === "title") {
           const a = document.createElement("a");
           a.href = song.url;

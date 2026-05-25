@@ -653,14 +653,19 @@ h1 {
   color: var(--accent);
 }
 
-/* Row hover highlights the whole row. Suppress it when the pointer is
-   directly over a cell link so hovering an index link feels distinct
-   from hovering empty row space to navigate to the song. */
+/* Row hover highlights the whole row. Clicking anywhere in the row (except
+   a link) navigates to the song. Suppress the row highlight when hovering a
+   non-title link so it feels distinct from row-navigation; keep it for the
+   title link since the title IS the row destination. */
+.song-tr {
+  cursor: pointer;
+}
+
 .song-tr:hover {
   background: var(--hover-bg);
 }
 
-.song-tr:has(.song-td a:hover) {
+.song-tr:has(.song-td:not(.song-td--title) a:hover) {
   background: none;
 }
 
@@ -686,6 +691,10 @@ h1 {
 
 .song-table .song-td a:not(.cell-chip):hover {
   background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+}
+
+.song-td--title a:hover {
+  background: none;
 }
 
 /* Chips for list-valued fields in table cells (mood, structure, topics). */
