@@ -15,6 +15,7 @@
 
 ### P3:
 * somewhat rein in all possible topics
+* reset table button to go back to default sorts, cols etc.
 * multi-column sort on the home page table (shift+click to add a secondary sort key)
 * search in navbar
 * publish the site?!
