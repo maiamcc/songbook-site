@@ -1,4 +1,4 @@
-// Pure matcher used by src/assets/search.js to filter the home-page
+// Pure matcher used by src/assets/table.js to filter the home-page
 // song list. The query is split on whitespace into tokens, each token
 // is lowercased, and a record matches iff its text contains every
 // token as a substring (AND, not OR). An empty query matches anything.

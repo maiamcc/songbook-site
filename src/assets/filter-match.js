@@ -1,4 +1,4 @@
-// Pure filter-matching logic used by search.js for client-side filtering
+// Pure filter-matching logic used by table.js for client-side filtering
 // on the home page. Extracted here so it can be unit-tested without a DOM
 // (see test/filter.test.js).
 //
