@@ -27,6 +27,7 @@ const HOME_NJK = join(SRC, "index.njk");
 const INDEX_NJK = join(SRC, "index-pages.njk");
 const LIST_PRINT_NJK = join(SRC, "list-print.njk");
 const INDEX_PRINT_NJK = join(SRC, "index-pages-print.njk");
+const MULTI_PRINT_NJK = join(SRC, "multi-print.njk");
 
 // Render an .njk file with the given context, after stripping the
 // Eleventy frontmatter block (which Nunjucks doesn't understand).
@@ -405,16 +406,16 @@ test("index view: heading shows literal value for non-bop_rating fields", () => 
   assert.match(html, /<span class="index-field">mood:<\/span>\s*uplifting/);
 });
 
-test("home view: print link is present above the table with correct base href", () => {
+test("home view: print link and print-selected button are present above the table", () => {
   const html = render(HOME_NJK, {
     collections: { songs: [] },
   });
   assert.match(html, /id="table-print-link"/);
   assert.match(html, /data-href-base="\/list-print\/"/);
-  assert.match(html, /href="\/list-print\/"/);
+  assert.match(html, /id="song-print-selected"/);
 });
 
-test("index view: print link is present above the table pointing at the index print page", () => {
+test("index view: print link and print-selected button are present above the table", () => {
   const html = render(INDEX_NJK, {
     entry: {
       field: "mood",
@@ -425,6 +426,7 @@ test("index view: print link is present above the table pointing at the index pr
   });
   assert.match(html, /id="table-print-link"/);
   assert.match(html, /data-href-base="\/index\/mood\/uplifting\/print\/"/);
+  assert.match(html, /id="song-print-selected"/);
 });
 
 test("index view: count line pluralizes correctly", () => {
@@ -542,6 +544,14 @@ test("index-print view: count line pluralizes correctly", () => {
     },
   });
   assert.match(two, /2 songs/);
+});
+
+// ── multi-print.njk ───────────────────────────────────────────────────────
+
+test("multi-print view: has multi-print-wrap container and loads multi-print.js", () => {
+  const html = render(MULTI_PRINT_NJK, {});
+  assert.match(html, /id="multi-print-wrap"/);
+  assert.match(html, /multi-print\.js/);
 });
 
 test("index-print view: loads table-print.js", () => {

@@ -501,12 +501,44 @@ h1 {
   color: var(--muted);
 }
 
-/* Right-aligned print link that sits just above the song table on the home
-   and index pages. The link itself uses .layout-toggle for consistent
-   styling with the song-page print toggle. */
+/* Row above the song table: print-selected button on the left (hidden until
+   songs are checked), print-view link pinned to the right via margin-left:auto. */
 .table-print-link-wrap {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 0.4rem;
+}
+
+#table-print-link {
+  margin-left: auto;
+}
+
+.print-selected-btn {
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.print-selected-btn:hover {
+  color: var(--accent-dark);
+}
+
+/* Checkbox column: narrow, no horizontal padding, centred. */
+.song-th--check,
+.song-td--check {
+  width: 1.8rem;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+
+.row-check {
+  cursor: pointer;
+  margin: 0;
 }
 
 /* ── Home page song table ─────────────────────────────────────────────────── */
@@ -951,6 +983,12 @@ a.cell-chip:hover {
 .print-sort-arrow {
   font-size: 0.65em;
   color: var(--muted);
+}
+
+/* Page break between songs in the multi-print view. Applied to every section
+   except the last so the final song doesn't get a trailing blank page. */
+.multi-print-song--break {
+  break-after: page;
 }
 
 /* Active search notice rendered above the print table when ?q= is set. */

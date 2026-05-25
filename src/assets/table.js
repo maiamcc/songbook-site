@@ -118,6 +118,9 @@ const DEFAULT_COL_LABELS = {
   let sortField = "title";
   let sortDir = "asc"; // "asc" | "desc"
 
+  // selectedUrls: song URLs with their checkbox ticked.
+  const selectedUrls = new Set();
+
   // ── Build table skeleton ───────────────────────────────────────────────────
   const tableScroll = document.createElement("div");
   tableScroll.className = "song-table-scroll";
@@ -287,16 +290,40 @@ const DEFAULT_COL_LABELS = {
     if (clearBtn) clearBtn.hidden = !anyFilter;
 
     const cols = getActiveCols();
-    renderThead(thead, cols);
+    renderThead(thead, cols, sorted);
     renderTbody(tbody, sorted, cols);
 
     syncUrl(q, active, activeCols, sortField, sortDir);
+    syncPrintSelected(selectedUrls);
     updateScrollHint();
   }
 
-  function renderThead(thead, cols) {
+  function renderThead(thead, cols, sorted) {
     thead.innerHTML = "";
     const tr = document.createElement("tr");
+
+    // Select-all checkbox
+    const checkTh = document.createElement("th");
+    checkTh.className = "song-th song-th--check";
+    const selectAllCb = document.createElement("input");
+    selectAllCb.type = "checkbox";
+    selectAllCb.className = "row-check";
+    selectAllCb.setAttribute("aria-label", "Select all visible songs");
+    const visibleSelected = sorted.filter((s) => selectedUrls.has(s.url)).length;
+    selectAllCb.checked = sorted.length > 0 && visibleSelected === sorted.length;
+    selectAllCb.indeterminate = visibleSelected > 0 && visibleSelected < sorted.length;
+    selectAllCb.addEventListener("click", (e) => e.stopPropagation());
+    selectAllCb.addEventListener("change", () => {
+      if (selectAllCb.checked) {
+        for (const s of sorted) selectedUrls.add(s.url);
+      } else {
+        for (const s of sorted) selectedUrls.delete(s.url);
+      }
+      renderAll();
+    });
+    checkTh.appendChild(selectAllCb);
+    tr.appendChild(checkTh);
+
     for (const col of cols) {
       const th = document.createElement("th");
       th.className = "song-th";
@@ -355,8 +382,27 @@ const DEFAULT_COL_LABELS = {
       tr.className = "song-tr";
       tr.addEventListener("click", (e) => {
         if (e.target.closest("a")) return;
+        if (e.target.closest("input[type=checkbox]")) return;
         window.location.href = song.url;
       });
+
+      // Row checkbox
+      const checkTd = document.createElement("td");
+      checkTd.className = "song-td song-td--check";
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.className = "row-check";
+      cb.checked = selectedUrls.has(song.url);
+      cb.setAttribute("aria-label", `Select ${song.title || song.url}`);
+      cb.addEventListener("click", (e) => e.stopPropagation());
+      cb.addEventListener("change", () => {
+        if (cb.checked) selectedUrls.add(song.url);
+        else selectedUrls.delete(song.url);
+        renderAll();
+      });
+      checkTd.appendChild(cb);
+      tr.appendChild(checkTd);
+
       for (const col of cols) {
         const td = document.createElement("td");
         td.className = col === "title" ? "song-td song-td--title" : "song-td";
@@ -427,6 +473,19 @@ function syncUrl(q, active, activeCols, sortField, sortDir) {
   if (printLink) {
     const base = printLink.dataset.hrefBase || "";
     printLink.href = base + (qs ? `?${qs}` : "");
+  }
+}
+
+function syncPrintSelected(selectedUrls) {
+  const btn = document.getElementById("song-print-selected");
+  if (!btn) return;
+  const count = selectedUrls.size;
+  btn.hidden = count === 0;
+  if (count > 0) {
+    btn.textContent = `Print ${count} selected →`;
+    const params = new URLSearchParams();
+    for (const url of selectedUrls) params.append("song", url);
+    btn.href = `/multi-print/?${params.toString()}`;
   }
 }
 
