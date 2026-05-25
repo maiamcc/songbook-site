@@ -293,7 +293,7 @@ const DEFAULT_COL_LABELS = {
         removeBtn.type = "button";
         removeBtn.className = "col-remove-btn";
         removeBtn.setAttribute("aria-label", `Remove ${colLabels[col] || col} column`);
-        removeBtn.textContent = "×";
+        removeBtn.textContent = "[X]";
         removeBtn.addEventListener("click", () => {
           activeCols.delete(col);
           const cb = meatballMenu.querySelector(`input[value="${CSS.escape(col)}"]`);

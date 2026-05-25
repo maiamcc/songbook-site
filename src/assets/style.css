@@ -598,6 +598,8 @@ h1 {
 
 .song-table thead th {
   border-bottom: 2px solid var(--separator);
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 /* Sort button inside each <th> — flush with the cell, styled as a header. */
@@ -626,30 +628,22 @@ h1 {
   color: var(--accent);
 }
 
-/* Remove button inside optional column headers: circled ×, sits to the
-   left of the column label on the same line. font-size sets the × size;
-   width/height in em scale the circle proportionally around it. */
+/* Remove button inside optional column headers: "[X]" label to the
+   left of the column name. */
 .col-remove-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.4em;
-  height: 1.4em;
-  border-radius: 50%;
+  background: none;
   border: none;
-  background: var(--muted);
-  color: var(--bg);
-  font-size: 0.6rem;
-  line-height: 1;
+  padding: 0;
+  margin-right: 0.3em;
   cursor: pointer;
+  font-size: 0.75em;
   font-family: inherit;
+  color: var(--muted);
   vertical-align: middle;
-  margin-right: 0.35rem;
-  flex-shrink: 0;
 }
 
 .col-remove-btn:hover {
-  background: var(--accent);
+  color: var(--accent);
 }
 
 /* Row hover highlights the whole row. Suppress it when the pointer is
