@@ -1,12 +1,11 @@
 # TODO
 
 ## P1
-* `known` as int
-* filtering for songs on the homepage
-  * should be encoded in url so can share
 * index view should have labels for info shown -- maybe just columns w headers?
+  * make these changes on the homepage then apply to indexes (Rather, have indexes use the same underlying thinger as homepage)
 
 ## P2:
+* song print: line spacing and font size play
 * adjust columns shown in home page / indexes
 * printable home page / indexes (with all selected columns)
 * printing multiple songs (e.g. put a checkbox, print all checked songs)
