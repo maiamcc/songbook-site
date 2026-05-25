@@ -13,6 +13,7 @@ I may have feedback. After a change is validated/any feedback is incorporated, w
   7. hover behavior of index links should be visually distinct from hovering over the entire row to go to the song
   8. ask: does the meatball menu button get faded by the scroll hint gradient when it sits near the right edge?
   9. decide: should search.js be renamed to something more descriptive?
+  10. ask: for non-chip index links (e.g. plain bop_rating value), how should hover look distinct from row hover?
 
 ## P2:
 * apply configurable table to index views (per-field-value listing pages)
