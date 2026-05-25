@@ -490,6 +490,13 @@ h1 {
   font-style: italic;
 }
 
+/* In the table title cell, treat the alt title as an atomic inline block
+   so a line break always falls before it, never inside it. */
+.song-table .alt-title {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .song-list .author {
   color: var(--muted);
 }

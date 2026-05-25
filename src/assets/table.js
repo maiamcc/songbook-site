@@ -24,7 +24,7 @@ const DEFAULT_COL_KEYS = ["title", "author", "bop_rating"];
 const DEFAULT_COL_LABELS = {
   title: "Title",
   author: "Author",
-  bop_rating: "Bop Rating",
+  bop_rating: "Bop",
 };
 
 (async () => {
@@ -323,9 +323,10 @@ const DEFAULT_COL_LABELS = {
           a.textContent = song.title || "(untitled)";
           td.appendChild(a);
           if (song.alternate_title) {
+            td.appendChild(document.createTextNode(" "));
             const alt = document.createElement("span");
             alt.className = "alt-title";
-            alt.textContent = ` (${song.alternate_title})`;
+            alt.textContent = `(${song.alternate_title})`;
             td.appendChild(alt);
           }
         } else {
