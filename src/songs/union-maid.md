@@ -13,14 +13,12 @@ joiny_inny: easy
 author: Woody Guthrie
 known: 3
 notes: >-
-    Gink, a 1910 synonym for "jerk," may come from carnival usage. "Fink" is now in popular use but was originally union slang.
-
-
-    Song was written in 1940. Tune is 'Redwing.'
+    Song was written in 1940; Tune is 'Redwing.' Gink, a 1910 synonym for "jerk," may come
+    from carnival usage. "Fink" is now in popular use but was originally union slang.
 ---
 
 There once was a union maid, who never was afraid
-Of goons and ginks and company finks and the deputy sheriffs who made the raid.
+Of goons & ginks & company finks & the deputy sheriffs who made the raid.
 She went to the union hall when a meeting it was called;
 And when the Legion boys come 'round,
 She always stood her ground.
@@ -34,13 +32,6 @@ She'd never be fooled by a company stool, she'd always organize the guys.
 She always got her way when she struck for better pay;
 She'd show her card to the National Guard
 And this is what she'd say:
-
-You gals who want to be free, just take a tip from me:
-Get you a man who's a union man and join the ladies' auxiliary.
-Married life ain't hard when you got a union card,
-A union man has a happy life
-When he's got a union wife.
-_- Millard Lampell_
 
 You gals who want to be free, just take a tip from me:
 Break outa that mold we've all been sold, you got a fighting history!

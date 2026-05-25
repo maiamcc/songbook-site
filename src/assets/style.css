@@ -814,7 +814,7 @@ a.cell-chip:hover {
    actually precedes it, so a Bop-only line doesn't start with an
    orphan separator. */
 .print-layout .song-header {
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.4rem;
 }
 
 .print-layout .song-header .byline,
@@ -859,12 +859,14 @@ a.cell-chip:hover {
 }
 
 .print-layout .song-body p {
-  margin: 0.4rem 0;
+  margin: 0.65rem 0;
+  line-height: 1.1;
 }
 
 .print-layout .song-body .chorus {
-  margin: 0.4rem 0 0.4rem 0.4rem;
+  margin: 0.65rem 0 0.65rem 0.4rem;
   padding: 0.15rem 0 0.15rem 0.6rem;
+  line-height: 1.25;
 }
 
 /* Notes at the bottom in a tighter form. */

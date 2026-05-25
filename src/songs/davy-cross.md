@@ -44,7 +44,7 @@ And their hearts beat faster at his boyish grin.
 	For they ...
 
 Then one dark October day, 
-there came a storm which drove us hard to lea/
+there came a storm which drove us hard to lea.
 Our fishing fleet was tossed, 
 yet just one single craft was lost;
 Leaving Widow Cross a'gazing out to sea.
