@@ -27,17 +27,19 @@ And the larks they sang melodious at the dawning of the day.
     And the larks they sang melodious (3x)
     at the dawning of the day
 
-A sailor and his true love were a'walking that day.
-Said the sailor to his tru elove, "I am bound far away.
-I am bound for the East Indies where the load cannons roar;
-I must go and leave my Nancy, she's the girl that I adore."
+Said the sailor to his true love, "I am bound far away,
+I am bound for the East Indies, I no longer can stay.
+I am bound for the East Indies where the loud cannons roar,
+I am going to leave my Nancy, she’s the girl I adore."
+    
+    I am going to leave my Nancy (3x) etc.
 
-Then the ring from off her finger she instantly drew,
-Saying, "Take this my dearest William and my heart will go too."
-And whilst they stood embracing tears from her eyes fell,
+A ring from his finger he then instantly drew,
+Saying, "Take this, dearest Nancy, and my heart shall go too."
+And while he embraced her, tears from her eyes fell,
 Saying, "May I go along with you?" "Oh, no, my love, farewell."
 
-"So it's fare thee well my Nancy, I can no longer stay,
-For the topsail is hoisted and the anchor aweigh,
-And the ship lies awaiting for the next flowing tide;
-And if ever I return again, I will make you my bride."
+Said the sailor to his true love, "I no longer can stay,
+For our topsails are hoisted and our anchor is weighed,
+Our ship she lays a'waiting for the next flowing tide,
+And if ever I return again, I will make you my bride!"

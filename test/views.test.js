@@ -189,22 +189,6 @@ for (const [field, spec] of Object.entries(FIELDS)) {
     );
   });
 
-  // Home-display fields (title, author, alternate_title) are rendered
-  // client-side by search.js from filter-index.json; they won't appear
-  // in the server-rendered HTML. Only assert absence for non-home fields.
-  if (!spec.display.includes("home")) {
-    test(`home view: ${field} does NOT render`, () => {
-      const html = render(HOME_NJK, {
-        collections: { songs: [{ url: "/songs/x/", data: fullSong }] },
-      });
-      assert.equal(
-        contains(html, fixture.marker),
-        false,
-        `expected ${field} marker to not appear in home view`
-      );
-    });
-  }
-
   test(`print view: ${field} ${spec.display.includes("print") ? "renders" : "does NOT render"}`, () => {
     const html = renderPrint(fullSong, fullSong.content);
     const shouldRender = spec.display.includes("print");

@@ -16,7 +16,7 @@ function parseFieldTable(md) {
   const lines = md.split("\n");
   const headerIdx = lines.findIndex(
     (l) =>
-      /\|\s*Field\s*\|.*Required.*Indexable.*Filter.*Home.*Index.*Song.*Print/.test(l)
+      /\|\s*Field\s*\|.*Required.*Indexable.*Filter.*Song.*Print/.test(l)
   );
   if (headerIdx < 0) throw new Error("frontmatter table not found in README");
 
@@ -53,8 +53,6 @@ for (const row of rows) {
     ,
     indexableCell,
     filterCell,
-    homeCell,
-    indexCell,
     songCell,
     printCell,
   ] = row;
@@ -87,8 +85,6 @@ for (const row of rows) {
     );
 
     for (const [view, cell] of [
-      ["home", homeCell],
-      ["index", indexCell],
       ["song", songCell],
       ["print", printCell],
     ]) {

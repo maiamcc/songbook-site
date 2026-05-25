@@ -6,27 +6,32 @@ Notes for Claude when working in this repo.
 
 The `FIELDS` object in `lib/song-schema.js` defines every frontmatter
 field: its type, whether it's required, where it renders
-(`display: ["home", "index", "song", "print"]`), and whether its values
-can serve as the key of an index page (`indexable: true`). Two tests
-enforce that the rest of the project agrees with the schema:
+(`display: ["song", "print"]`), and whether its values can serve as the
+key of an index page (`indexable: true`). Two tests enforce that the
+rest of the project agrees with the schema:
 
 - `test/readme.test.js` parses the frontmatter table in `README.md` and
-  asserts each row's Required / Indexable / Home / Index / Song / Print
+  asserts each row's Required / Indexable / Filter / Song / Print
   columns match `FIELDS`.
-- `test/views.test.js` renders `src/index.njk` (the home view) and
-  `src/_includes/song.njk` (the song view) with a fixture and asserts
-  each field renders (or doesn't) according to `FIELDS[field].display`.
+- `test/views.test.js` renders `src/_includes/song.njk` (the song view)
+  with a fixture and asserts each field renders (or doesn't) according
+  to `FIELDS[field].display`.
 
-### The four views
+### The views
 
 - **home** — the homepage list at `/`, one row per song. Template:
   `src/index.njk` (named that way because Eleventy serves `/` from a
-  file literally called `index`).
+  file literally called `index`). Fields are surfaced client-side via a
+  configurable table (`src/assets/table.js`); the `display` array does
+  not gate what appears here.
 - **index** — a per-value listing: all songs with a given metadata
   value (e.g. `mood=uplifting`). Only fields with `indexable: true` can
-  be used as the index key. Template: `src/index-pages.njk`.
+  be used as the index key. Template: `src/index-pages.njk`. Like the
+  home page, fields are surfaced via the same client-side table; the
+  `display` array does not gate what appears here.
 - **song** — the per-song detail page. Template:
-  `src/_includes/song.njk`.
+  `src/_includes/song.njk`. Only fields with `"song"` in their
+  `display` are rendered here.
 - **print** — a dedicated print layout served at
   `/songs/<slug>/print/`. A small "Print view →" link on the screen
   song page leads here; the print page has a "← View on screen" link
@@ -61,7 +66,7 @@ joiny_inny:
 joiny_inny: enumField({
   ...ENUMS.joiny_inny,          // spreads in desc + values
   required: false,
-  display: ["song", "index"],
+  display: ["song"],
   collapsedOn: ["song"],
   indexable: true,
 }),
@@ -89,12 +94,9 @@ description as the link `title=`, replacing the standard `indexLink`'s
    of the project agrees.
 3. Update the **frontmatter table in `README.md`** so the row matches
    the schema (Required column = "yes"/"no", Indexable column ✓ when
-   `indexable: true`, Home/Index/Song/Print columns ✓ to match
-   `display`).
-4. If `display` includes `"home"`, edit `src/index.njk`. If it
-   includes `"index"`, edit `src/index-pages.njk`. If it includes
-   `"song"`, edit `src/_includes/song.njk`. If it includes `"print"`,
-   edit the `renderSongPrint` macro in
+   `indexable: true`, Song/Print columns ✓ to match `display`).
+4. If `display` includes `"song"`, edit `src/_includes/song.njk`. If it
+   includes `"print"`, edit the `renderSongPrint` macro in
    `src/_includes/song-print.njk`. The templates are handwritten
    because rendering is per-field bespoke (slash form for screen
    `bop_rating`, plain "Bop: N" for print, byline join for
@@ -107,7 +109,7 @@ description as the link `title=`, replacing the standard `indexLink`'s
 
 ### Home-page search is schema-driven
 
-The home page has a client-side search box (`src/assets/search.js`)
+The home page has a client-side search box (`src/assets/table.js`)
 that filters the song list by substring matching against a JSON index
 emitted at `/search-index.json` by `src/search-index.njk` (driven by
 the `searchIndex` collection in `eleventy.config.js`). The collection
