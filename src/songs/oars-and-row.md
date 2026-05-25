@@ -10,6 +10,6 @@ structure:
   - chorus
 joiny_inny: moderate
 author: TK
-known: '3'
+known: 3
 ---
 

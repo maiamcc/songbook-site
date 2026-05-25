@@ -11,6 +11,6 @@ structure:
   - chorus
 joiny_inny: hard
 author: TK
-known: '2'
+known: 2
 ---
 

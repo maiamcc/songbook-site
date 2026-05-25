@@ -14,6 +14,6 @@ structure:
   - folderol
 joiny_inny: easy
 author: TK
-known: '3'
+known: 3
 ---
 

@@ -12,7 +12,7 @@ bop_rating: 4
 structure:
   - chorus
 joiny_inny: moderate
-known: '2'
+known: 2
 notes: >-
     TODO. I can't figure out if it was an actual union song or written for a movie about coal mining.
 

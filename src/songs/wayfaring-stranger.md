@@ -13,6 +13,6 @@ structure:
   - zipper
 joiny_inny: easy
 author: TK
-known: '2'
+known: 2
 ---
 

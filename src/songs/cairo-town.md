@@ -6,7 +6,7 @@ bop_rating: 3
 structure: [chorus]
 rnge: so-la
 joiny_inny: hard
-known: "1"
+known: 1
 ---
     I'm rolling, flowing, around these hills; 
     I must take my rest, but this river never will.

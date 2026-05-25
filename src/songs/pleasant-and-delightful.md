@@ -14,6 +14,6 @@ structure:
   - repeat-line-you-listen-for
 joiny_inny: easy
 author: TK
-known: '2'
+known: 2
 ---
 

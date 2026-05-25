@@ -11,7 +11,7 @@ structure:
   - chorus
 joiny_inny: easy
 author: Woody Guthrie
-known: '3'
+known: 3
 notes: >-
     Gink, a 1910 synonym for "jerk," may come from carnival usage. "Fink" is now in popular use but was originally union slang.
 
