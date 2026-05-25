@@ -1,12 +1,11 @@
 # TODO
 
 ## P1
-* index view should have labels for info shown -- maybe just columns w headers?
-  * make these changes on the homepage then apply to indexes (Rather, have indexes use the same underlying thinger as homepage)
+* apply configurable table to index views (per-field-value listing pages)
 
 ## P2:
 * song print: line spacing and font size play
-* adjust columns shown in home page / indexes
+* multi-column sort on the home page table (shift+click to add a secondary sort key)
 * printable home page / indexes (with all selected columns)
 * printing multiple songs (e.g. put a checkbox, print all checked songs)
 * more layout stuff ???

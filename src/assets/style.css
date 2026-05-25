@@ -493,6 +493,120 @@ h1 {
   color: var(--muted);
 }
 
+/* ── Home page song table ─────────────────────────────────────────────────── */
+
+.song-table-wrap {
+  overflow-x: auto;
+}
+
+/* Controls row: meatball button at far right, menu drops below it. */
+.song-table-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 0.3rem;
+  position: relative;
+}
+
+.table-cols-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.15rem 0.55rem;
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--fg);
+}
+.table-cols-btn:hover {
+  background: var(--hover-bg);
+}
+
+.table-cols-menu {
+  position: absolute;
+  top: calc(100% + 3px);
+  right: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.35rem 0.6rem;
+  z-index: 100;
+  min-width: 150px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+.table-cols-menu label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.song-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.song-table th,
+.song-table td {
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.song-table thead th {
+  border-bottom: 2px solid var(--separator);
+}
+
+/* Sort button inside each <th> — flush with the cell, styled as a header. */
+.sort-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: inherit;
+  color: inherit;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.sort-btn:hover {
+  color: var(--accent);
+}
+.sort-btn.sort-asc::after {
+  content: " ▲";
+  font-size: 0.7em;
+  color: var(--accent);
+}
+.sort-btn.sort-desc::after {
+  content: " ▼";
+  font-size: 0.7em;
+  color: var(--accent);
+}
+
+.song-tr:hover {
+  background: var(--hover-bg);
+}
+
+/* Chips for list-valued fields in table cells (mood, structure, topics). */
+.cell-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+.cell-chip {
+  background: color-mix(in srgb, var(--border) 40%, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
 /* Index pages: one page per (field, value) pair, rich per-song rows. */
 .index-heading {
   margin-bottom: 0.25rem;

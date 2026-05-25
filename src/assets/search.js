@@ -1,34 +1,55 @@
-// Client-side search and filter for the home page.
+// Client-side search, filter, and table rendering for the home page.
 // Fetches /search-index.json (text blobs for substring search) and
-// /filter-index.json (structured per-field values for faceted filtering),
-// then builds the filter UI and wires both up to the song list.
+// /filter-index.json (structured per-field values for faceted filtering
+// plus table display fields: title, alternate_title, author), then builds
+// the filter UI and a configurable sortable table.
 //
-// Filter state (and search text) are reflected in the URL as query
-// params so the current view is shareable: ?q=searchterm&mood=rousing&mood=fun
-// Each active filter value is a separate repeated param; fields with no
-// active values are omitted. history.replaceState keeps the URL current
-// without creating back-navigation entries.
-//
-// Token AND-matching for text search lives in match.js so it can be
-// unit-tested without a DOM.
+// URL encoding: all state is reflected as query params so any view is
+// shareable.
+//   ?q=searchterm         — search text
+//   ?mood=rousing&mood=fun — active filter values (repeated per value)
+//   ?cols=mood,genre      — optional columns enabled beyond defaults
+//   ?sort=bop_rating&dir=desc — active sort field and direction
+// history.replaceState keeps the URL current without creating history entries.
 import { matchTokens } from "./match.js";
 import { songMatchesFilters } from "./filter-match.js";
 
+// Always-visible columns. These are never in the meatball-menu column picker.
+const DEFAULT_COL_KEYS = ["title", "author", "bop_rating"];
+
+// Human-readable labels for default columns (filterable field labels come
+// from the filter-config JSON blob injected by index.njk).
+const DEFAULT_COL_LABELS = {
+  title: "Title",
+  author: "Author",
+  bop_rating: "Bop Rating",
+};
+
 (async () => {
   const searchInput = document.getElementById("song-search");
-  const list = document.getElementById("song-list");
+  const tableWrap = document.getElementById("song-table-wrap");
   const empty = document.getElementById("song-search-empty");
-  if (!searchInput || !list) return;
+  if (!searchInput || !tableWrap) return;
 
   const configEl = document.getElementById("filter-config");
   const filterFields = configEl ? JSON.parse(configEl.textContent).fields : [];
 
-  let searchByUrl, filterByUrl;
+  // Full label map: defaults first, then filterable field labels.
+  const colLabels = { ...DEFAULT_COL_LABELS };
+  for (const f of filterFields) {
+    if (!(f.key in colLabels)) colLabels[f.key] = f.label;
+  }
+
+  // Optional columns: filterable fields not already in the default set.
+  const optionalCols = filterFields.filter((f) => !DEFAULT_COL_KEYS.includes(f.key));
+
+  // ── Fetch data ─────────────────────────────────────────────────────────────
+  let searchByUrl, songs;
   try {
     const sr = await fetch("search-index.json");
     if (!sr.ok) throw new Error(sr.status);
-    const searchEntries = await sr.json();
-    searchByUrl = new Map(searchEntries.map((e) => [e.url, e.text]));
+    const entries = await sr.json();
+    searchByUrl = new Map(entries.map((e) => [e.url, e.text]));
   } catch {
     searchInput.disabled = true;
     searchInput.placeholder = "Search unavailable";
@@ -37,85 +58,302 @@ import { songMatchesFilters } from "./filter-match.js";
 
   try {
     const fr = await fetch("filter-index.json");
-    if (fr.ok) {
-      const filterEntries = await fr.json();
-      filterByUrl = new Map(filterEntries.map((e) => [e.url, e]));
-    }
+    if (fr.ok) songs = await fr.json();
   } catch {
-    // Filter index unavailable; search still works, filter UI is skipped.
+    // Filter index unavailable — filtering and table unavailable.
   }
 
-  const items = [...list.querySelectorAll("li[data-url]")];
-  if (items.length === 0) {
+  if (!songs || songs.length === 0) {
+    tableWrap.textContent = "No songs yet. Add a markdown file under src/songs/.";
     searchInput.disabled = true;
     return;
   }
 
-  // active: { fieldKey -> Set<string of selected values> }
+  // ── State ──────────────────────────────────────────────────────────────────
+  // active: { fieldKey -> Set<string> } — currently active filter values.
   const active = Object.fromEntries(filterFields.map((f) => [f.key, new Set()]));
 
-  let clearBtn = null;
-  const panel = document.getElementById("filter-panel");
-  if (panel && filterByUrl && filterFields.length > 0) {
-    clearBtn = buildFilterUI(panel, filterFields, filterByUrl, active, updateVisibility);
+  // activeCols: Set<string> — optional column keys currently shown.
+  const activeCols = new Set();
+
+  // sortField / sortDir: currently active sort (null = unsorted).
+  let sortField = null;
+  let sortDir = "asc"; // "asc" | "desc"
+
+  // ── Build table skeleton ───────────────────────────────────────────────────
+  const controlsRow = document.createElement("div");
+  controlsRow.className = "song-table-controls";
+
+  const table = document.createElement("table");
+  table.className = "song-table";
+  const thead = document.createElement("thead");
+  const tbody = document.createElement("tbody");
+  table.appendChild(thead);
+  table.appendChild(tbody);
+
+  tableWrap.appendChild(controlsRow);
+  tableWrap.appendChild(table);
+
+  // ── Meatball menu (column picker) ──────────────────────────────────────────
+  let menuOpen = false;
+
+  const meatballBtn = document.createElement("button");
+  meatballBtn.type = "button";
+  meatballBtn.className = "table-cols-btn";
+  meatballBtn.setAttribute("aria-label", "Configure columns");
+  meatballBtn.setAttribute("aria-expanded", "false");
+  meatballBtn.textContent = "⋮";
+
+  const meatballMenu = document.createElement("div");
+  meatballMenu.className = "table-cols-menu";
+  meatballMenu.hidden = true;
+
+  for (const col of optionalCols) {
+    const label = document.createElement("label");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.value = col.key;
+    cb.addEventListener("change", () => {
+      if (cb.checked) activeCols.add(col.key);
+      else activeCols.delete(col.key);
+      renderAll();
+    });
+    label.appendChild(cb);
+    label.append(" " + (colLabels[col.key] || col.key));
+    meatballMenu.appendChild(label);
   }
 
-  // Restore state from URL params on load.
+  controlsRow.appendChild(meatballMenu);
+  controlsRow.appendChild(meatballBtn);
+
+  meatballBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    menuOpen = !menuOpen;
+    meatballMenu.hidden = !menuOpen;
+    meatballBtn.setAttribute("aria-expanded", String(menuOpen));
+  });
+  document.addEventListener("click", () => {
+    if (menuOpen) {
+      menuOpen = false;
+      meatballMenu.hidden = true;
+      meatballBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // ── Filter UI ──────────────────────────────────────────────────────────────
+  const filterPanel = document.getElementById("filter-panel");
+  let clearBtn = null;
+  const filterByUrl = new Map(songs.map((s) => [s.url, s]));
+  if (filterPanel && filterFields.length > 0) {
+    clearBtn = buildFilterUI(filterPanel, filterFields, filterByUrl, active, renderAll);
+  }
+
+  // ── Restore state from URL ─────────────────────────────────────────────────
   const initialParams = new URLSearchParams(location.search);
+
+  // Search
   const initialQ = initialParams.get("q");
   if (initialQ) searchInput.value = initialQ;
-  if (panel) {
+
+  // Filters
+  if (filterPanel) {
     let anyInitialFilter = false;
     for (const { key } of filterFields) {
       for (const val of initialParams.getAll(key)) {
         if (!active[key]) continue;
         active[key].add(val);
         anyInitialFilter = true;
-        const btn = panel.querySelector(`.filter-btn[data-value="${CSS.escape(val)}"]`);
+        const btn = filterPanel.querySelector(`.filter-btn[data-value="${CSS.escape(val)}"]`);
         if (btn) btn.classList.add("filter-btn--active");
       }
     }
     if (clearBtn) clearBtn.hidden = !anyInitialFilter;
-    // Open the filter panel if any filters are active from the URL.
     if (anyInitialFilter) {
       const details = document.getElementById("song-filter-details");
       if (details) details.open = true;
     }
   }
 
-  function updateVisibility() {
-    const q = searchInput.value;
-    const anyFilter = Object.values(active).some((s) => s.size > 0);
-    let visible = 0;
-    for (const li of items) {
-      const url = li.dataset.url;
-      const text = searchByUrl.get(url) || "";
-      const data = filterByUrl ? filterByUrl.get(url) : null;
-      const show = matchTokens(text, q) && songMatchesFilters(data, active);
-      li.hidden = !show;
-      if (show) visible++;
+  // Optional columns
+  const colsParam = initialParams.get("cols");
+  if (colsParam) {
+    for (const col of colsParam.split(",")) {
+      if (optionalCols.some((f) => f.key === col)) activeCols.add(col);
     }
-    if (empty) empty.hidden = !((q.trim() || anyFilter) && visible === 0);
-    if (clearBtn) clearBtn.hidden = !anyFilter;
-    syncUrl(q, active);
+    for (const cb of meatballMenu.querySelectorAll("input[type=checkbox]")) {
+      cb.checked = activeCols.has(cb.value);
+    }
   }
 
-  // Apply initial URL state to visibility.
-  updateVisibility();
+  // Sort
+  const sortParam = initialParams.get("sort");
+  if (sortParam) {
+    sortField = sortParam;
+    sortDir = initialParams.get("dir") === "desc" ? "desc" : "asc";
+  }
 
-  searchInput.addEventListener("input", updateVisibility);
+  // ── Event listeners ────────────────────────────────────────────────────────
+  searchInput.addEventListener("input", renderAll);
+
+  // ── Initial render ─────────────────────────────────────────────────────────
+  renderAll();
+
+  // ── Core render functions ──────────────────────────────────────────────────
+  function getActiveCols() {
+    return [
+      ...DEFAULT_COL_KEYS,
+      ...optionalCols.filter((f) => activeCols.has(f.key)).map((f) => f.key),
+    ];
+  }
+
+  function renderAll() {
+    const q = searchInput.value;
+    const anyFilter = Object.values(active).some((s) => s.size > 0);
+
+    const visible = songs.filter(
+      (song) =>
+        matchTokens(searchByUrl.get(song.url) || "", q) &&
+        songMatchesFilters(song, active)
+    );
+    const sorted = sortSongs(visible, sortField, sortDir);
+
+    if (empty) empty.hidden = !((q.trim() || anyFilter) && sorted.length === 0);
+    if (clearBtn) clearBtn.hidden = !anyFilter;
+
+    const cols = getActiveCols();
+    renderThead(thead, cols);
+    renderTbody(tbody, sorted, cols);
+
+    syncUrl(q, active, activeCols, sortField, sortDir);
+  }
+
+  function renderThead(thead, cols) {
+    thead.innerHTML = "";
+    const tr = document.createElement("tr");
+    for (const col of cols) {
+      const th = document.createElement("th");
+      th.className = "song-th";
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "sort-btn";
+      btn.textContent = colLabels[col] || col;
+
+      if (sortField === col) {
+        btn.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+        btn.setAttribute("aria-sort", sortDir === "asc" ? "ascending" : "descending");
+      }
+
+      btn.addEventListener("click", () => {
+        if (sortField === col) {
+          // asc → desc → unsorted
+          if (sortDir === "asc") {
+            sortDir = "desc";
+          } else {
+            sortField = null;
+            sortDir = "asc";
+          }
+        } else {
+          sortField = col;
+          sortDir = "asc";
+        }
+        renderAll();
+      });
+
+      th.appendChild(btn);
+      tr.appendChild(th);
+    }
+    thead.appendChild(tr);
+  }
+
+  function renderTbody(tbody, songs, cols) {
+    tbody.innerHTML = "";
+    for (const song of songs) {
+      const tr = document.createElement("tr");
+      tr.className = "song-tr";
+      for (const col of cols) {
+        const td = document.createElement("td");
+        td.className = "song-td";
+        if (col === "title") {
+          const a = document.createElement("a");
+          a.href = song.url;
+          a.textContent = song.title || "(untitled)";
+          td.appendChild(a);
+          if (song.alternate_title) {
+            const alt = document.createElement("span");
+            alt.className = "alt-title";
+            alt.textContent = ` (${song.alternate_title})`;
+            td.appendChild(alt);
+          }
+        } else {
+          renderCellContent(td, song, col);
+        }
+        tr.appendChild(td);
+      }
+      tbody.appendChild(tr);
+    }
+  }
+
+  function renderCellContent(td, song, col) {
+    const val = song[col];
+    if (val === undefined || val === null) return;
+    if (Array.isArray(val)) {
+      const wrap = document.createElement("span");
+      wrap.className = "cell-chips";
+      for (const item of val) {
+        const chip = document.createElement("span");
+        chip.className = "cell-chip";
+        chip.textContent = humanizeVal(String(item));
+        wrap.appendChild(chip);
+      }
+      td.appendChild(wrap);
+    } else if (typeof val === "boolean") {
+      td.textContent = val ? "yes" : "no";
+    } else {
+      td.textContent = humanizeVal(String(val));
+    }
+  }
 })();
 
-function syncUrl(q, active) {
+// ── Pure helpers (module-level, testable) ──────────────────────────────────
+
+function sortSongs(songs, field, dir) {
+  if (!field) return songs;
+  return [...songs].sort((a, b) => {
+    const av = getSortVal(a, field);
+    const bv = getSortVal(b, field);
+    if (av === null && bv === null) return 0;
+    if (av === null) return 1;  // nulls sort last
+    if (bv === null) return -1;
+    const cmp =
+      typeof av === "number" && typeof bv === "number"
+        ? av - bv
+        : String(av).localeCompare(String(bv));
+    return dir === "desc" ? -cmp : cmp;
+  });
+}
+
+function getSortVal(song, field) {
+  const v = song[field];
+  if (v === undefined || v === null) return null;
+  if (Array.isArray(v)) return v.length > 0 ? String(v[0]) : null;
+  return v;
+}
+
+function syncUrl(q, active, activeCols, sortField, sortDir) {
   const params = new URLSearchParams();
   if (q.trim()) params.set("q", q);
   for (const [key, selected] of Object.entries(active)) {
     for (const val of selected) params.append(key, val);
   }
+  if (activeCols.size > 0) params.set("cols", [...activeCols].join(","));
+  if (sortField) {
+    params.set("sort", sortField);
+    if (sortDir !== "asc") params.set("dir", sortDir);
+  }
   const qs = params.toString();
   history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
 }
-
 
 function buildFilterUI(panel, fields, filterByUrl, active, onUpdate) {
   // Collect distinct values actually present in songs for each field.

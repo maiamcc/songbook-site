@@ -21,17 +21,7 @@ title: Songbook
   <summary class="song-filter-summary">Filters</summary>
   <div class="filter-panel" id="filter-panel"></div>
 </details>
-<ul class="song-list" id="song-list">
-  {% for song in collections.songs %}
-    <li data-url="{{ song.url }}">
-      <a href="{{ song.url | relativeUrl(page.url) }}">
-        {{ song.data.title }}{% if song.data.alternate_title %}<span class="alt-title"> ({{ song.data.alternate_title }})</span>{% endif %}{% if song.data.author %}<span class="author"> — {{ song.data.author }}</span>{% endif %}
-      </a>
-    </li>
-  {% else %}
-    <li><em>No songs yet. Add a markdown file under <code>src/songs/</code>.</em></li>
-  {% endfor %}
-</ul>
+<div id="song-table-wrap" class="song-table-wrap"></div>
 <p id="song-search-empty" class="song-search-empty" hidden><em>No songs match.</em></p>
 <script id="filter-config" type="application/json">
 {"fields": {{ filterFields | dump | safe }}}

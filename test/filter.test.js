@@ -95,24 +95,35 @@ test("buildFilterRecord: includes all filterable fields that are present", () =>
   assert.equal(rec.in_nb, true);
 });
 
-test("buildFilterRecord: non-filterable fields are excluded", () => {
+test("buildFilterRecord: non-display non-filterable fields are excluded", () => {
   const data = { ...REQUIRED, notes: "n/a", rnge: "ab-cd" };
   const rec = buildFilterRecord("/songs/x/", data);
   assert.ok(!("notes" in rec), "notes should not appear in filter record");
   assert.ok(!("rnge" in rec), "rnge should not appear in filter record");
-  assert.ok(!("title" in rec), "title should not appear in filter record");
-  assert.ok(!("author" in rec), "author should not appear in filter record");
-  assert.ok(!("alternate_title" in rec), "alternate_title should not appear in filter record");
+});
+
+test("buildFilterRecord: always includes table display fields", () => {
+  const data = {
+    ...REQUIRED,
+    title: "My Song",
+    author: "A. Person",
+    alternate_title: "Alt",
+  };
+  const rec = buildFilterRecord("/songs/x/", data);
+  assert.equal(rec.title, "My Song");
+  assert.equal(rec.author, "A. Person");
+  assert.equal(rec.alternate_title, "Alt");
 });
 
 test("buildFilterRecord: absent optional fields are excluded", () => {
   const rec = buildFilterRecord("/songs/x/", REQUIRED);
-  // Only bop_rating from REQUIRED is filterable; others (title, author, rnge) are not.
+  // bop_rating is filterable and present; rnge is neither filterable nor a table field.
   assert.equal(rec.bop_rating, 3);
   assert.ok(!("genre" in rec));
   assert.ok(!("mood" in rec));
   assert.ok(!("topics" in rec));
   assert.ok(!("in_nb" in rec));
+  assert.ok(!("rnge" in rec));
 });
 
 test("buildFilterRecord: null and empty-string values are excluded", () => {

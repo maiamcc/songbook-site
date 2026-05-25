@@ -189,17 +189,21 @@ for (const [field, spec] of Object.entries(FIELDS)) {
     );
   });
 
-  test(`home view: ${field} ${spec.display.includes("home") ? "renders" : "does NOT render"}`, () => {
-    const html = render(HOME_NJK, {
-      collections: { songs: [{ url: "/songs/x/", data: fullSong }] },
+  // Home-display fields (title, author, alternate_title) are rendered
+  // client-side by search.js from filter-index.json; they won't appear
+  // in the server-rendered HTML. Only assert absence for non-home fields.
+  if (!spec.display.includes("home")) {
+    test(`home view: ${field} does NOT render`, () => {
+      const html = render(HOME_NJK, {
+        collections: { songs: [{ url: "/songs/x/", data: fullSong }] },
+      });
+      assert.equal(
+        contains(html, fixture.marker),
+        false,
+        `expected ${field} marker to not appear in home view`
+      );
     });
-    const shouldRender = spec.display.includes("home");
-    assert.equal(
-      contains(html, fixture.marker),
-      shouldRender,
-      `expected ${field} marker to ${shouldRender ? "" : "not "}appear in home view`
-    );
-  });
+  }
 
   test(`index view: ${field} ${spec.display.includes("index") ? "renders" : "does NOT render"}`, () => {
     // Pick a non-special field for the entry key so the heading doesn't
@@ -378,7 +382,7 @@ test("song view: a title-only song renders no optional field markers", () => {
   }
 });
 
-test("home view: each song's title appears inside its link", () => {
+test("home view: song table container and filter config script are present", () => {
   const html = render(HOME_NJK, {
     collections: {
       songs: [
@@ -387,17 +391,10 @@ test("home view: each song's title appears inside its link", () => {
       ],
     },
   });
-  // The whole row is wrapped in <a>, so the title may sit alongside
-  // other spans inside the link. Just assert href + title coexist
-  // within the same anchor.
-  assert.match(
-    html,
-    /<a [^>]*href="\/songs\/full\/"[^>]*>[\s\S]*?Full Song[\s\S]*?<\/a>/
-  );
-  assert.match(
-    html,
-    /<a [^>]*href="\/songs\/bare\/"[^>]*>[\s\S]*?Bare Song[\s\S]*?<\/a>/
-  );
+  // The table is JS-rendered into #song-table-wrap; assert the container
+  // and the filter-config data blob the JS reads are present.
+  assert.match(html, /id="song-table-wrap"/);
+  assert.match(html, /id="filter-config"/);
 });
 
 test("index view: heading shows field name (underscore→space) and value", () => {
@@ -451,12 +448,3 @@ test("index view: count line pluralizes correctly", () => {
   assert.match(two, /2 songs/);
 });
 
-test("home view: title-only songs emit no alt-title or author markup", () => {
-  const html = render(HOME_NJK, {
-    collections: {
-      songs: [{ url: "/songs/bare/", data: { title: "Bare Song" } }],
-    },
-  });
-  assert.doesNotMatch(html, /class="alt-title"/);
-  assert.doesNotMatch(html, /class="author"/);
-});
