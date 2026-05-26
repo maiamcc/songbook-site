@@ -72,13 +72,25 @@ test("standalone chorus block (blank-line separated) is still a chorus div", () 
   assert.doesNotMatch(html, /class="refrain"/);
 });
 
+// Regression: a mixed verse (with 4-space refrains) followed by a blank line
+// and then a tab-indented standalone chorus must NOT merge the last refrain
+// and the chorus into a single block.
+test("standalone chorus after a mixed verse is not merged into the last refrain", () => {
+  const src =
+    "verse line\n    refrain line\n\n\tstandalone chorus line";
+  const html = render(src);
+  assert.match(html, /<div class="chorus refrain">refrain line<\/div>/);
+  assert.match(html, /<div class="chorus">standalone chorus line<\/div>/);
+});
+
 // --- Inner indentation within a chorus/refrain block ---
 
 // An all-indented block where some lines are MORE indented (e.g. Jacky Frost)
 // must render as a SINGLE chorus div with inner indentation preserved.
+// The block must be blank-line-separated so the parser sees it as a code_block.
 test("extra indentation within an all-indented block stays in one chorus div", () => {
   const html = render(
-    "    verse A\n        refrain A\n    verse B\n        refrain B"
+    "before\n\n    verse A\n        refrain A\n    verse B\n        refrain B\n\nafter"
   );
   const chorusMatches = [...html.matchAll(/<div class="chorus">/g)];
   assert.equal(chorusMatches.length, 1);
