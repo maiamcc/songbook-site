@@ -46,8 +46,8 @@ export function buildSongFile(data, body = "") {
       const ph = FIELDS[field].placeholder;
       if (ph) {
         const [first, ...rest] = ph.split("\n");
-        lines.push(`${field}: ${first}`);
-        for (const l of rest) lines.push(l);
+        lines.push(`# ${field}: ${first}`);
+        for (const l of rest) lines.push(`# ${l}`);
       } else {
         lines.push(`# ${field}: TK`);
       }

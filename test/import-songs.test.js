@@ -306,8 +306,8 @@ test("importSongs: overwriteEmpty replaces file with only CSV fields", () => {
 
     const { data } = matter(readFileSync(join(dir, "my-song.md"), "utf8"));
     assert.equal(data.author, "New Author");
-    // notes was not in the CSV; buildSongFile emits the block-scalar TK placeholder.
-    assert.equal(data.notes, "TK", "notes should have the TK placeholder when absent from CSV");
+    // notes was not in the CSV; buildSongFile emits a commented-out placeholder.
+    assert.equal(data.notes, undefined, "notes should be absent (commented out) when not in CSV");
   });
 });
 

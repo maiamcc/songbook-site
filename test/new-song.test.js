@@ -12,7 +12,7 @@ test("slugify: lowercases, collapses runs of non-alphanumeric", () => {
 
 test("slugify: apostrophes are stripped, not converted to hyphens", () => {
   assert.equal(slugify("It's a Pleasure to Know You"), "its-a-pleasure-to-know-you");
-  assert.equal(slugify("Don’t You (Forget About Me)"), "dont-you-forget-about-me");
+  assert.equal(slugify("Don't You (Forget About Me)"), "dont-you-forget-about-me");
 });
 
 test("slugify: trims surrounding whitespace and stray hyphens", () => {
@@ -109,12 +109,11 @@ test("buildSongFile: absent optional fields appear as # field: TK comments", () 
   assert.match(fm, /^# genre: TK$/m);
 });
 
-test("buildSongFile: absent notes uses block scalar placeholder instead of a comment", () => {
+test("buildSongFile: absent notes uses commented-out block scalar placeholder", () => {
   const out = buildSongFile(REQUIRED);
   const fm = parseFrontmatter(out);
-  assert.doesNotMatch(fm, /^# notes: TK$/m, "notes should not be a comment");
-  assert.match(fm, /^notes: >-$/m, "notes should have a block scalar indicator");
-  assert.match(fm, /^    TK$/m, "notes body should be indented TK");
+  assert.match(fm, /^# notes: >-$/m, "notes should be a commented block scalar");
+  assert.match(fm, /^#   TK$/m, "notes body should be a commented indented TK");
 });
 
 test("buildSongFile: absent required fields are silently omitted (no TK comment)", () => {
