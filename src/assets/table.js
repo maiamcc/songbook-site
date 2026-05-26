@@ -460,7 +460,7 @@ const DEFAULT_COL_LABELS = {
 
   function makeIndexLink(url, val) {
     const a = document.createElement("a");
-    a.href = url;
+    a.href = pathPrefix + url.replace(/^\//, "");
     a.textContent = humanizeVal(val);
     return a;
   }
