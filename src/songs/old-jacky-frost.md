@@ -1,6 +1,5 @@
 ---
 title: Old Jacky Frost
-# alternate_title: TK
 author: Barrie Temple
 topics: [seasons]
 genre: carol

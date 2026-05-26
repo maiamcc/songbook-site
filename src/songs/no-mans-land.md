@@ -10,7 +10,15 @@ structure: [chorus]
 joiny_inny: hard
 known: 2
 # in_nb: TK
-notes: "Written 1976. Bogle (Scottish folk singer) said: \"It's a song that was written about the military cemeteries in Flanders and Northern France. In 1976, my wife and I went to three or four of these military cemeteries and saw all the young soldiers buried there.\"\n\n\"The Last Post\" = military bugle call for funerals. \"Flowers of the Forest\" (Roud 3812) = Scottish folk tune and work of war poetry commemorating a defeat of the Scottish army. Pipers generally only play it at funerals/memorials, not at other performances."
+notes: >-
+    Written 1976. Bogle (Scottish folk singer) said: "It's a song that was written about the
+    military cemeteries in Flanders and Northern France. In 1976, my wife and I went to three
+    or four of these military cemeteries and saw all the young soldiers buried there.
+    
+
+    "The Last Post" = military bugle call for funerals. "Flowers of the Forest" (Roud 3812) = Scottish
+    folk tune and work of war poetry commemorating a defeat of the Scottish army. Pipers generally only
+    play it at funerals/memorials, not at other performances.
 rnge: re-fa
 ---
 

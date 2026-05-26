@@ -1,6 +1,5 @@
 ---
 title: Leave Her Johnny
-# alternate_title: TK
 author: trad.
 topics: [sea / sailors]
 genre: chantey
@@ -10,7 +9,15 @@ structure: [chorus, 2nd-4th-lines-repeat]
 joiny_inny: easy
 known: 3
 # in_nb: TK
-notes: "\"This pumping shanty was traditionally reserved for the lost task the sailors performed before leaving ship after a hard voyage. With the ship tied fast to the pier, the men worked at pumping her dry. With the voyage over, the sailor was free to express (without fear of reprisal) his heart-felt opinion of the ship and its officers.\"\n\n\"To sing it before the last day or so on board was almost tantamount to mutiny and was apt even at the latest date to be fiercely resented by captain and officers.\""
+notes: >-
+    "This pumping shanty was traditionally reserved for the lost task the sailors
+    performed before leaving ship after a hard voyage. With the ship tied fast
+    to the pier, the men worked at pumping her dry. With the voyage over, the
+    sailor was free to express (without fear of reprisal) his heart-felt opinion 
+    of the ship and its officers."
+    
+    "To sing it before the last day or so on board was almost tantamount to mutiny
+    and was apt even at the latest date to be fiercely resented by captain and officers."
 rnge: do-do
 ---
 

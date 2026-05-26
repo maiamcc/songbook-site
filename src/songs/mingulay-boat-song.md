@@ -1,6 +1,5 @@
 ---
 title: Mingulay Boat Song
-# alternate_title: TK
 author: Sir Hugh S. Roberton
 topics: [sea / sailors]
 # genre: TK

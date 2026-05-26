@@ -1,6 +1,5 @@
 ---
 title: Star of the County Down
-# alternate_title: TK
 author: trad. Irish
 topics: [love]
 # genre: TK

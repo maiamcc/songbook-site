@@ -1,6 +1,5 @@
 ---
 title: Cool of the Day
-# alternate_title: TK
 author: Jean Richie
 topics: [flowers / plants, religion / God]
 # genre: TK

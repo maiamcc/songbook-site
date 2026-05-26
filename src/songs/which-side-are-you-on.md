@@ -1,6 +1,5 @@
 ---
 title: Which Side Are You On?
-# alternate_title: TK
 author: Florence Reece
 topics: [labor, mining]
 genre: protest-song
@@ -10,7 +9,10 @@ structure: [chorus]
 joiny_inny: very-easy
 known: 3
 # in_nb: TK
-notes: Written in 1931 by activist Florence Reece, who was the wife of Sam Reece, a union organizer for the United Mine Workers in Harlan County, Kentucky. Collected the next year by Pete Seeger.
+notes: >-
+    Written in 1931 by activist Florence Reece, who was the wife of Sam Reece, a
+    union organizer for the United Mine Workers in Harlan County, Kentucky. Collected
+    the next year by Pete Seeger.
 rnge: so-ti
 ---
 

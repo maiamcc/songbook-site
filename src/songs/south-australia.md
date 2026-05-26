@@ -1,6 +1,5 @@
 ---
 title: South Australia
-# alternate_title: TK
 author: trad.
 topics: [sea / sailors]
 genre: chantey

@@ -1,6 +1,5 @@
 ---
 title: When We Sing Together
-# alternate_title: TK
 author: Emma Azelborn
 topics: [music / dance]
 # genre: TK

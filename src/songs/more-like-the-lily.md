@@ -1,6 +1,5 @@
 ---
 title: More Like the Lily
-# alternate_title: TK
 author: Annaleah Ernst
 topics: [flowers / plants]
 # genre: TK

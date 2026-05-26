@@ -1,6 +1,5 @@
 ---
 title: Wild Mountain Thyme
-# alternate_title: TK
 author: trad. Scottish/Irish
 topics: [flowers / plants, love]
 # genre: TK
@@ -10,8 +9,6 @@ structure: [chorus]
 joiny_inny: moderate
 known: 2
 # in_nb: TK
-# notes: >-
-#   TK
 rnge: so-la
 ---
 
