@@ -2,18 +2,20 @@
 
 ## P1
 * show range with single or double arrow for how many octaves it spans
-* double check about refrains lines without big space before them / no line break before preceeding verse
+* refrain lines embedded in verse aren't formatting right (see Bonny Barque the Bergen)
 * See davy cross: break the left-side bar when there are linebreaks in chorus material
 
 ## P2:
 * mobile layout?
 * hitbox on checkboxes on table should be bigger
-* tweak tooltip formatting for better margins and line continuation esp on mobile
 * what do I do with really long e.g. authors gumming up the song table? author_display escape hatch field, or?
 * make pill link layout less weird.
 * freeze title col of table when scrolling
+* can i smartly format/markdown parse quotes into smart quotes?
 
 ### P3:
+* tweak tooltip formatting for better margins and line continuation esp on mobile
+* in song metadata, separate the topic entites better; better hover behavior for everything
 * somewhat rein in all possible topics
 * reset table button to go back to default sorts, cols etc.
 * multi-column sort on the home page table (shift+click to add a secondary sort key)
@@ -22,8 +24,6 @@
 * maybe add favicon
 * make tab titles not suck
   * including parsing special chars in song names correctly -- see eg Pleasure to Know You title
-* make song types, topics etc. formatted better and more consistently. maybe color coded?
+* narrow list of moods/topics? consistent display -- icons or color coding?
 * customizable print layout: paper size, fields included, etc.
-* style the metadata drawer on the song view (currently default `<details>`/`<summary>` look)
-* other information to track, maybe: roud number, lineage/where i learned it from, do EYE have it memorized
 * command to `list-todo`: show songs that don't have lyrics
