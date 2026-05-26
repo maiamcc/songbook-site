@@ -10,6 +10,6 @@ screenUrl: "/"
 {"fields": {{ filterFields | dump | safe }}}
 </script>
 <script id="table-config" type="application/json">
-{"searchIndexUrl": "/search-index.json", "filterIndexUrl": "/filter-index.json"}
+{"searchIndexUrl": "{{ '/search-index.json' | relativeUrl(page.url) }}", "filterIndexUrl": "{{ '/filter-index.json' | relativeUrl(page.url) }}"}
 </script>
-<script type="module" src="/assets/table-print.js"></script>
+<script type="module" src="{{ '/assets/table-print.js' | relativeUrl(page.url) }}"></script>

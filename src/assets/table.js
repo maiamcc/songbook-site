@@ -38,7 +38,12 @@ const DEFAULT_COL_LABELS = {
   if (!tableWrap) return;
 
   const configEl = document.getElementById("filter-config");
-  const filterFields = configEl ? JSON.parse(configEl.textContent).fields : [];
+  const filterConfig = configEl ? JSON.parse(configEl.textContent) : {};
+  const filterFields = filterConfig.fields ?? [];
+  // Relative path from the current page to the site root (e.g. "../../" for a
+  // page two levels deep). Injected by the template so root-absolute song URLs
+  // from the search index can be made relative for subpath deploys.
+  const pathPrefix = filterConfig.pathPrefix ?? "";
 
   const tableConfigEl = document.getElementById("table-config");
   const tableConfig = tableConfigEl ? JSON.parse(tableConfigEl.textContent) : {};
@@ -383,7 +388,7 @@ const DEFAULT_COL_LABELS = {
       tr.addEventListener("click", (e) => {
         if (e.target.closest("a")) return;
         if (e.target.closest("input[type=checkbox]")) return;
-        window.location.href = song.url;
+        window.location.href = pathPrefix + song.url.replace(/^\//, "");
       });
 
       // Row checkbox
@@ -408,7 +413,7 @@ const DEFAULT_COL_LABELS = {
         td.className = col === "title" ? "song-td song-td--title" : "song-td";
         if (col === "title") {
           const a = document.createElement("a");
-          a.href = song.url;
+          a.href = pathPrefix + song.url.replace(/^\//, "");
           a.textContent = song.title || "(untitled)";
           td.appendChild(a);
           if (song.alternate_title) {
@@ -485,7 +490,8 @@ function syncPrintSelected(selectedUrls) {
     btn.textContent = `Print ${count} selected →`;
     const params = new URLSearchParams();
     for (const url of selectedUrls) params.append("song", url);
-    btn.href = `/multi-print/?${params.toString()}`;
+    const multiPrintBase = btn.dataset.hrefBase || `${pathPrefix}multi-print/`;
+    btn.href = `${multiPrintBase}?${params.toString()}`;
   }
 }
 

@@ -127,6 +127,42 @@ per song; tokens in the query are ANDed.
 - Don't move `FIELDS` to declare presentation details (CSS classes, star
   glyphs, etc.) — `display` is intentionally just a list of view names.
 
+## All internal URLs must be relative
+
+This site is built to work at any deploy subpath (custom domain root *or*
+`<user>.github.io/<repo>/`), so internal links and asset paths must never
+be root-absolute.
+
+**In Nunjucks templates** — wrap every internal `href`, `src`, and `data-*`
+URL in the `relativeUrl` filter:
+
+```njk
+<a href="{{ '/songs/foo/' | relativeUrl(page.url) }}">…</a>
+<script src="{{ '/assets/table.js' | relativeUrl(page.url) }}"></script>
+```
+
+**In `table-config` / `filter-config` JSON blobs** — relativize index URLs
+the same way:
+
+```njk
+{"searchIndexUrl": "{{ '/search-index.json' | relativeUrl(page.url) }}"}
+```
+
+**In client-side JavaScript** — JS files cannot call Nunjucks filters, so
+the template must inject a `pathPrefix` value that the script can use to
+convert root-absolute URLs at runtime. `pathPrefix` is `'/' | relativeUrl(page.url)` —
+e.g. `"./"` at the root, `"../../"` two levels deep. To convert a
+root-absolute URL:
+
+```js
+const url = pathPrefix + rootAbsoluteUrl.replace(/^\//, "");
+```
+
+`table.js` reads `pathPrefix` from the `filter-config` JSON blob.
+For other page-specific URLs (e.g. the print-selected button's base href),
+use a `data-href-base` attribute on the element, set by the template with
+`relativeUrl`, and read it in JS via `element.dataset.hrefBase`.
+
 ## Keep README usage docs in sync with `package.json`
 
 Whenever you add, rename, or remove a script in `package.json` (or a

@@ -22,12 +22,12 @@ title: Songbook
   <div class="filter-panel" id="filter-panel"></div>
 </details>
 <div class="table-print-link-wrap">
-  <a id="song-print-selected" class="print-selected-btn" hidden href="/multi-print/">Print selected →</a>
-  <a id="table-print-link" class="layout-toggle" data-href-base="/list-print/" href="/list-print/">Print view →</a>
+  <a id="song-print-selected" class="print-selected-btn" hidden href="{{ '/multi-print/' | relativeUrl(page.url) }}" data-href-base="{{ '/multi-print/' | relativeUrl(page.url) }}">Print selected →</a>
+  <a id="table-print-link" class="layout-toggle" data-href-base="{{ '/list-print/' | relativeUrl(page.url) }}" href="{{ '/list-print/' | relativeUrl(page.url) }}">Print view →</a>
 </div>
 <div id="song-table-wrap" class="song-table-wrap"></div>
 <p id="song-search-empty" class="song-search-empty" hidden><em>No songs match.</em></p>
 <script id="filter-config" type="application/json">
-{"fields": {{ filterFields | dump | safe }}}
+{"fields": {{ filterFields | dump | safe }}, "pathPrefix": {{ '/' | relativeUrl(page.url) | dump | safe }}}
 </script>
 <script type="module" src="{{ '/assets/table.js' | relativeUrl(page.url) }}"></script>
