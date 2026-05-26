@@ -16,7 +16,8 @@ rnge: so-so
 ---
 
 	Away, away with rum, by gum, (3x)
-	Away, away with rum, by gum, that's the song of the Temperance Union.
+	Away, away with rum, by gum,
+    That's the song of the Temperance Union.
 
 We're coming, we're coming, our brave little band.
 On the right side of temperance we do take our stand.
