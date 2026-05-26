@@ -11,7 +11,6 @@
 * what do I do with really long e.g. authors gumming up the song table? author_display escape hatch field, or?
 * make pill link layout less weird.
 * freeze title col of table when scrolling
-* can i smartly format/markdown parse quotes into smart quotes?
 
 ### P3:
 * tweak tooltip formatting for better margins and line continuation esp on mobile
