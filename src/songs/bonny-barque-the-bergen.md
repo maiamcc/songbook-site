@@ -10,8 +10,11 @@ joiny_inny: easy
 known: 3
 # in_nb: TK
 notes: >-
-    From liner notes: "The Bergen was a ship from Finland that was wrecked on the Northeast coast of England a hundred years ago. The song was written when Jez came across the graves of its unnamed crew in his local churchyard."
-    
+    From liner notes: "The Bergen was a ship from Finland that was wrecked on the
+    Northeast coast of England a hundred years ago. The song was written when Jez
+    came across the graves of its unnamed crew in his local churchyard."
+
+
     I learned from Cross Country. Note the start-of-line rhymes!
 rnge: so-la
 ---
