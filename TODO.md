@@ -1,11 +1,16 @@
 # TODO
 
+Up next:
+- make author and range optional
+- songs without lyrics should not render pages, not be linked to in the prev/next links, not have a "print" checkbox, display as gray background in the table and not change color on hover
+  - make sure gray background persists in print view of table too
+- add has_lyrics true/false filter
+
 ## P1
 * show range with single or double arrow for how many octaves it spans
-* refrain lines embedded in verse aren't formatting right (see Bonny Barque the Bergen)
-* list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
 
 ## P2:
+* list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
 * mobile layout?
 * hitbox on checkboxes on table should be bigger
 * search in navbar
