@@ -12,6 +12,8 @@
 * what do I do with really long e.g. authors gumming up the song table? author_display escape hatch field, or?
   * maybe change default table fields?
 * make pill link layout less weird.
+* importing new songs: if it's a big long notes field, make it a multiline yaml entry w softwraps instead of a giant string.
+* smart quotes didn't happen
 
 ### P3:
 * tweak tooltip formatting for better margins and line continuation esp on mobile

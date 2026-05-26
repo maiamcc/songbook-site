@@ -43,3 +43,60 @@ test("indented blocks do not produce <pre><code> wrappers", () => {
   const html = render("verse\n\n\trefrain line\n");
   assert.doesNotMatch(html, /<pre>|<code>/);
 });
+
+// --- Refrain lines: interleaved within a verse (no blank-line separator) ---
+
+test("tab-indented line within a verse block renders as a refrain div", () => {
+  const html = render("verse line\n\trefrain line\nnext verse line");
+  assert.match(html, /<div class="chorus refrain">refrain line<\/div>/);
+  assert.match(html, /<p>verse line/);
+  assert.match(html, /next verse line<\/p>/);
+});
+
+test("multiple interleaved verse/refrain lines each get refrain divs", () => {
+  const html = render("verse one\n\trefrain one\nverse two\n\trefrain two");
+  const refrainMatches = [...html.matchAll(/<div class="chorus refrain">/g)];
+  assert.equal(refrainMatches.length, 2);
+  assert.match(html, /<div class="chorus refrain">refrain one<\/div>/);
+  assert.match(html, /<div class="chorus refrain">refrain two<\/div>/);
+});
+
+test("interleaved refrain divs carry both chorus and refrain classes", () => {
+  const html = render("verse\n\trefrain line\nnext verse");
+  assert.match(html, /class="chorus refrain"/);
+});
+
+test("standalone chorus block (blank-line separated) is still a chorus div", () => {
+  const html = render("verse line\n\n\tchorus line\n\nnext verse");
+  assert.match(html, /<div class="chorus">chorus line<\/div>/);
+  assert.doesNotMatch(html, /class="refrain"/);
+});
+
+// --- Inner indentation within a chorus/refrain block ---
+
+// An all-indented block where some lines are MORE indented (e.g. Jacky Frost)
+// must render as a SINGLE chorus div with inner indentation preserved.
+test("extra indentation within an all-indented block stays in one chorus div", () => {
+  const html = render(
+    "    verse A\n        refrain A\n    verse B\n        refrain B"
+  );
+  const chorusMatches = [...html.matchAll(/<div class="chorus">/g)];
+  assert.equal(chorusMatches.length, 1);
+  assert.match(html, /    refrain A/); // inner indent preserved
+});
+
+test("double-tab line following an interleaved refrain stays in the same refrain div", () => {
+  const html = render(
+    "verse line\n\trefrain line\n\t\textra indented within refrain\nnext verse"
+  );
+  const refrainMatches = [...html.matchAll(/<div class="chorus refrain">/g)];
+  assert.equal(refrainMatches.length, 1);
+  assert.match(html, /refrain line/);
+  assert.match(html, /extra indented within refrain/);
+});
+
+test("inner indentation of a refrain block is not treated as a second refrain", () => {
+  const html = render("verse\n\trefrain line\n\t\tsub-indented\nnext verse");
+  const refrainMatches = [...html.matchAll(/<div class="chorus refrain">/g)];
+  assert.equal(refrainMatches.length, 1);
+});
