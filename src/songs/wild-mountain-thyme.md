@@ -41,4 +41,4 @@ I will surely find another
 To pull wild mountain thyme
 All around the blooming heather.
 
-(May repeat first verse.)
+_(May repeat first verse.)_

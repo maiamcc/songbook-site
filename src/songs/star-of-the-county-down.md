@@ -17,7 +17,7 @@ rnge: so-so
 Near Banbridge Town, in the County Down
 One morning in July,
 Down a boreen green came a fair colleen,
-And she smiled as she passed me by;
+And she smiled as she passed me by.
 She looked so sweet from her two bare feet
 To the crown of her nut-brown hair;
 Such a coaxsome elf, I'd to pinch myself

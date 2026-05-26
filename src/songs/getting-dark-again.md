@@ -47,4 +47,4 @@ Shed a tear for you, but then:
 We haven't got the time right now:
 It's getting dark again.
 
-(May repeat 1st verse.)
+_(May repeat first verse.)_
