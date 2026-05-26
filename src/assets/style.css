@@ -816,11 +816,14 @@ a.cell-chip:hover {
   padding-bottom: 0;
 }
 
-/* Suppress the paragraph margins on either side of a refrain line so
-   there's no extra gap between verse and refrain. */
-.song-body p:has(+ .refrain),
-.song-body .refrain + p {
+/* Suppress paragraph margins only where verse and refrain are in the same
+   stanza. verse-pre-refrain marks a verse <p> whose next sibling is a
+   refrain; refrain-mid marks a refrain whose next sibling is a verse in the
+   same stanza. Stanza boundaries retain their normal spacing. */
+.song-body p.verse-pre-refrain {
   margin-bottom: 0;
+}
+.song-body .refrain-mid + p {
   margin-top: 0;
 }
 
@@ -924,9 +927,10 @@ a.cell-chip:hover {
   padding-bottom: 0;
 }
 
-.print-layout .song-body p:has(+ .refrain),
-.print-layout .song-body .refrain + p {
+.print-layout .song-body p.verse-pre-refrain {
   margin-bottom: 0;
+}
+.print-layout .song-body .refrain-mid + p {
   margin-top: 0;
 }
 

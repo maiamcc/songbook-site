@@ -47,23 +47,34 @@ test("indented blocks do not produce <pre><code> wrappers", () => {
 // --- Refrain lines: interleaved within a verse (no blank-line separator) ---
 
 test("tab-indented line within a verse block renders as a refrain div", () => {
+  // verse → refrain → verse: refrain is mid-stanza, gets refrain-mid
   const html = render("verse line\n\trefrain line\nnext verse line");
-  assert.match(html, /<div class="chorus refrain">refrain line<\/div>/);
-  assert.match(html, /<p>verse line/);
+  assert.match(html, /<div class="chorus refrain refrain-mid">refrain line<\/div>/);
+  assert.match(html, /<p class="verse-pre-refrain">verse line<\/p>/);
   assert.match(html, /next verse line<\/p>/);
 });
 
-test("multiple interleaved verse/refrain lines each get refrain divs", () => {
-  const html = render("verse one\n\trefrain one\nverse two\n\trefrain two");
-  const refrainMatches = [...html.matchAll(/<div class="chorus refrain">/g)];
-  assert.equal(refrainMatches.length, 2);
-  assert.match(html, /<div class="chorus refrain">refrain one<\/div>/);
-  assert.match(html, /<div class="chorus refrain">refrain two<\/div>/);
+test("verse paragraph immediately before a refrain gets verse-pre-refrain class", () => {
+  const html = render("verse line\n\trefrain line\nnext verse");
+  assert.match(html, /<p class="verse-pre-refrain">verse line<\/p>/);
 });
 
-test("interleaved refrain divs carry both chorus and refrain classes", () => {
-  const html = render("verse\n\trefrain line\nnext verse");
-  assert.match(html, /class="chorus refrain"/);
+test("mid-stanza refrain gets refrain-mid class; stanza-ending refrain does not", () => {
+  // verse → refrain → verse → refrain: first refrain is mid-stanza, second ends
+  const html = render("verse one\n\trefrain one\nverse two\n\trefrain two");
+  assert.match(html, /<div class="chorus refrain refrain-mid">refrain one<\/div>/);
+  assert.match(html, /<div class="chorus refrain">refrain two<\/div>/);
+  assert.doesNotMatch(html, /<div class="chorus refrain refrain-mid">refrain two/);
+});
+
+test("stanza-ending refrain does not suppress the next stanza paragraph margin", () => {
+  // The <p> starting a new stanza after a stanza-ending refrain must NOT
+  // have its top margin zeroed out (no refrain-mid → no .refrain-mid + p rule).
+  const html = render("verse\n\trefrain ends stanza\n\nnew stanza");
+  // new stanza paragraph is NOT immediately after a refrain-mid
+  assert.doesNotMatch(html, /refrain-mid/);
+  assert.match(html, /<div class="chorus refrain">refrain ends stanza<\/div>/);
+  assert.match(html, /<p>new stanza<\/p>/);
 });
 
 test("standalone chorus block (blank-line separated) is still a chorus div", () => {
@@ -76,9 +87,7 @@ test("standalone chorus block (blank-line separated) is still a chorus div", () 
 // and then a tab-indented standalone chorus must NOT merge the last refrain
 // and the chorus into a single block.
 test("standalone chorus after a mixed verse is not merged into the last refrain", () => {
-  const src =
-    "verse line\n    refrain line\n\n\tstandalone chorus line";
-  const html = render(src);
+  const html = render("verse line\n    refrain line\n\n\tstandalone chorus line");
   assert.match(html, /<div class="chorus refrain">refrain line<\/div>/);
   assert.match(html, /<div class="chorus">standalone chorus line<\/div>/);
 });
@@ -98,17 +107,19 @@ test("extra indentation within an all-indented block stays in one chorus div", (
 });
 
 test("double-tab line following an interleaved refrain stays in the same refrain div", () => {
+  // verse → refrain (with sub-indent) → verse: one refrain-mid div
   const html = render(
     "verse line\n\trefrain line\n\t\textra indented within refrain\nnext verse"
   );
-  const refrainMatches = [...html.matchAll(/<div class="chorus refrain">/g)];
+  const refrainMatches = [...html.matchAll(/<div class="chorus refrain refrain-mid">/g)];
   assert.equal(refrainMatches.length, 1);
   assert.match(html, /refrain line/);
   assert.match(html, /extra indented within refrain/);
 });
 
 test("inner indentation of a refrain block is not treated as a second refrain", () => {
+  // verse → refrain (with sub-indent) → verse: still only one refrain div
   const html = render("verse\n\trefrain line\n\t\tsub-indented\nnext verse");
-  const refrainMatches = [...html.matchAll(/<div class="chorus refrain">/g)];
+  const refrainMatches = [...html.matchAll(/<div class="chorus refrain refrain-mid">/g)];
   assert.equal(refrainMatches.length, 1);
 });
