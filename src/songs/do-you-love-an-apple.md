@@ -17,12 +17,12 @@ rnge: do-do
 
 Do you love an apple? Do you love a pear?
 Do you love a laddie with curly brown hair?
-Ah, but still I love him, I can't deny him;
-I'll be with him wherever he goes.
+    Ah, but still I love him, I can't deny him;
+    I'll be with him wherever he goes.
 
 Before I got married I wore a black shawl,
 But since I got married I wear bugger all.
-> Ah but still I love him...
+    Ah but still I love him...
 
 He stood at the corner, a fag in his mouth;
 Two hands in his pockets, he whistled me out.
