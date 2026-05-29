@@ -347,7 +347,7 @@ test("importSongs: non-breaking spaces are stripped from field values and body",
   });
 });
 
-test("importSongs: multiline notes field uses >- block scalar and round-trips", () => {
+test("importSongs: multiline notes field uses >- block scalar and round-trips paragraph breaks", () => {
   withTempDir((dir) => {
     // CSV quoted field containing an embedded newline (RFC-4180 allows this).
     const notes = "Roud 6562.\n\nSecond paragraph.";
@@ -355,9 +355,8 @@ test("importSongs: multiline notes field uses >- block scalar and round-trips", 
     importSongs(dir, csv);
     const raw = readFileSync(join(dir, "my-song.md"), "utf8");
     assert.ok(raw.includes("notes: >-"), "expected >- block scalar header");
-    // >- folded style: blank lines fold surrounding newlines into one, so a
-    // double newline in the source round-trips back as a single newline.
+    // Paragraph breaks (\n\n) must survive the round-trip.
     const parsed = matter(raw);
-    assert.equal(parsed.data.notes, notes.replace(/\n\n/g, "\n"));
+    assert.equal(parsed.data.notes, notes);
   });
 });

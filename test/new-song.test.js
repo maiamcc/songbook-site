@@ -205,13 +205,19 @@ test("buildSongFile: output always ends with a single newline", () => {
   assert.ok(buildSongFile(REQUIRED, "lyrics").endsWith("\n"));
 });
 
-test("buildSongFile: multiline string field uses >- block scalar", () => {
+test("buildSongFile: multiline string field uses >- block scalar and round-trips paragraph breaks", () => {
   const data = { ...REQUIRED, notes: "line one\n\nline two" };
   const file = buildSongFile(data);
-  // Block scalar header on the same line as the key, indented continuation.
-  assert.ok(file.includes("notes: >-\n  line one\n\n  line two"), file);
-  // >- folded style: blank lines fold surrounding newlines into one, so a
-  // double newline round-trips back as a single newline.
+  // Each \n\n is doubled to \n\n\n so the fold-rule's one-newline drop
+  // leaves a single blank line in the parsed output.
+  assert.ok(file.includes("notes: >-\n  line one\n\n\n  line two"), file);
   const parsed = matter(file);
-  assert.equal(parsed.data.notes, "line one\nline two");
+  assert.equal(parsed.data.notes, "line one\n\nline two");
+});
+
+test("buildSongFile: multiple paragraph breaks each round-trip correctly", () => {
+  const input = "a\n\nb\n\nc";
+  const file = buildSongFile({ ...REQUIRED, notes: input });
+  const parsed = matter(file);
+  assert.equal(parsed.data.notes, input);
 });

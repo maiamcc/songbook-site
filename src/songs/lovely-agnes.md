@@ -13,6 +13,7 @@ known: 1
 notes: >-
   First recorded 1979. "I wrote this song for my grandmother as a present on her 92nd birthday. She was raised Agnes Challoner in Oshkosh Wisconsin, and received her Master's degree in chemistry from the University of Wisconsin in Madison in 1910. She then married my grandfather, Augustus James Rogers II who wanted to move to Michigan to grow cherries. After they were wed, they came to Michigan on a ferry boat in search of prime cherry growing country They settled in Benzie County, locating their farm five miles west of the county seat, Beulah, just over the hill from Crystal Lake. Four children, eighteen grandchildren and twenty five great-grandchildren later, she still lives on the farm. As a young woman, her relatives couldn't understand how she could spend so much time in college and then bury herself on a farm. But today, sitting in her armchair overlooking the orchards, she says, 'You know, I've never felt buried.'"
 
+
   Learned from May Hunter-Smith.
 rnge: do>>mi
 ---

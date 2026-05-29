@@ -13,6 +13,7 @@ known: 1
 notes: >-
   Cyril Tawney wrote this melancholy song in 1959 before he left the Royal Navy. The title "The Grey Funnel Line" is an euphemism for the Navy, equating the colour of its funnels with those of company emblems found on commercial shipping lines (e.g. the Blue Funnel Line or the Black Ball Line). 
 
+
   Tawney wrote: "This was the last song I wrote before I left the Royal Navy in 1959. 'The Grey Funnel Line' is the sailors' nickname for the Royal Navy—just as if it were another mercantile line. It's a straightforward song about a sailor leaving home and the loved one... I think the close of the first day out, as the sun is setting, is the time when we're most vulnerable to nostalgia."
 rnge: so>so
 ---
@@ -21,13 +22,13 @@ Don't mind the rain or the rolling sea,
 The weary night never worries me.
 But the hardest time in sailor's day
 Is to watch the sun as it dies away.
-  It's one more day on the Grey Funnel Line.
+    It's one more day on the Grey Funnel Line.
 
 The finest ship that sails the sea
 Is still a prison for the likes of me;
 But give me wings like Noah's dove,
 And I'd fly up harbour to the girl I love.
-  It's one more day...
+    It's one more day...
 
 There was a time my heart was free
 Like a floating spar on the open sea.
@@ -47,5 +48,4 @@ And tell the boys that we're homeward bound.
 I'll pass the time like some machine
 Until blue water turns to green;
 Then I'll dance on down that walk ashore
-And sail the Grey Funnel Line no more.
-  And sail the Grey Funnel Line no more.
+    And sail the Grey Funnel Line no more.

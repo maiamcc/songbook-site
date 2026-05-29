@@ -13,9 +13,12 @@ known: 2
 notes: >-
   From Mudcat: (Kerr) "...partly a reaction to moving to the inner city after living on a narrowboat for 12 years, and has a lot of content about the relationship between urban and rural spaces."
 
+
   Saint George is the patron saint of England. The Brigantes were Celtic Britons. Their territory, often referred to as Brigantia, was centred in what was later known as Yorkshire. Wikipedia
 
+
   Sheffield played a crucial role in the Industrial Revolution. In the 19th century, the city saw a huge expansion of its traditional cutlery trade, when stainless steel and crucible steel were developed locally, fueling an almost tenfold increase in the population. International competition in iron and steel caused a decline in these industries in the 1970s and 1980s, coinciding with the collapse of coal mining in the area.
+
 
   The 21st century has seen extensive redevelopment in Sheffield, along with other British cities. Sixty-one per cent of Sheffield's entire area is green space, and a third of the city lies within the Peak District national park. There are more than 250 parks, woodlands and gardens in the city, which is estimated to contain around 4.5 million trees.
 rnge: do>do

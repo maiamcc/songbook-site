@@ -34,11 +34,14 @@ function yamlScalar(s) {
 }
 
 // Return a folded block scalar (`>-`) for multiline strings. The `>-` style
-// folds single newlines to spaces (paragraph-like) and strips the trailing
-// newline. Blank lines (double newlines) are preserved as a single newline.
+// folds single newlines to spaces and collapses N blank lines to N-1 blank
+// lines. To round-trip paragraph breaks, we double every blank line: each
+// \n\n in the input becomes \n\n\n in the YAML, so the fold discards one
+// newline and the reader sees the original blank line.
 function yamlBlock(s) {
+  const escaped = s.replace(/\n\n/g, "\n\n\n");
   // Indent every line by two spaces; leave blank lines empty (no trailing spaces).
-  return ">-\n" + s.split("\n").map((l) => l === "" ? "" : `  ${l}`).join("\n");
+  return ">-\n" + escaped.split("\n").map((l) => l === "" ? "" : `  ${l}`).join("\n");
 }
 
 // Build a complete song .md file string. Present fields are emitted as
