@@ -1,9 +1,5 @@
 # TODO
 
-Up next:
-- songs without lyrics should not render pages, not be linked to in the prev/next links, not have a "print" checkbox, display as gray background in the table and not change color on hover
-  - make sure gray background persists in print view of table too
-
 ## P1
 * show range with single or double arrow for how many octaves it spans
 
