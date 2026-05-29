@@ -239,3 +239,26 @@ test("songMatchesFilters: boolean field (in_nb) matched as string", () => {
   assert.equal(songMatchesFilters({ in_nb: false }, a), false);
   assert.equal(songMatchesFilters({}, a), false);
 });
+
+test("filterFields: abbrs map is exposed for fields that declare it", () => {
+  const entry = filterFields.find((f) => f.key === "joiny_inny");
+  assert.ok(entry, "expected joiny_inny in filterFields");
+  assert.deepEqual(entry.abbrs, { "very-easy": "v. easy", moderate: "mod." });
+});
+
+test("filterFields: abbrs is absent for fields without abbreviations", () => {
+  for (const entry of filterFields) {
+    if (entry.key === "joiny_inny") continue;
+    assert.ok(!("abbrs" in entry), `${entry.key} should not have abbrs`);
+  }
+});
+
+test("filterFields: every abbrs key is a legal value for that field", () => {
+  for (const entry of filterFields) {
+    if (!entry.abbrs) continue;
+    const legal = new Set(entry.valueOrder || []);
+    for (const k of Object.keys(entry.abbrs)) {
+      assert.ok(legal.has(k), `${entry.key}.abbrs key "${k}" is not in valueOrder`);
+    }
+  }
+});

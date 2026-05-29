@@ -13,9 +13,12 @@
   * maybe change default table fields?
 * smart quotes didn't happen
 * indicator on the filters that there's a filter active
+* human-readable translations for some enums that don't go there good (e.g. `2nd & 4th lines repeat`, `kid's song`)
+* back button should hop you back to the specific table config you left (i.e. preserve filters / sorts / columns)
 
 ### P3:
 * make pill link layout less weird.
+* vertical spacing with comma-sep lists of topics -- comma placed weird??
 * importing new songs: if it's a big long notes field, make it a multiline yaml entry w softwraps instead of a giant string.
 * hitbox on checkboxes on table should be bigger
 * tweak tooltip formatting for better margins and line continuation esp on mobile

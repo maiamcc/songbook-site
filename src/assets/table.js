@@ -59,8 +59,12 @@ const DEFAULT_COL_LABELS = {
 
   // Full label map: defaults first, then all filterable field labels.
   const colLabels = { ...DEFAULT_COL_LABELS };
+  // Abbreviation map: field key → { value → abbr string }, for fields that
+  // declare abbreviated display labels (e.g. joiny_inny: moderate → "mod.").
+  const colAbbrs = {};
   for (const f of filterFields) {
     if (!(f.key in colLabels)) colLabels[f.key] = f.label;
+    if (f.abbrs) colAbbrs[f.key] = f.abbrs;
   }
 
   // Optional columns: removable defaults first, then other visible filterable
@@ -446,32 +450,33 @@ const DEFAULT_COL_LABELS = {
     const val = song[col];
     if (val === undefined || val === null) return;
     const indexUrl = song.indexUrls?.[col];
+    const abbrs = colAbbrs[col] || null;
     if (Array.isArray(val)) {
       const wrap = document.createElement("span");
       wrap.className = "cell-chips";
       for (let i = 0; i < val.length; i++) {
         const itemUrl = Array.isArray(indexUrl) ? indexUrl[i] : null;
         const chip = itemUrl
-          ? makeIndexLink(itemUrl, String(val[i]))
+          ? makeIndexLink(itemUrl, String(val[i]), abbrs)
           : document.createElement("span");
         chip.className = "cell-chip";
-        if (!itemUrl) chip.textContent = humanizeVal(String(val[i]));
+        if (!itemUrl) chip.textContent = displayVal(String(val[i]), abbrs);
         wrap.appendChild(chip);
       }
       td.appendChild(wrap);
     } else if (typeof val === "boolean") {
       td.textContent = val ? "yes" : "no";
     } else if (indexUrl) {
-      td.appendChild(makeIndexLink(indexUrl, String(val)));
+      td.appendChild(makeIndexLink(indexUrl, String(val), abbrs));
     } else {
-      td.textContent = humanizeVal(String(val));
+      td.textContent = displayVal(String(val), abbrs);
     }
   }
 
-  function makeIndexLink(url, val) {
+  function makeIndexLink(url, val, abbrs) {
     const a = document.createElement("a");
     a.href = pathPrefix + url.replace(/^\//, "");
-    a.textContent = humanizeVal(val);
+    a.textContent = displayVal(val, abbrs);
     return a;
   }
 })();
@@ -589,4 +594,11 @@ function humanizeVal(val) {
   if (val === "true") return "yes";
   if (val === "false") return "no";
   return val.replace(/[_-]/g, " ");
+}
+
+// Return the abbreviated display label for a value if one exists in
+// the field's abbrs map, otherwise fall back to humanizeVal.
+function displayVal(val, abbrs) {
+  if (abbrs && Object.prototype.hasOwnProperty.call(abbrs, val)) return abbrs[val];
+  return humanizeVal(val);
 }

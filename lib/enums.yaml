@@ -72,6 +72,9 @@ joiny_inny:
     easy: easy in a pub sing context, e.g. simple chorus or repeated lines
     moderate: the bulk of pub sing songs
     hard: fast, wordy, Nancy Kerr bullshit etc.
+  abbrs:
+    very-easy: v. easy
+    moderate: mod.
 
 # Bop-rating values are integers 1–5. js-yaml parses integer-looking
 # keys as numbers, but JS object keys coerce to strings, so they read

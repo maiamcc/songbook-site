@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { ENUMS, FIELDS, enumField, validate } from "../lib/song-schema.js";
+import { ENUMS, FIELDS, enumField, listEnumField, loadEnums, validate } from "../lib/song-schema.js";
 
 // Minimal valid frontmatter: every required field set to a valid
 // value. Spread into a test fixture, then override the field under
@@ -221,4 +221,66 @@ test("rnge rejects old dash format", () => {
       `field "rnge" must be string matching [a-z]{2}>+[a-z]{2} (got: ${JSON.stringify(old)})`,
     ]);
   }
+});
+
+// --- abbrs -------------------------------------------------------------------
+
+test("loadEnums: abbrs map is loaded and carried through", () => {
+  const result = loadEnums(`
+foo:
+  values:
+    a: alpha
+    b: beta
+  abbrs:
+    a: A.
+`);
+  assert.deepEqual(result.foo.abbrs, { a: "A." });
+});
+
+test("loadEnums: abbrs with unknown value key throws", () => {
+  assert.throws(
+    () => loadEnums(`
+foo:
+  values:
+    a: alpha
+  abbrs:
+    z: zee
+`),
+    /abbrs.*key "z".*not a legal value/
+  );
+});
+
+test("loadEnums: abbrs is optional — absent when not in yaml", () => {
+  const result = loadEnums(`foo:\n  values:\n    a: alpha\n`);
+  assert.ok(!("abbrs" in result.foo));
+});
+
+test("enumField: abbrs carried through to FIELDS entry", () => {
+  const abbrs = { a: "A." };
+  const f = enumField({
+    desc: "test",
+    values: { a: "alpha", b: "beta" },
+    abbrs,
+    required: false,
+    display: ["song"],
+  });
+  assert.equal(f.abbrs, abbrs);
+});
+
+test("enumField: abbrs absent when not passed", () => {
+  const f = enumField({
+    desc: "test",
+    values: { a: "alpha" },
+    required: false,
+    display: ["song"],
+  });
+  assert.ok(!("abbrs" in f));
+});
+
+test("joiny_inny: ENUMS carries abbrs from enums.yaml", () => {
+  assert.deepEqual(ENUMS.joiny_inny.abbrs, { "very-easy": "v. easy", moderate: "mod." });
+});
+
+test("joiny_inny: FIELDS carries abbrs from ENUMS", () => {
+  assert.equal(FIELDS.joiny_inny.abbrs, ENUMS.joiny_inny.abbrs);
 });
