@@ -18,7 +18,8 @@
       "Bash(echo \"exit=$?\")",
       "Bash(git push *)",
       "Bash(npx eleventy *)",
-      "Bash(printf 'pre-compute index URLs in filter-index.json\\\\n\\\\nBuild index URLs server-side in lib/filter-index.js \\(using the same\\\\nlib/slug.js as the templates\\) and embed them in filter-index.json as\\\\n`indexUrls`. search.js reads them directly, removing the need for a\\\\nclient-side slugify duplicate.\\\\n\\\\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>' > /tmp/commit-msg.txt && git add src/assets/search.js src/assets/style.css lib/filter-config.js lib/filter-index.js && git commit -F /tmp/commit-msg.txt)"
+      "Bash(printf 'pre-compute index URLs in filter-index.json\\\\n\\\\nBuild index URLs server-side in lib/filter-index.js \\(using the same\\\\nlib/slug.js as the templates\\) and embed them in filter-index.json as\\\\n`indexUrls`. search.js reads them directly, removing the need for a\\\\nclient-side slugify duplicate.\\\\n\\\\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>' > /tmp/commit-msg.txt && git add src/assets/search.js src/assets/style.css lib/filter-config.js lib/filter-index.js && git commit -F /tmp/commit-msg.txt)",
+      "Bash(npx @11ty/eleventy --quiet)"
     ]
   }
 }

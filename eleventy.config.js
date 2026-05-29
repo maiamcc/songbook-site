@@ -39,6 +39,14 @@ function assertValidSongs(songs) {
 }
 
 export default function (eleventyConfig) {
+  // Suppress song and print pages for songs that have no markdown body.
+  // The preprocessor runs before Eleventy writes any output; returning
+  // false tells Eleventy to skip this template entirely.
+  eleventyConfig.addPreprocessor("suppress-no-lyrics-pages", "md", (data, content) => {
+    if (!data.page.inputPath.includes("/songs/")) return;
+    if (!content || !content.trim()) return false;
+  });
+
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
 
   // Expose the schema's enum value+description tables to every
@@ -101,11 +109,14 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("songs", (api) => {
     const songs = api.getFilteredByGlob("src/songs/*.md");
     assertValidSongs(songs);
+    const withLyrics = [];
     for (const song of songs) {
       const { content } = matter(readFileSync(song.inputPath, "utf8"));
+      if (!content || !content.trim()) continue;
       song.data.bodyHtml = md.render(content);
+      withLyrics.push(song);
     }
-    return songs.sort((a, b) =>
+    return withLyrics.sort((a, b) =>
       sortKey(a.data.title).localeCompare(sortKey(b.data.title))
     );
   });
