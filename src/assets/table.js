@@ -394,21 +394,23 @@ const DEFAULT_COL_LABELS = {
         });
       }
 
-      // Row checkbox
+      // Row checkbox (omitted for songs without lyrics — nothing to print)
       const checkTd = document.createElement("td");
       checkTd.className = "song-td song-td--check";
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.className = "row-check";
-      cb.checked = selectedUrls.has(song.url);
-      cb.setAttribute("aria-label", `Select ${song.title || song.url}`);
-      cb.addEventListener("click", (e) => e.stopPropagation());
-      cb.addEventListener("change", () => {
-        if (cb.checked) selectedUrls.add(song.url);
-        else selectedUrls.delete(song.url);
-        renderAll();
-      });
-      checkTd.appendChild(cb);
+      if (hasLyrics) {
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.className = "row-check";
+        cb.checked = selectedUrls.has(song.url);
+        cb.setAttribute("aria-label", `Select ${song.title || song.url}`);
+        cb.addEventListener("click", (e) => e.stopPropagation());
+        cb.addEventListener("change", () => {
+          if (cb.checked) selectedUrls.add(song.url);
+          else selectedUrls.delete(song.url);
+          renderAll();
+        });
+        checkTd.appendChild(cb);
+      }
       tr.appendChild(checkTd);
 
       for (const col of cols) {
