@@ -1,7 +1,7 @@
 # TODO
 
 ## P1
-* nothing for now!
+* styling refrains so they don't bork the spacing of the verse as much
 
 ## P2:
 * can print an index
