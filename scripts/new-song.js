@@ -33,6 +33,14 @@ function yamlScalar(s) {
   return s;
 }
 
+// Return a folded block scalar (`>-`) for multiline strings. The `>-` style
+// folds single newlines to spaces (paragraph-like) and strips the trailing
+// newline. Blank lines (double newlines) are preserved as a single newline.
+function yamlBlock(s) {
+  // Indent every line by two spaces; leave blank lines empty (no trailing spaces).
+  return ">-\n" + s.split("\n").map((l) => l === "" ? "" : `  ${l}`).join("\n");
+}
+
 // Build a complete song .md file string. Present fields are emitted as
 // normal YAML; absent optional fields are emitted as commented-out
 // placeholders so the user can see every field and fill it in later.
@@ -42,7 +50,11 @@ export function buildSongFile(data, body = "") {
     if (FIELDS[field].virtual) continue;
     const v = data[field];
     if (v !== undefined && v !== null) {
-      lines.push(`${field}: ${yamlValue(v)}`);
+      if (typeof v === "string" && v.includes("\n")) {
+        lines.push(`${field}: ${yamlBlock(v)}`);
+      } else {
+        lines.push(`${field}: ${yamlValue(v)}`);
+      }
     } else if (!FIELDS[field].required) {
       const ph = FIELDS[field].placeholder;
       if (ph) {
@@ -81,12 +93,18 @@ export function defaultSlug(title) {
 // Integer-valued enums (all enum keys are digits, e.g. bop_rating) coerce
 // to int; non-numeric input passes through as-is so validate() surfaces
 // the canonical error message.
+// Normalize a raw input string: strip non-breaking spaces (U+00A0, the
+// HTML &nbsp;) that paste in from browsers/spreadsheets, then trim whitespace.
+export function normalizeInput(s) {
+  return s.replace(/ /g, " ").trim();
+}
+
 export function parse(field, raw) {
-  const trimmed = raw.trim();
+  const trimmed = normalizeInput(raw);
   if (trimmed === "") return undefined;
   const spec = FIELDS[field];
   if (spec.type.startsWith("list")) {
-    return trimmed.split(",").map((s) => s.trim()).filter(Boolean);
+    return trimmed.split(",").map((s) => normalizeInput(s)).filter(Boolean);
   }
   if (spec.values && Object.keys(spec.values).every((k) => /^\d+$/.test(k))) {
     const n = Number(trimmed);

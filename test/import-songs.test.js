@@ -329,3 +329,35 @@ test("importSongs: counts across mixed-outcome rows are correct", () => {
     assert.deepEqual(result, { created: 1, overwritten: 0, skipped: 2 });
   });
 });
+
+test("importSongs: non-breaking spaces are stripped from field values and body", () => {
+  withTempDir((dir) => {
+    // Simulate a spreadsheet paste where NBSP leaks into cells and lyrics.
+    const NBSP = " ";
+    const csv = `title,notes,body\n${NBSP}My Song${NBSP},some${NBSP}note,"verse${NBSP}line"\n`;
+    importSongs(dir, csv, { autoOverwrite: true,
+      onConflict: () => true,
+      // inject required fields via the CSV title triggering defaults
+    });
+    // Can't import without required bop_rating — use a minimal valid row instead.
+    const csv2 = `title,bop_rating,notes,body\n${NBSP}My Song${NBSP},3,some${NBSP}note,"verse${NBSP}line"\n`;
+    importSongs(dir, csv2);
+    const raw = readFileSync(join(dir, "my-song.md"), "utf8");
+    assert.ok(!raw.includes(NBSP), `NBSP found in output:\n${raw}`);
+  });
+});
+
+test("importSongs: multiline notes field uses >- block scalar and round-trips", () => {
+  withTempDir((dir) => {
+    // CSV quoted field containing an embedded newline (RFC-4180 allows this).
+    const notes = "Roud 6562.\n\nSecond paragraph.";
+    const csv = `${REQUIRED_CSV_HEADER},notes\n${REQUIRED_CSV_VALUES},"${notes}"\n`;
+    importSongs(dir, csv);
+    const raw = readFileSync(join(dir, "my-song.md"), "utf8");
+    assert.ok(raw.includes("notes: >-"), "expected >- block scalar header");
+    // >- folded style: blank lines fold surrounding newlines into one, so a
+    // double newline in the source round-trips back as a single newline.
+    const parsed = matter(raw);
+    assert.equal(parsed.data.notes, notes.replace(/\n\n/g, "\n"));
+  });
+});

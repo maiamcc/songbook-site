@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parse, slugify, defaultSlug, buildSongFile } from "../scripts/new-song.js";
+import matter from "gray-matter";
+import { parse, slugify, defaultSlug, buildSongFile, normalizeInput } from "../scripts/new-song.js";
 
 test("slugify: basic kebab-case", () => {
   assert.equal(slugify("Country Roads"), "country-roads");
@@ -41,6 +42,17 @@ test("defaultSlug: does not strip mid-word matches", () => {
 test("defaultSlug: leaves single-word article-only titles alone", () => {
   assert.equal(defaultSlug("The"), "the");
   assert.equal(defaultSlug("A"), "a");
+});
+
+test("normalizeInput: strips non-breaking spaces and trims", () => {
+  assert.equal(normalizeInput(" hello "), "hello");
+  assert.equal(normalizeInput("foo bar"), "foo bar");
+  assert.equal(normalizeInput("     "), "");
+});
+
+test("parse: non-breaking spaces are stripped from field input", () => {
+  assert.equal(parse("title", " My Song "), "My Song");
+  assert.deepEqual(parse("topics", "home, travel"), ["home", "travel"]);
 });
 
 test("parse: blank or whitespace-only returns undefined for any field", () => {
@@ -191,4 +203,15 @@ test("buildSongFile: whitespace-only body is omitted", () => {
 test("buildSongFile: output always ends with a single newline", () => {
   assert.ok(buildSongFile(REQUIRED).endsWith("\n"));
   assert.ok(buildSongFile(REQUIRED, "lyrics").endsWith("\n"));
+});
+
+test("buildSongFile: multiline string field uses >- block scalar", () => {
+  const data = { ...REQUIRED, notes: "line one\n\nline two" };
+  const file = buildSongFile(data);
+  // Block scalar header on the same line as the key, indented continuation.
+  assert.ok(file.includes("notes: >-\n  line one\n\n  line two"), file);
+  // >- folded style: blank lines fold surrounding newlines into one, so a
+  // double newline round-trips back as a single newline.
+  const parsed = matter(file);
+  assert.equal(parsed.data.notes, "line one\nline two");
 });

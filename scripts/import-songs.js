@@ -21,7 +21,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { FIELDS, validate } from "../lib/song-schema.js";
-import { defaultSlug, parse, slugify, buildSongFile } from "./new-song.js";
+import { defaultSlug, normalizeInput, parse, slugify, buildSongFile } from "./new-song.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SONGS_DIR = join(__dirname, "..", "src", "songs");
@@ -115,7 +115,7 @@ export function importSongs(songsDir, csvText, { autoOverwrite = false, overwrit
     const data = {};
     for (const [j, header] of headers.entries()) {
       if (reserved.has(header) || !FIELDS[header]) continue;
-      const cell = (row[j] ?? "").trim();
+      const cell = normalizeInput(row[j] ?? "");
       if (cell === "") continue;
       data[header] = parse(header, cell);
     }
@@ -129,7 +129,7 @@ export function importSongs(songsDir, csvText, { autoOverwrite = false, overwrit
       continue;
     }
 
-    const rawSlug = slugCol >= 0 ? (row[slugCol] ?? "").trim() : "";
+    const rawSlug = slugCol >= 0 ? normalizeInput(row[slugCol] ?? "") : "";
     const slug = rawSlug ? slugify(rawSlug) : defaultSlug(data.title);
     if (!slug) {
       console.error(`row ${rowNum}: could not derive a slug from title "${data.title}"`);
@@ -153,7 +153,7 @@ export function importSongs(songsDir, csvText, { autoOverwrite = false, overwrit
       }
     }
 
-    const body = bodyCol >= 0 ? (row[bodyCol] ?? "") : "";
+    const body = bodyCol >= 0 ? (row[bodyCol] ?? "").replace(/ /g, " ") : "";
 
     let fileData = data;
     let fileBody = body;
