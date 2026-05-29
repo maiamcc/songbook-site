@@ -1,6 +1,6 @@
 ---
 title: Kindergarten Wall
-rnge: do-do
+rnge: do>do
 topics:
   - childhood
 genre: kids-song

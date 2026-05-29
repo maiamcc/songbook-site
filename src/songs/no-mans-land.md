@@ -19,7 +19,7 @@ notes: >-
     "The Last Post" = military bugle call for funerals. "Flowers of the Forest" (Roud 3812) = Scottish
     folk tune and work of war poetry commemorating a defeat of the Scottish army. Pipers generally only
     play it at funerals/memorials, not at other performances.
-rnge: re-fa
+rnge: re>fa
 ---
 
 Well how do you do, Private Willie McBride?

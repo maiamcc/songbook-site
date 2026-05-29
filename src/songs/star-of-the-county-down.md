@@ -10,7 +10,7 @@ joiny_inny: moderate
 known: 2
 # in_nb: TK
 notes: "Boreen (bóithrín): a small, quite often badly maintained track or lane, commonly found in rural areas."
-rnge: so-so
+rnge: so>so
 ---
 
 Near Banbridge Town, in the County Down

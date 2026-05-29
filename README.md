@@ -86,7 +86,7 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `in_nb`           | boolean         | no       | reference-only; not rendered anywhere yet; absent ≡ false |   | ✓  |      |       |
 | `joiny_inny`      | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ | +    |       |
 | `notes`           | string          | no       |               |           |        | ✓    | ✓     |
-| `rnge`            | string          | no       | format `aa-bb` (lowercase) |           |        | ✓    | ✓     |
+| `rnge`            | string          | no       | format `aa>bb` (lowercase) |           |        | ✓    | ✓     |
 
 The Song and Print columns mark which fields, when present, are surfaced on those views. A `✓` means the field is visible by default; a `+` means the field is rendered but hidden by default behind a collapsible drawer (the "Metadata" `<details>` element on the song view). The home page and index pages surface fields via a client-side configurable table — any filterable field can be shown as a column regardless of its Song/Print display value.
 
@@ -105,7 +105,7 @@ genre: folk
 mood: [uplifting, sweet]
 bop_rating: 5
 structure: [chorus, zipper]
-rnge: do-mi
+rnge: do>mi
 notes: capo 2 sounds nicer
 ---
 ```

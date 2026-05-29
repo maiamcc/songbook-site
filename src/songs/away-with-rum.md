@@ -12,7 +12,7 @@ known: 2
 # in_nb: TK
 # notes: >-
 #   TK
-rnge: so-so
+rnge: so>so
 ---
 
 	Away, away with rum, by gum, (3x)

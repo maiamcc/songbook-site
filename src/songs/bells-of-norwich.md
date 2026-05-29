@@ -6,7 +6,7 @@ mood: [uplifting]
 bop_rating: 4
 structure: [chorus, repeat-line-you-listen-for]
 topics: [flowers / plants, love, seasons, religion / God]
-rnge: so-la
+rnge: so>la
 joiny_inny: easy
 known: 2
 notes: >-

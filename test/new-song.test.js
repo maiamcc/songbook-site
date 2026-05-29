@@ -78,7 +78,7 @@ test("parse: string fields are trimmed but otherwise untouched", () => {
 // ---------------------------------------------------------------------------
 
 // Minimum required data; rnge must match [a-z]{2}-[a-z]{2}.
-const REQUIRED = { title: "My Song", author: "A. Person", bop_rating: 3, rnge: "do-re" };
+const REQUIRED = { title: "My Song", author: "A. Person", bop_rating: 3, rnge: "do>re" };
 
 function parseFrontmatter(fileStr) {
   // Split on the closing --- to get the frontmatter block.
@@ -98,7 +98,7 @@ test("buildSongFile: required fields present emit as plain YAML", () => {
   assert.match(fm, /^title: My Song$/m);
   assert.match(fm, /^author: A\. Person$/m);
   assert.match(fm, /^bop_rating: 3$/m);
-  assert.match(fm, /^rnge: do-re$/m);
+  assert.match(fm, /^rnge: do>re$/m);
 });
 
 test("buildSongFile: absent optional fields appear as # field: TK comments", () => {
@@ -118,7 +118,7 @@ test("buildSongFile: absent notes uses commented-out block scalar placeholder", 
 
 test("buildSongFile: absent required fields are silently omitted (no TK comment)", () => {
   // bop_rating is required — if missing it should not appear at all.
-  const out = buildSongFile({ title: "X", author: "Y", rnge: "ab-cd" });
+  const out = buildSongFile({ title: "X", author: "Y", rnge: "ab>cd" });
   assert.doesNotMatch(out, /bop_rating/);
 });
 

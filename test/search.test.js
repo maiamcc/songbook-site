@@ -34,7 +34,7 @@ const SENTINELS = {
   // current value here.
   joiny_inny: { value: "easy", marker: "easy" },
   notes: { value: "notessentinel", marker: "notessentinel" },
-  rnge: { value: "qz-rk", marker: "qz-rk" },
+  rnge: { value: "qz>rk", marker: "qz>rk" },
 };
 
 test("SENTINELS covers every schema field (guards future additions)", () => {
@@ -104,7 +104,7 @@ test("buildSongIndexRecord: missing optional fields are silently skipped", () =>
     title: "minimaltitle",
     author: "minimalauthor",
     bop_rating: 3,
-    rnge: "do-mi",
+    rnge: "do>mi",
   };
   const rec = buildSongIndexRecord("/songs/min/", minimal, "minimal body");
   assert.ok(rec.text.includes("minimaltitle"));
@@ -154,6 +154,6 @@ test("matchTokens: leading/trailing/multi-space query is normalized", () => {
 
 test("matchTokens: token can be a multi-word substring inside a single token", () => {
   // A user typing "sydney carter" gets two tokens, both substrings — fine.
-  // A user typing a single dashed token like "qz-rk" should still match.
-  assert.equal(matchTokens("range qz-rk inside", "qz-rk"), true);
+  // A user typing a single dashed token like "qz>rk" should still match.
+  assert.equal(matchTokens("range qz>rk inside", "qz>rk"), true);
 });

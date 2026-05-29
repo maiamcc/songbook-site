@@ -13,7 +13,7 @@ notes: >-
     Written in 1931 by activist Florence Reece, who was the wife of Sam Reece, a
     union organizer for the United Mine Workers in Harlan County, Kentucky. Collected
     the next year by Pete Seeger.
-rnge: so-ti
+rnge: so>ti
 ---
 
 Come all you good workers,

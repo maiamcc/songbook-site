@@ -4,7 +4,7 @@ author: Paul Davenport
 mood: [sad]
 bop_rating: 1
 structure: [chorus]
-rnge: ti-so
+rnge: ti>so
 joiny_inny: easy
 topics: [sea / sailors, death]
 notes: >-

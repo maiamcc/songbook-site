@@ -10,7 +10,7 @@ joiny_inny: very-easy
 known: 3
 # in_nb: TK
 notes: Written at Pinewoods about a lily on Round Pond.
-rnge: do-so
+rnge: do>so
 ---
 
 	Oh let me be more like the lily;

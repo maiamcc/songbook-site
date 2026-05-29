@@ -1,6 +1,6 @@
 ---
 title: Jackie Munroe
-rnge: do-mi
+rnge: do>mi
 topics:
   - feminism
   - love
@@ -13,7 +13,7 @@ structure:
   - refrain-lines
   - folderol
 joiny_inny: easy
-#author: trad. (after Nancy & Sandra Kerr’s version), ed. Emma Azelborn
+#author: trad. (after Nancy & Sandra Kerr's version), ed. Emma Azelborn
 author: trad.
 known: 3
 notes: >-
@@ -30,32 +30,32 @@ Who was charming and admired.
 She had sweethearts aplenty
 To marriage were inclined,
 But none but John the soldier
-Could win this lady’s mind.
+Could win this lady's mind.
 
 And when her father came to know,
 So angry then he swore:
-“I’ll pay the gang ten guineas
-To press young John to the war!”
+"I'll pay the gang ten guineas
+To press young John to the war!"
 
 But she robbed her wicked father,
 Got money at her command,
 And she went to list in the army
 Dressed up like a man.
 
-“Your waist it is too slender,
+"Your waist it is too slender,
 Your fingers fine and small,
 Your cheeks too red and too rosy
-To face the cannon ball.”
+To face the cannon ball."
 
-“It’s true my waist is slender,
+"It's true my waist is slender,
 My fingers fine and small,
-But it wouldn’t change my countenance
-To see ten thousand fall.”
+But it wouldn't change my countenance
+To see ten thousand fall."
 
-“Before you join our regiment,
-Your name I wish to know.”
+"Before you join our regiment,
+Your name I wish to know."
 She smiled all over her face, she did:
-“They call me Jackie Munro.”
+"They call me Jackie Munro."
 
 So she sailed out over the ocean
 And over the deep blue sea,
@@ -67,20 +67,20 @@ She fought it up and down,
 Till among the dead and the wounded
 Her darling John she found.
 
-“They have promoted me,” she said,
-“They have promoted me
+"They have promoted me," she said,
+"They have promoted me
 To a colonel in the army,
-So married we may be.”
+So married we may be."
 
 Then up spoke the general,
 And this is what he said:
-“It’s against the laws of our country
-For two men to be wed.”
+"It's against the laws of our country
+For two men to be wed."
 
 Then up spoke the chaplain:
-“Such things we can’t allow!”
+"Such things we can't allow!"
 She took her broadsword from her side,
-Saying “You will wed us now!”
+Saying "You will wed us now!"
 
 So now the two are married,
 As you may plainly know;

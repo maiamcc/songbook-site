@@ -11,7 +11,7 @@ known: 3
 # in_nb: TK
 # notes: >-
 #   TK
-rnge: do-do
+rnge: do>do
 ---
 
 In South Australia I was born!

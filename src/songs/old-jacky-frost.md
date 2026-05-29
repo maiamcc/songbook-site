@@ -10,7 +10,7 @@ joiny_inny: moderate
 known: 3
 # in_nb: TK
 notes: Not structurally hard but fast.
-rnge: la-la
+rnge: la>la
 ---
 
     Old Jacky Frost is knockin' at the door,

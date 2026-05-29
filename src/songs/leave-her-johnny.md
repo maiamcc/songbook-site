@@ -18,7 +18,7 @@ notes: >-
     
     "To sing it before the last day or so on board was almost tantamount to mutiny
     and was apt even at the latest date to be fiercely resented by captain and officers."
-rnge: do-do
+rnge: do>do
 ---
 
 TODO!! 

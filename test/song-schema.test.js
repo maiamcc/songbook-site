@@ -185,29 +185,39 @@ test("joiny_inny: FIELDS entry was built by the enum factory", () => {
   assert.equal(FIELDS.joiny_inny.desc, ENUMS.joiny_inny.desc);
 });
 
-test("rnge must match [a-z]{2}-[a-z]{2}", () => {
+test("rnge must match [a-z]{2}>[a-z]{2}", () => {
   // Wrong shape, wrong case, non-string — all flagged with the same
   // "must be string matching ..." message that surfaces the pattern.
   const bad = [
-    "AB-CD",    // uppercase
-    "abc-de",   // 3 letters before the dash
-    "ab-cde",   // 3 letters after the dash
-    "a-b",      // too short
-    "abcd",     // missing dash
+    "AB>CD",    // uppercase
+    "abc>de",   // 3 letters before the arrow
+    "ab>cde",   // 3 letters after the arrow
+    "a>b",      // too short
+    "abcd",     // missing arrow
     "ab_cd",    // wrong separator
-    "ab-c1",    // digit
-    "ab-cd ",   // trailing space (anchors must reject)
-    " ab-cd",   // leading space
+    "ab>c1",    // digit
+    "ab>cd ",   // trailing space (anchors must reject)
+    " ab>cd",   // leading space
     5,          // non-string
     null,       // null (treated as "field present but invalid")
   ];
   for (const v of bad) {
     if (v === null) continue; // null is dropped by validate before check
     assert.deepEqual(validate({ ...REQUIRED, rnge: v }), [
-      `field "rnge" must be string matching [a-z]{2}-[a-z]{2} (got: ${JSON.stringify(v)})`,
+      `field "rnge" must be string matching [a-z]{2}>[a-z]{2} (got: ${JSON.stringify(v)})`,
     ]);
   }
-  for (const ok of ["ab-cd", "aa-aa", "zz-yz"]) {
+  for (const ok of ["ab>cd", "aa>aa", "zz>yz"]) {
     assert.deepEqual(validate({ ...REQUIRED, rnge: ok }), []);
+  }
+});
+
+test("rnge rejects old dash format", () => {
+  // The separator changed from '-' to '>'; old-format values must fail
+  // so songs aren't silently accepted with the wrong syntax.
+  for (const old of ["ab-cd", "so-do", "do-mi", "aa-aa"]) {
+    assert.deepEqual(validate({ ...REQUIRED, rnge: old }), [
+      `field "rnge" must be string matching [a-z]{2}>[a-z]{2} (got: ${JSON.stringify(old)})`,
+    ]);
   }
 });

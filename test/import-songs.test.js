@@ -8,7 +8,7 @@ import { parseCSV, importSongs } from "../scripts/import-songs.js";
 
 // Minimal frontmatter satisfying every required field.
 const REQUIRED_CSV_HEADER = "title,author,bop_rating,rnge";
-const REQUIRED_CSV_VALUES = "My Song,Test Author,3,ab-cd";
+const REQUIRED_CSV_VALUES = "My Song,Test Author,3,ab>cd";
 
 function withTempDir(fn) {
   const dir = mkdtempSync(join(tmpdir(), "import-songs-test-"));
@@ -67,13 +67,13 @@ test("importSongs: creates a new .md file", () => {
     assert.equal(data.title, "My Song");
     assert.equal(data.author, "Test Author");
     assert.equal(data.bop_rating, 3);
-    assert.equal(data.rnge, "ab-cd");
+    assert.equal(data.rnge, "ab>cd");
   });
 });
 
 test("importSongs: slug derived from title when no slug column", () => {
   withTempDir((dir) => {
-    const csv = `${REQUIRED_CSV_HEADER}\nThe Long Road,A Author,2,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nThe Long Road,A Author,2,ab>cd\n`;
     importSongs(dir, csv);
     assert.ok(readFileSync(join(dir, "long-road.md"), "utf8"));
   });
@@ -108,7 +108,7 @@ test("importSongs: unknown column is ignored, song still created", () => {
 
 test("importSongs: column names matched case-insensitively", () => {
   withTempDir((dir) => {
-    const csv = `TITLE,AUTHOR,BOP_RATING,RNGE\nMy Song,Test Author,3,ab-cd\n`;
+    const csv = `TITLE,AUTHOR,BOP_RATING,RNGE\nMy Song,Test Author,3,ab>cd\n`;
     const { created } = importSongs(dir, csv);
     assert.equal(created, 1);
     const { data } = matter(readFileSync(join(dir, "my-song.md"), "utf8"));
@@ -157,7 +157,7 @@ test("importSongs: list field parsed from comma-separated cell", () => {
 test("importSongs: row missing required field is skipped", () => {
   withTempDir((dir) => {
     // missing title
-    const csv = `author,bop_rating,rnge\nTest Author,3,ab-cd\n`;
+    const csv = `author,bop_rating,rnge\nTest Author,3,ab>cd\n`;
     const { created, skipped } = importSongs(dir, csv);
     assert.equal(created, 0);
     assert.equal(skipped, 1);
@@ -177,10 +177,10 @@ test("importSongs: throws when CSV has no data rows", () => {
 
 test("importSongs: collision with onConflict=true overwrites the file", () => {
   withTempDir((dir) => {
-    const original = "---\ntitle: My Song\nauthor: Old Author\nbop_rating: 1\nrnge: aa-bb\n---\n";
+    const original = "---\ntitle: My Song\nauthor: Old Author\nbop_rating: 1\nrnge: aa>bb\n---\n";
     writeFileSync(join(dir, "my-song.md"), original);
 
-    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab>cd\n`;
     const { overwritten, skipped } = importSongs(dir, csv, { onConflict: () => true });
     assert.equal(overwritten, 1);
     assert.equal(skipped, 0);
@@ -192,10 +192,10 @@ test("importSongs: collision with onConflict=true overwrites the file", () => {
 
 test("importSongs: collision with onConflict=false skips the row", () => {
   withTempDir((dir) => {
-    const original = "---\ntitle: My Song\nauthor: Original\nbop_rating: 1\nrnge: aa-bb\n---\n";
+    const original = "---\ntitle: My Song\nauthor: Original\nbop_rating: 1\nrnge: aa>bb\n---\n";
     writeFileSync(join(dir, "my-song.md"), original);
 
-    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab>cd\n`;
     const { overwritten, skipped } = importSongs(dir, csv, { onConflict: () => false });
     assert.equal(overwritten, 0);
     assert.equal(skipped, 1);
@@ -207,10 +207,10 @@ test("importSongs: collision with onConflict=false skips the row", () => {
 
 test("importSongs: autoOverwrite overwrites without calling onConflict", () => {
   withTempDir((dir) => {
-    writeFileSync(join(dir, "my-song.md"), "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa-bb\n---\n");
+    writeFileSync(join(dir, "my-song.md"), "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa>bb\n---\n");
 
     let conflictCalled = false;
-    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab>cd\n`;
     const { overwritten } = importSongs(dir, csv, {
       autoOverwrite: true,
       onConflict: () => { conflictCalled = true; return false; },
@@ -223,9 +223,9 @@ test("importSongs: autoOverwrite overwrites without calling onConflict", () => {
 
 test("importSongs: no onConflict and no autoOverwrite skips the collision", () => {
   withTempDir((dir) => {
-    writeFileSync(join(dir, "my-song.md"), "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa-bb\n---\n");
+    writeFileSync(join(dir, "my-song.md"), "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa>bb\n---\n");
 
-    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab>cd\n`;
     const { overwritten, skipped } = importSongs(dir, csv);
     assert.equal(overwritten, 0);
     assert.equal(skipped, 1);
@@ -239,9 +239,9 @@ test("importSongs: merge preserves existing field absent from CSV", () => {
     // notes is not in the CSV; it should survive the overwrite
     writeFileSync(
       join(dir, "my-song.md"),
-      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa-bb\nnotes: keep me\n---\n"
+      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa>bb\nnotes: keep me\n---\n"
     );
-    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab>cd\n`;
     importSongs(dir, csv, { onConflict: () => true });
 
     const { data } = matter(readFileSync(join(dir, "my-song.md"), "utf8"));
@@ -253,9 +253,9 @@ test("importSongs: merge lets CSV non-empty field overwrite existing value", () 
   withTempDir((dir) => {
     writeFileSync(
       join(dir, "my-song.md"),
-      "---\ntitle: My Song\nauthor: Old Author\nbop_rating: 1\nrnge: aa-bb\n---\n"
+      "---\ntitle: My Song\nauthor: Old Author\nbop_rating: 1\nrnge: aa>bb\n---\n"
     );
-    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab>cd\n`;
     importSongs(dir, csv, { onConflict: () => true });
 
     const { data } = matter(readFileSync(join(dir, "my-song.md"), "utf8"));
@@ -267,10 +267,10 @@ test("importSongs: merge preserves body when CSV body cell is empty", () => {
   withTempDir((dir) => {
     writeFileSync(
       join(dir, "my-song.md"),
-      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa-bb\n---\nOriginal lyrics\n"
+      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa>bb\n---\nOriginal lyrics\n"
     );
     // body column present but empty
-    const csv = `${REQUIRED_CSV_HEADER},body\nMy Song,New Author,3,ab-cd,\n`;
+    const csv = `${REQUIRED_CSV_HEADER},body\nMy Song,New Author,3,ab>cd,\n`;
     importSongs(dir, csv, { onConflict: () => true });
 
     const raw = readFileSync(join(dir, "my-song.md"), "utf8");
@@ -282,9 +282,9 @@ test("importSongs: merge replaces body when CSV body cell is non-empty", () => {
   withTempDir((dir) => {
     writeFileSync(
       join(dir, "my-song.md"),
-      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa-bb\n---\nOriginal lyrics\n"
+      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa>bb\n---\nOriginal lyrics\n"
     );
-    const csv = `${REQUIRED_CSV_HEADER},body\nMy Song,New Author,3,ab-cd,New lyrics\n`;
+    const csv = `${REQUIRED_CSV_HEADER},body\nMy Song,New Author,3,ab>cd,New lyrics\n`;
     importSongs(dir, csv, { onConflict: () => true });
 
     const raw = readFileSync(join(dir, "my-song.md"), "utf8");
@@ -299,9 +299,9 @@ test("importSongs: overwriteEmpty replaces file with only CSV fields", () => {
   withTempDir((dir) => {
     writeFileSync(
       join(dir, "my-song.md"),
-      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa-bb\nnotes: should be gone\n---\n"
+      "---\ntitle: My Song\nauthor: Old\nbop_rating: 1\nrnge: aa>bb\nnotes: should be gone\n---\n"
     );
-    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab-cd\n`;
+    const csv = `${REQUIRED_CSV_HEADER}\nMy Song,New Author,3,ab>cd\n`;
     importSongs(dir, csv, { onConflict: () => true, overwriteEmpty: true });
 
     const { data } = matter(readFileSync(join(dir, "my-song.md"), "utf8"));
@@ -316,13 +316,13 @@ test("importSongs: overwriteEmpty replaces file with only CSV fields", () => {
 test("importSongs: counts across mixed-outcome rows are correct", () => {
   withTempDir((dir) => {
     // pre-create a file for the collision row
-    writeFileSync(join(dir, "existing-song.md"), "---\ntitle: Existing Song\nauthor: A\nbop_rating: 1\nrnge: aa-bb\n---\n");
+    writeFileSync(join(dir, "existing-song.md"), "---\ntitle: Existing Song\nauthor: A\nbop_rating: 1\nrnge: aa>bb\n---\n");
 
     const csv = [
       REQUIRED_CSV_HEADER + ",slug",
       `${REQUIRED_CSV_VALUES},new-song`,           // created
-      `Existing Song,A,1,aa-bb,existing-song`,     // collision → skipped
-      `,Missing Title,3,ab-cd,`,                   // validation fail → skipped
+      `Existing Song,A,1,aa>bb,existing-song`,     // collision → skipped
+      `,Missing Title,3,ab>cd,`,                   // validation fail → skipped
     ].join("\n") + "\n";
 
     const result = importSongs(dir, csv, { onConflict: () => false });

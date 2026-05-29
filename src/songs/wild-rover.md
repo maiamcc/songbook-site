@@ -1,6 +1,6 @@
 ---
 title: Wild Rover
-rnge: so-so
+rnge: so>so
 topics:
   - drinking
   - travel

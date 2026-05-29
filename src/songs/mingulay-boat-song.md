@@ -11,7 +11,7 @@ known: 2
 # in_nb: TK
 # notes: >-
 #   TK
-rnge: so-so
+rnge: so>so
 ---
 
 	Heel yo ho, boys; let her go, boys;

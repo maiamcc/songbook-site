@@ -4,7 +4,7 @@ alternate_title: The Roustabout Song
 author: Dillon Bustin
 bop_rating: 3
 structure: [chorus]
-rnge: so-la
+rnge: so>la
 joiny_inny: hard
 topics: [sea / sailors]
 known: 1

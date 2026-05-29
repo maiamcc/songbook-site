@@ -1,6 +1,6 @@
 ---
 title: It's a Pleasure to Know You
-rnge: so-la
+rnge: so>la
 topics:
   - friendship
 mood:

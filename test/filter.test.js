@@ -69,7 +69,7 @@ test("filterFields: enum and list-enum fields carry a valueOrder array", () => {
 // buildFilterRecord
 // ---------------------------------------------------------------------------
 
-const REQUIRED = { title: "X", author: "Y", bop_rating: 3, rnge: "ab-cd" };
+const REQUIRED = { title: "X", author: "Y", bop_rating: 3, rnge: "ab>cd" };
 
 test("buildFilterRecord: includes all filterable fields that are present", () => {
   const data = {
@@ -96,7 +96,7 @@ test("buildFilterRecord: includes all filterable fields that are present", () =>
 });
 
 test("buildFilterRecord: non-display non-filterable fields are excluded", () => {
-  const data = { ...REQUIRED, notes: "n/a", rnge: "ab-cd" };
+  const data = { ...REQUIRED, notes: "n/a", rnge: "ab>cd" };
   const rec = buildFilterRecord("/songs/x/", data);
   assert.ok(!("notes" in rec), "notes should not appear in filter record");
   assert.ok(!("rnge" in rec), "rnge should not appear in filter record");

@@ -150,11 +150,11 @@ const FIELD_FIXTURES = {
   })(),
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
   // rnge is validated against [a-z]{2}-[a-z]{2} and rendered as the
-  // two halves with an arrow between, so the raw "qz-rk" string never
+  // two halves with an arrow between, so the raw "qz>rk" string never
   // appears in the markup. The marker matches the two halves in
   // source order; qz/rk are distinct enough that a false positive is
   // not a concern.
-  rnge: { value: "qz-rk", marker: /qz[\s\S]*?rk/ },
+  rnge: { value: "qz>rk", marker: /qz[\s\S]*?rk/ },
 };
 
 function contains(html, marker) {

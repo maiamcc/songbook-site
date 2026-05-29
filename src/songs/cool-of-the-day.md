@@ -10,7 +10,7 @@ joiny_inny: moderate
 known: 3
 # in_nb: TK
 notes: First recorded 1977
-rnge: do-re
+rnge: do>re
 ---
 
 My Lord, He said unto me:
