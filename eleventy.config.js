@@ -107,6 +107,30 @@ export default function (eleventyConfig) {
     typeof s === "string" ? s.replace(/[_-]/g, " ") : s
   );
 
+  // Parses a rnge value (e.g. "so>>la") into { low, arrows, high }.
+  // `arrows` is the number of '>' characters, which equals the number of
+  // arrowheads to render (1 = zero octaves, 2 = one octave, etc.).
+  eleventyConfig.addFilter("parseRnge", (rnge) => {
+    if (!rnge) return null;
+    const m = String(rnge).match(/^([a-z]{2})(>+)([a-z]{2})$/);
+    if (!m) return null;
+    return { low: m[1], arrows: m[2].length, high: m[3] };
+  });
+
+  // Generates an inline SVG arrow with `n` arrowheads on a single line.
+  // n=1 produces the same shape as the original single-arrowhead SVG.
+  // Each additional arrowhead adds a second chevron 4 units to the right,
+  // and the viewBox widens accordingly.
+  eleventyConfig.addFilter("rngeArrow", (n) => {
+    const count = Math.max(1, n);
+    const w = 10 + (count - 1) * 3;
+    let d = `M 1.5 5 H 8.5`;
+    for (let i = 0; i < count; i++) {
+      d += ` M ${6 + i * 3} 3 L ${8.5 + i * 3} 5 L ${6 + i * 3} 7`;
+    }
+    return `<svg class="range-arrow" viewBox="0 0 ${w} 10" aria-hidden="true"><path d="${d}" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>`;
+  });
+
   eleventyConfig.addCollection("songs", (api) => {
     const songs = api.getFilteredByGlob("src/songs/*.md");
     assertValidSongs(songs);

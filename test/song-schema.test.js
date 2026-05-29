@@ -185,7 +185,7 @@ test("joiny_inny: FIELDS entry was built by the enum factory", () => {
   assert.equal(FIELDS.joiny_inny.desc, ENUMS.joiny_inny.desc);
 });
 
-test("rnge must match [a-z]{2}>[a-z]{2}", () => {
+test("rnge must match [a-z]{2}>+[a-z]{2}", () => {
   // Wrong shape, wrong case, non-string — all flagged with the same
   // "must be string matching ..." message that surfaces the pattern.
   const bad = [
@@ -204,10 +204,11 @@ test("rnge must match [a-z]{2}>[a-z]{2}", () => {
   for (const v of bad) {
     if (v === null) continue; // null is dropped by validate before check
     assert.deepEqual(validate({ ...REQUIRED, rnge: v }), [
-      `field "rnge" must be string matching [a-z]{2}>[a-z]{2} (got: ${JSON.stringify(v)})`,
+      `field "rnge" must be string matching [a-z]{2}>+[a-z]{2} (got: ${JSON.stringify(v)})`,
     ]);
   }
-  for (const ok of ["ab>cd", "aa>aa", "zz>yz"]) {
+  // Single arrow (zero octaves), double (one octave), triple (two octaves) all valid.
+  for (const ok of ["ab>cd", "aa>aa", "zz>yz", "ab>>cd", "so>>>la"]) {
     assert.deepEqual(validate({ ...REQUIRED, rnge: ok }), []);
   }
 });
@@ -217,7 +218,7 @@ test("rnge rejects old dash format", () => {
   // so songs aren't silently accepted with the wrong syntax.
   for (const old of ["ab-cd", "so-do", "do-mi", "aa-aa"]) {
     assert.deepEqual(validate({ ...REQUIRED, rnge: old }), [
-      `field "rnge" must be string matching [a-z]{2}>[a-z]{2} (got: ${JSON.stringify(old)})`,
+      `field "rnge" must be string matching [a-z]{2}>+[a-z]{2} (got: ${JSON.stringify(old)})`,
     ]);
   }
 });

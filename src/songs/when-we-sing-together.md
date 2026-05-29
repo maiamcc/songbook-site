@@ -11,7 +11,7 @@ known: 3
 # in_nb: TK
 # notes: >-
 #   TK
-rnge: so>ti
+rnge: so>>ti
 ---
 
 My friends, we have traveled far to gather here today.

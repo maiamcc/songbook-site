@@ -9,7 +9,7 @@ structure: [chorus]
 joiny_inny: moderate
 known: 2
 # in_nb: TK
-rnge: so>la
+rnge: so>>la
 ---
 
 Oh, the summer time is coming,

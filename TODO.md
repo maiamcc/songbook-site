@@ -1,7 +1,7 @@
 # TODO
 
 ## P1
-* show range with single or double arrow for how many octaves it spans
+* nothing for now!
 
 ## P2:
 * list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)

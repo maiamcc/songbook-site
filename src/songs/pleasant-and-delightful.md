@@ -1,6 +1,6 @@
 ---
 title: Pleasant and Delightful
-rnge: mi>so
+rnge: mi>>so
 topics:
   - seasons
   - birds

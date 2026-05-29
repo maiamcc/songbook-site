@@ -1,6 +1,6 @@
 ---
 title: Union Maid
-rnge: so>do
+rnge: so>>do
 topics:
   - labor
 genre: protest-song

@@ -17,7 +17,7 @@ joiny_inny: easy
 author: trad.
 known: 3
 notes: >-
-    Originally learned from Ruthie; slight lyric tweaks from Emma.
+    Originally learned from Ruthie; slight lyric tweaks from Emma. Range given assuming Dorian.
 ---
 Down into this country
 There lived a wealthy squire;

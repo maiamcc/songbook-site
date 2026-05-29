@@ -45,6 +45,21 @@ function render(filepath, ctx) {
   env.addFilter("humanize", (s) =>
     typeof s === "string" ? s.replace(/[_-]/g, " ") : s
   );
+  env.addFilter("parseRnge", (rnge) => {
+    if (!rnge) return null;
+    const m = String(rnge).match(/^([a-z]{2})(>+)([a-z]{2})$/);
+    if (!m) return null;
+    return { low: m[1], arrows: m[2].length, high: m[3] };
+  });
+  env.addFilter("rngeArrow", (n) => {
+    const count = Math.max(1, n);
+    const w = 10 + (count - 1) * 3;
+    let d = `M 1.5 5 H 8.5`;
+    for (let i = 0; i < count; i++) {
+      d += ` M ${6 + i * 3} 3 L ${8.5 + i * 3} 5 L ${6 + i * 3} 7`;
+    }
+    return `<svg class="range-arrow" viewBox="0 0 ${w} 10" aria-hidden="true"><path d="${d}" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>`;
+  });
   env.addFilter("indexCount", (entries, field, value) => {
     const entry = entries.find((e) => e.field === field && e.value === value);
     return entry ? entry.songs.length : 0;
@@ -149,7 +164,7 @@ const FIELD_FIXTURES = {
     };
   })(),
   notes: { value: "NotesSentinel", marker: "NotesSentinel" },
-  // rnge is validated against [a-z]{2}-[a-z]{2} and rendered as the
+  // rnge is validated against [a-z]{2}>+[a-z]{2} and rendered as the
   // two halves with an arrow between, so the raw "qz>rk" string never
   // appears in the markup. The marker matches the two halves in
   // source order; qz/rk are distinct enough that a false positive is
@@ -168,6 +183,21 @@ function contains(html, marker) {
 function renderPrint(songData, bodyHtml) {
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(INCLUDES));
   env.addFilter("inlineMarkdown", inlineMarkdown);
+  env.addFilter("parseRnge", (rnge) => {
+    if (!rnge) return null;
+    const m = String(rnge).match(/^([a-z]{2})(>+)([a-z]{2})$/);
+    if (!m) return null;
+    return { low: m[1], arrows: m[2].length, high: m[3] };
+  });
+  env.addFilter("rngeArrow", (n) => {
+    const count = Math.max(1, n);
+    const w = 10 + (count - 1) * 3;
+    let d = `M 1.5 5 H 8.5`;
+    for (let i = 0; i < count; i++) {
+      d += ` M ${6 + i * 3} 3 L ${8.5 + i * 3} 5 L ${6 + i * 3} 7`;
+    }
+    return `<svg class="range-arrow" viewBox="0 0 ${w} 10" aria-hidden="true"><path d="${d}" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>`;
+  });
   return env.renderString(
     `{% import "song-print.njk" as p %}{{ p.renderSongPrint(s, body) }}`,
     { s: songData, body: bodyHtml || "" }

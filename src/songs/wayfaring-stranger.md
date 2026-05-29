@@ -1,6 +1,6 @@
 ---
 title: Wayfaring Stranger
-rnge: so>la
+rnge: so>>la
 topics:
   - travel
   - salvation

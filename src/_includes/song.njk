@@ -40,9 +40,9 @@ layout: base.njk
         </dl>
         {% endif %}
         {% if rnge %}
-        {% set rngeParts = rnge.split(">") %}
+        {% set r = rnge | parseRnge %}
         <dl class="song-meta">
-          <dt class="visually-hidden">Range</dt><dd><span class="range">{{ rngeParts[0] }}<svg class="range-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M 1.5 5 H 8.5 M 6 3 L 8.5 5 L 6 7" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>{{ rngeParts[1] }}</span></dd>
+          <dt class="visually-hidden">Range</dt><dd><span class="range">{{ r.low }}{{ r.arrows | rngeArrow | safe }}{{ r.high }}</span></dd>
         </dl>
         {% endif %}
       </div>
