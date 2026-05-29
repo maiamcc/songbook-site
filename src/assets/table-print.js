@@ -141,7 +141,7 @@ const DEFAULT_COL_LABELS = { title: "Title", author: "Author", bop_rating: "Bop"
   const tbody = document.createElement("tbody");
   for (const song of sorted) {
     const tr = document.createElement("tr");
-    tr.className = "song-tr";
+    tr.className = song.has_lyrics === false ? "song-tr song-tr--no-lyrics" : "song-tr";
     for (const col of cols) {
       const td = document.createElement("td");
       td.className = col === "title" ? "song-td song-td--title" : "song-td";

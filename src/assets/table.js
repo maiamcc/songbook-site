@@ -384,12 +384,15 @@ const DEFAULT_COL_LABELS = {
     tbody.innerHTML = "";
     for (const song of songs) {
       const tr = document.createElement("tr");
-      tr.className = "song-tr";
-      tr.addEventListener("click", (e) => {
-        if (e.target.closest("a")) return;
-        if (e.target.closest("input[type=checkbox]")) return;
-        window.location.href = pathPrefix + song.url.replace(/^\//, "");
-      });
+      const hasLyrics = song.has_lyrics !== false;
+      tr.className = hasLyrics ? "song-tr" : "song-tr song-tr--no-lyrics";
+      if (hasLyrics) {
+        tr.addEventListener("click", (e) => {
+          if (e.target.closest("a")) return;
+          if (e.target.closest("input[type=checkbox]")) return;
+          window.location.href = pathPrefix + song.url.replace(/^\//, "");
+        });
+      }
 
       // Row checkbox
       const checkTd = document.createElement("td");
@@ -412,10 +415,14 @@ const DEFAULT_COL_LABELS = {
         const td = document.createElement("td");
         td.className = col === "title" ? "song-td song-td--title" : "song-td";
         if (col === "title") {
-          const a = document.createElement("a");
-          a.href = pathPrefix + song.url.replace(/^\//, "");
-          a.textContent = song.title || "(untitled)";
-          td.appendChild(a);
+          if (hasLyrics) {
+            const a = document.createElement("a");
+            a.href = pathPrefix + song.url.replace(/^\//, "");
+            a.textContent = song.title || "(untitled)";
+            td.appendChild(a);
+          } else {
+            td.appendChild(document.createTextNode(song.title || "(untitled)"));
+          }
           if (song.alternate_title) {
             td.appendChild(document.createTextNode(" "));
             const alt = document.createElement("span");

@@ -709,6 +709,21 @@ h1 {
   background: none;
 }
 
+/* Songs without lyrics have no detail page: no row navigation, no hover,
+   muted background to signal they are reference-only entries. */
+.song-tr--no-lyrics {
+  cursor: default;
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+.song-tr--no-lyrics:hover {
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+.song-tr--no-lyrics:has(.song-td:not(.song-td--title) a:hover) {
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
 /* Index links inside table cells — same dotted-underline as song-meta links. */
 .song-table .song-td a {
   text-decoration: underline;
@@ -1012,6 +1027,13 @@ a.cell-chip:hover {
 
 .print-layout .song-tr:hover {
   background: none;
+}
+
+.print-layout .song-tr--no-lyrics,
+.print-layout .song-tr--no-lyrics:hover {
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 /* Sort direction indicator in print table headers: subdued so it reads as

@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
 import { configureMarkdown } from "./lib/markdown.js";
@@ -121,31 +122,33 @@ export default function (eleventyConfig) {
     );
   });
 
-  // Per-song filter data: one record per song containing only the
-  // filterable fields (schema.filterable === true) that are set.
-  // Emitted as /filter-index.json by src/filter-index.njk; consumed by
-  // the client-side filter UI in src/assets/search.js.
-  eleventyConfig.addCollection("filterIndex", (api) => {
-    const songs = api.getFilteredByGlob("src/songs/*.md");
-    return songs.map((song) => {
-      const { data, content } = matter(readFileSync(song.inputPath, "utf8"));
-      return buildFilterRecord(song.url, data, content);
-    });
-  });
+  // Per-song filter data and search blob are built directly from the
+  // filesystem (not from Eleventy's collection API) so that songs without
+  // lyrics — which are suppressed from page output via addPreprocessor —
+  // are still included in the home-page table and search.
+  function allSongFiles() {
+    const dir = "./src/songs";
+    return readdirSync(dir)
+      .filter((f) => f.endsWith(".md"))
+      .map((f) => ({
+        inputPath: join(dir, f),
+        url: `/songs/${f.slice(0, -3)}/`,
+      }));
+  }
 
-  // Per-song search blob: every schema field's value plus the body
-  // markdown, lowercased, for substring matching by src/assets/search.js
-  // on the home page. New schema fields are picked up automatically;
-  // there's no opt-in needed. Emitted as /search-index.json by
-  // src/search-index.njk. Record shape is defined in lib/search-index.js
-  // and exercised by test/search.test.js.
-  eleventyConfig.addCollection("searchIndex", (api) => {
-    const songs = api.getFilteredByGlob("src/songs/*.md");
-    return songs.map((song) => {
-      const { data, content } = matter(readFileSync(song.inputPath, "utf8"));
-      return buildSongIndexRecord(song.url, data, content);
-    });
-  });
+  eleventyConfig.addCollection("filterIndex", () =>
+    allSongFiles().map(({ inputPath, url }) => {
+      const { data, content } = matter(readFileSync(inputPath, "utf8"));
+      return buildFilterRecord(url, data, content);
+    })
+  );
+
+  eleventyConfig.addCollection("searchIndex", () =>
+    allSongFiles().map(({ inputPath, url }) => {
+      const { data, content } = matter(readFileSync(inputPath, "utf8"));
+      return buildSongIndexRecord(url, data, content);
+    })
+  );
 
   // One entry per (indexable field, distinct value) pair. Drives the
   // paginated index pages in src/index-pages.njk. List-valued fields
