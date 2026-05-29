@@ -126,6 +126,26 @@ test("buildFilterRecord: absent optional fields are excluded", () => {
   assert.ok(!("rnge" in rec));
 });
 
+test("buildFilterRecord: has_lyrics is true when content is non-empty", () => {
+  const rec = buildFilterRecord("/songs/x/", REQUIRED, "There once was a union maid");
+  assert.equal(rec.has_lyrics, true);
+});
+
+test("buildFilterRecord: has_lyrics is false when content is empty string", () => {
+  const rec = buildFilterRecord("/songs/x/", REQUIRED, "");
+  assert.equal(rec.has_lyrics, false);
+});
+
+test("buildFilterRecord: has_lyrics is false when content is whitespace only", () => {
+  const rec = buildFilterRecord("/songs/x/", REQUIRED, "   \n  ");
+  assert.equal(rec.has_lyrics, false);
+});
+
+test("buildFilterRecord: has_lyrics defaults to false when content is omitted", () => {
+  const rec = buildFilterRecord("/songs/x/", REQUIRED);
+  assert.equal(rec.has_lyrics, false);
+});
+
 test("buildFilterRecord: null and empty-string values are excluded", () => {
   const rec = buildFilterRecord("/songs/x/", {
     ...REQUIRED,

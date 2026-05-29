@@ -1,7 +1,6 @@
 # TODO
 
 Up next:
-- make author and range optional
 - songs without lyrics should not render pages, not be linked to in the prev/next links, not have a "print" checkbox, display as gray background in the table and not change color on hover
   - make sure gray background persists in print view of table too
 - add has_lyrics true/false filter
@@ -17,6 +16,7 @@ Up next:
 * what do I do with really long e.g. authors gumming up the song table? author_display escape hatch field, or?
   * maybe change default table fields?
 * smart quotes didn't happen
+* indicator on the filters that there's a filter active
 
 ### P3:
 * make pill link layout less weird.

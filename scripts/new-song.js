@@ -39,6 +39,7 @@ function yamlScalar(s) {
 export function buildSongFile(data, body = "") {
   const lines = ["---"];
   for (const field of Object.keys(FIELDS)) {
+    if (FIELDS[field].virtual) continue;
     const v = data[field];
     if (v !== undefined && v !== null) {
       lines.push(`${field}: ${yamlValue(v)}`);
@@ -113,6 +114,7 @@ async function main() {
 
   try {
     for (const field of Object.keys(FIELDS)) {
+      if (FIELDS[field].virtual) continue;
       while (true) {
         const raw = await ask(promptFor(field));
         const value = parse(field, raw);

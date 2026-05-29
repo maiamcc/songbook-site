@@ -36,12 +36,12 @@ function parseFieldTable(md) {
 const rows = parseFieldTable(README);
 const tableFields = rows.map((r) => r[0].replace(/`/g, ""));
 
-test("README table lists exactly the fields declared in FIELDS", () => {
-  const schemaFields = Object.keys(FIELDS);
+test("README table lists exactly the non-virtual fields declared in FIELDS", () => {
+  const schemaFields = Object.keys(FIELDS).filter((f) => !FIELDS[f].virtual);
   assert.deepEqual(
     [...tableFields].sort(),
     [...schemaFields].sort(),
-    "README field rows do not match FIELDS"
+    "README field rows do not match FIELDS (virtual fields are excluded from the table)"
   );
 });
 

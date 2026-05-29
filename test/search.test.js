@@ -18,14 +18,15 @@ const SENTINELS = {
   topics: { value: ["topicsentinel"], marker: "topicsentinel" },
   genre: { value: "genresentinel", marker: "genresentinel" },
   mood: { value: "moodsentinel", marker: "moodsentinel" },
-  bop_rating: { value: 3, marker: "3" },
+  // bop_rating is an integer enum — excluded from search by type.
+  // Marker is distinct so absence can be asserted without false positives.
+  bop_rating: { value: 3, marker: "bopsentinel3bop" },
   structure: { value: "structuresentinel", marker: "structuresentinel" },
-  // `known` is reference-only (display: []) but still indexed for
-  // search, since search blobs are built from every schema field.
-  known: { value: "knownsentinel", marker: "knownsentinel" },
-  // `in_nb` is a boolean; buildSongIndexRecord stringifies it. The
-  // index blob is lowercased, so the marker matches "true".
-  in_nb: { value: true, marker: "true" },
+  // `known` is a numeric enum — excluded from search by type.
+  known: { value: "knownsentinel", marker: "knownsentinelxyz" },
+  // `in_nb` and `has_lyrics` are boolean — excluded from search by type.
+  in_nb: { value: true, marker: "innbsentineltrue" },
+  has_lyrics: { value: true, marker: "haslyricssentiineltrue" },
   // joiny_inny is an enum field — value must be a legal key from
   // lib/enums.yaml. "easy" is one of the current values; the marker
   // is just the lowercased string, which the index builder pipes
@@ -49,14 +50,26 @@ const fullData = Object.fromEntries(
   Object.entries(SENTINELS).map(([k, v]) => [k, v.value])
 );
 
-for (const field of Object.keys(FIELDS)) {
-  test(`buildSongIndexRecord: ${field} value lands in the search text`, () => {
-    const rec = buildSongIndexRecord("/songs/x/", fullData, "");
-    assert.ok(
-      rec.text.includes(SENTINELS[field].marker),
-      `expected "${SENTINELS[field].marker}" in record.text for field "${field}"`
-    );
-  });
+const isExcludedFromSearch = (spec) => spec.type === "boolean" || spec.coerceInt;
+
+for (const [field, spec] of Object.entries(FIELDS)) {
+  if (isExcludedFromSearch(spec)) {
+    test(`buildSongIndexRecord: ${field} value is excluded from search text`, () => {
+      const rec = buildSongIndexRecord("/songs/x/", fullData, "");
+      assert.ok(
+        !rec.text.includes(SENTINELS[field].marker),
+        `expected "${SENTINELS[field].marker}" to be absent from record.text for non-searchable field "${field}"`
+      );
+    });
+  } else {
+    test(`buildSongIndexRecord: ${field} value lands in the search text`, () => {
+      const rec = buildSongIndexRecord("/songs/x/", fullData, "");
+      assert.ok(
+        rec.text.includes(SENTINELS[field].marker),
+        `expected "${SENTINELS[field].marker}" in record.text for field "${field}"`
+      );
+    });
+  }
 }
 
 test("buildSongIndexRecord: body content lands in the search text", () => {

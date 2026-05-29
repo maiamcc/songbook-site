@@ -130,6 +130,8 @@ const FIELD_FIXTURES = {
   // needs to be a string that won't show up in any rendered view —
   // the test asserts absence everywhere.
   in_nb: { value: true, marker: "InNbSentinel" },
+  // `has_lyrics` is computed from the body, never rendered in views.
+  has_lyrics: { value: true, marker: "HasLyricsSentinel" },
   // `known` is declared with display: [] so it shouldn't render
   // anywhere. The schema-driven loop below uses this marker to assert
   // the field stays out of every view; the sentinel doesn't need to be

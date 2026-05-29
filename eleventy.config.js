@@ -117,8 +117,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("filterIndex", (api) => {
     const songs = api.getFilteredByGlob("src/songs/*.md");
     return songs.map((song) => {
-      const { data } = matter(readFileSync(song.inputPath, "utf8"));
-      return buildFilterRecord(song.url, data);
+      const { data, content } = matter(readFileSync(song.inputPath, "utf8"));
+      return buildFilterRecord(song.url, data, content);
     });
   });
 
