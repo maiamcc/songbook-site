@@ -67,12 +67,13 @@ const DEFAULT_COL_LABELS = {
     if (f.abbrs) colAbbrs[f.key] = f.abbrs;
   }
 
-  // Optional columns: removable defaults first, then other visible filterable
-  // fields. All appear in the meatball menu; removable defaults are pre-checked.
+  // Optional columns: removable defaults first, then all filterable fields
+  // (including the locked field, which is excluded from the filter panel but
+  // should still be available as a table column).
   const removableDefaultKeySet = new Set(REMOVABLE_DEFAULT_COL_KEYS);
   const optionalCols = [
     ...REMOVABLE_DEFAULT_COL_KEYS.map((key) => ({ key })),
-    ...visibleFilterFields.filter(
+    ...filterFields.filter(
       (f) => !PINNED_COL_KEYS.includes(f.key) && !removableDefaultKeySet.has(f.key)
     ),
   ];
