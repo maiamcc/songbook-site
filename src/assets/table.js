@@ -314,15 +314,16 @@ const DEFAULT_COL_LABELS = {
     selectAllCb.type = "checkbox";
     selectAllCb.className = "row-check";
     selectAllCb.setAttribute("aria-label", "Select all visible songs");
-    const visibleSelected = sorted.filter((s) => selectedUrls.has(s.url)).length;
-    selectAllCb.checked = sorted.length > 0 && visibleSelected === sorted.length;
-    selectAllCb.indeterminate = visibleSelected > 0 && visibleSelected < sorted.length;
+    const printable = sorted.filter((s) => s.has_lyrics !== false);
+    const visibleSelected = printable.filter((s) => selectedUrls.has(s.url)).length;
+    selectAllCb.checked = printable.length > 0 && visibleSelected === printable.length;
+    selectAllCb.indeterminate = visibleSelected > 0 && visibleSelected < printable.length;
     selectAllCb.addEventListener("click", (e) => e.stopPropagation());
     selectAllCb.addEventListener("change", () => {
       if (selectAllCb.checked) {
-        for (const s of sorted) selectedUrls.add(s.url);
+        for (const s of printable) selectedUrls.add(s.url);
       } else {
-        for (const s of sorted) selectedUrls.delete(s.url);
+        for (const s of printable) selectedUrls.delete(s.url);
       }
       renderAll();
     });

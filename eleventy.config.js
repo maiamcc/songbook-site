@@ -178,10 +178,13 @@ export default function (eleventyConfig) {
   // paginated index pages in src/index-pages.njk. List-valued fields
   // (e.g. topics) are flattened: a song with topics: [home, travel]
   // contributes to both /index/topics/home/ and /index/topics/travel/.
-  eleventyConfig.addCollection("indexEntries", (api) => {
-    const songs = api.getFilteredByGlob("src/songs/*.md").sort((a, b) =>
-      sortKey(a.data.title).localeCompare(sortKey(b.data.title))
-    );
+  eleventyConfig.addCollection("indexEntries", () => {
+    const songs = allSongFiles()
+      .map(({ inputPath, url }) => {
+        const { data } = matter(readFileSync(inputPath, "utf8"));
+        return { url, data };
+      })
+      .sort((a, b) => sortKey(a.data.title).localeCompare(sortKey(b.data.title)));
     const byKey = new Map();
     for (const song of songs) {
       for (const field of INDEXABLE_FIELDS) {
