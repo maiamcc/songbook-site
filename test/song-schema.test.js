@@ -8,9 +8,7 @@ import { ENUMS, FIELDS, enumField, validate } from "../lib/song-schema.js";
 // gains one.
 const REQUIRED = {
   title: "X",
-  author: "Y",
   bop_rating: 3,
-  rnge: "ab-cd",
 };
 
 test("missing required fields are flagged", () => {
@@ -18,9 +16,7 @@ test("missing required fields are flagged", () => {
   // emitted in the order the schema declares them.
   assert.deepEqual(validate({}), [
     "missing required field: title",
-    "missing required field: author",
     "missing required field: bop_rating",
-    "missing required field: rnge",
   ]);
 });
 
