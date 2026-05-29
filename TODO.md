@@ -4,6 +4,7 @@
 * nothing for now!
 
 ## P2:
+* can print an index
 * list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
 * multi-column sort on the home page table (shift+click to add a secondary sort key)
 * mobile layout?

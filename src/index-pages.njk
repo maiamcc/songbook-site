@@ -49,7 +49,7 @@ layout: base.njk
 </details> #}
 <div class="table-print-link-wrap">
   <a id="song-print-selected" class="print-selected-btn" hidden href="{{ '/multi-print/' | relativeUrl(page.url) }}" data-href-base="{{ '/multi-print/' | relativeUrl(page.url) }}">Print selected →</a>
-  <a id="table-print-link" class="layout-toggle" data-href-base="{{ '/index/' ~ entry.field ~ '/' ~ entry.slug ~ '/print/' | relativeUrl(page.url) }}" href="{{ '/index/' ~ entry.field ~ '/' ~ entry.slug ~ '/print/' | relativeUrl(page.url) }}">Print view →</a>
+  <a id="table-print-link" class="layout-toggle" data-href-base="{{ ('/index/' ~ entry.field ~ '/' ~ entry.slug ~ '/print/') | relativeUrl(page.url) }}" href="{{ ('/index/' ~ entry.field ~ '/' ~ entry.slug ~ '/print/') | relativeUrl(page.url) }}">Print view →</a>
 </div>
 <div id="song-table-wrap" class="song-table-wrap"></div>
 {# <p id="song-search-empty" class="song-search-empty" hidden><em>No songs match.</em></p> #}
