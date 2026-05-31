@@ -391,7 +391,10 @@ const DEFAULT_COL_LABELS = {
     for (const song of songs) {
       const tr = document.createElement("tr");
       const hasLyrics = song.has_lyrics !== false;
-      tr.className = hasLyrics ? "song-tr" : "song-tr song-tr--no-lyrics";
+      const inNb = song.in_nb === true;
+      let trClass = hasLyrics ? "song-tr" : "song-tr song-tr--no-lyrics";
+      if (!hasLyrics && inNb) trClass += " song-tr--no-lyrics-in-nb";
+      tr.className = trClass;
       if (hasLyrics) {
         tr.addEventListener("click", (e) => {
           if (e.target.closest("a")) return;

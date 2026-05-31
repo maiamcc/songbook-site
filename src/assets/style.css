@@ -724,6 +724,19 @@ h1 {
   background: color-mix(in srgb, var(--fg) 6%, transparent);
 }
 
+/* in_nb songs without lyrics: no gray background, but still no hover/click. */
+.song-tr--no-lyrics-in-nb {
+  background: none;
+}
+
+.song-tr--no-lyrics-in-nb:hover {
+  background: none;
+}
+
+.song-tr--no-lyrics-in-nb:has(.song-td:not(.song-td--title) a:hover) {
+  background: none;
+}
+
 /* Index links inside table cells — same dotted-underline as song-meta links. */
 .song-table .song-td a {
   text-decoration: underline;
