@@ -15,6 +15,7 @@ import { matchTokens } from "./match.js";
 import { songMatchesFilters } from "./filter-match.js";
 import { sortSongs } from "./sort.js";
 import { buildSearchParams } from "./url-state.js";
+import { songRowClass } from "./row-class.js";
 
 // Pinned columns: always visible, never in the meatball-menu column picker.
 const PINNED_COL_KEYS = ["title"];
@@ -391,10 +392,7 @@ const DEFAULT_COL_LABELS = {
     for (const song of songs) {
       const tr = document.createElement("tr");
       const hasLyrics = song.has_lyrics !== false;
-      const inNb = song.in_nb === true;
-      let trClass = hasLyrics ? "song-tr" : "song-tr song-tr--no-lyrics";
-      if (!hasLyrics && inNb) trClass += " song-tr--no-lyrics-in-nb";
-      tr.className = trClass;
+      tr.className = songRowClass(song);
       if (hasLyrics) {
         tr.addEventListener("click", (e) => {
           if (e.target.closest("a")) return;
