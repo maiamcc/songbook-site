@@ -123,3 +123,53 @@ test("inner indentation of a refrain block is not treated as a second refrain", 
   const refrainMatches = [...html.matchAll(/<div class="chorus refrain refrain-mid">/g)];
   assert.equal(refrainMatches.length, 1);
 });
+
+// --- 2-space indent lines ---
+
+test("2-space-indented line renders as <p class=\"indent\">", () => {
+  const html = render("verse line\n  indented line\nnext verse");
+  assert.match(html, /<p class="indent( indent-mid)?">indented line<\/p>/);
+});
+
+test("2-space indent strips the leading two spaces from content", () => {
+  const html = render("verse\n  indented line\nverse");
+  assert.doesNotMatch(html, /  indented line/);
+  assert.match(html, /indented line/);
+});
+
+test("2-space indent does not produce a chorus div", () => {
+  const html = render("verse\n  indented line\nverse");
+  assert.doesNotMatch(html, /class="chorus"/);
+});
+
+test("4-space indent is still a chorus refrain, not a <p class=\"indent\">", () => {
+  const html = render("verse\n    refrain line\nverse");
+  assert.match(html, /class="chorus refrain/);
+  assert.doesNotMatch(html, /class="indent"/);
+});
+
+test("verse before a 2-space indent gets verse-pre-indent class", () => {
+  const html = render("verse line\n  indented line\nnext verse");
+  assert.match(html, /<p class="verse-pre-indent">verse line<\/p>/);
+});
+
+test("mid-stanza indent (verse follows) gets indent-mid class", () => {
+  const html = render("verse line\n  indented line\nnext verse");
+  assert.match(html, /<p class="indent indent-mid">indented line<\/p>/);
+});
+
+test("stanza-ending indent (nothing follows) does not get indent-mid class", () => {
+  const html = render("verse line\n  indented line");
+  assert.match(html, /<p class="indent">indented line<\/p>/);
+  assert.doesNotMatch(html, /indent-mid/);
+});
+
+// Alice and Jessie: 2-space indent interleaved with verse, tab-indented chorus separate
+test("alice-and-jessie structure: 2-space indents within verse, tab chorus separate", () => {
+  const src =
+    "In a white four-in-hand by a coachman.\n  Summers they spent in the country\nPlaying in the fields.\n\n\tAlice was married in Baltimore,\n\tIn a long dress.";
+  const html = render(src);
+  assert.match(html, /<p class="indent( indent-mid)?">Summers they spent in the country<\/p>/);
+  assert.match(html, /<div class="chorus">Alice was married in Baltimore/);
+  assert.doesNotMatch(html, /<div class="chorus">Summers/);
+});

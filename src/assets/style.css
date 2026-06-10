@@ -855,6 +855,21 @@ a.cell-chip:hover {
   margin-top: 0;
 }
 
+/* 2-space-indented lines render as <p class="indent">, flowing tight with
+   surrounding verse (no gaps). verse-pre-indent and indent-mid suppress
+   adjacent margins the same way verse-pre-refrain / refrain-mid do. */
+.song-body p.indent {
+  padding-left: 1em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.song-body p.verse-pre-indent {
+  margin-bottom: 0;
+}
+.song-body p.indent-mid + p {
+  margin-top: 0;
+}
+
 /* Print layout: tuned for A5 paper (148×210mm) so songs print as a
    pocket-songbook page. The dedicated print page at /songs/<slug>/print/
    uses base-print.njk, which puts <body class="print-layout">, so the
@@ -959,6 +974,18 @@ a.cell-chip:hover {
   margin-bottom: 0;
 }
 .print-layout .song-body .refrain-mid + p {
+  margin-top: 0;
+}
+
+.print-layout .song-body p.indent {
+  padding-left: 1em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.print-layout .song-body p.verse-pre-indent {
+  margin-bottom: 0;
+}
+.print-layout .song-body p.indent-mid + p {
   margin-top: 0;
 }
 

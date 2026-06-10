@@ -23,6 +23,7 @@ genre:
     - protest-song
     - satire
     - carol
+    - ballad
 
 mood:
   values:
@@ -50,6 +51,7 @@ structure:
     refrain-lines: repeating line(s) interspersed with verse
     no-chorus: no chorus or other joiny-inny bits
     folderol: nonsense words  # is this structural??
+    fill-in-the-blank: leave a space for audience to insert words
 #    round: it's a round.
 #    layer: parts layer on each other
 #    optional-chorus: chorus is optional
@@ -72,6 +74,7 @@ joiny_inny:
     easy: easy in a pub sing context, e.g. simple chorus or repeated lines
     moderate: the bulk of pub sing songs
     hard: fast, wordy, Nancy Kerr bullshit etc.
+    n/a: not applicable, no joiny-inny bits
   abbrs:
     very-easy: v. easy
     moderate: mod.
