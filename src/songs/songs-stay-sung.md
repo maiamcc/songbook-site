@@ -9,7 +9,7 @@ bop_rating: 2
 structure: [chorus]
 joiny_inny: moderate
 known: 1
-# in_nb: TK
+in_nb: true
 notes: "Written in 2020: \"A song for those grieving losses.\""
 # rnge: TK
 ---

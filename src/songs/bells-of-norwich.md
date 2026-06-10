@@ -9,6 +9,7 @@ topics: [flowers / plants, love, seasons, religion / God]
 rnge: so>>la
 joiny_inny: easy
 known: 2
+in_nb: true
 notes: >-
     Gordon Bok note: "According to Carter, Julian lived at about the time of Chaucer, in a cell
     (she was a hermit and a mystic) in what is now the Chapel of Julian in Norwich,

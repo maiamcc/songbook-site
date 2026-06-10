@@ -33,7 +33,7 @@
 * in song metadata, separate the topic entites better; better hover behavior for everything
 * somewhat rein in all possible topics
 * reset table button to go back to default sorts, cols etc.
-* publish the site?!
+* publish the site?! // PASSWORD PROTECT
 * maybe add favicon
 * make tab titles not suck
   * including parsing special chars in song names correctly -- see eg Pleasure to Know You title
