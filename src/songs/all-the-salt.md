@@ -9,7 +9,7 @@ bop_rating: 1
 structure: [chorus]
 joiny_inny: hard
 known: 1
-# in_nb: TK
+in_nb: true
 notes: Recorded 2018.
 rnge: do>do
 ---

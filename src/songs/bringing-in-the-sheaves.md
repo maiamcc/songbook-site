@@ -9,7 +9,7 @@ bop_rating: 5
 structure: [chorus, repeat-line-you-listen-for]
 joiny_inny: easy
 known: 3
-# in_nb: TK
+in_nb: true
 notes: Written probs c. 1993
 rnge: so>>la
 ---

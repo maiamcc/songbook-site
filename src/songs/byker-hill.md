@@ -9,7 +9,7 @@ bop_rating: 5
 structure: [chorus]
 joiny_inny: very-easy
 known: 1
-# in_nb: TK
+in_nb: true
 # notes: >-
 #   TK
 rnge: do>do

@@ -9,7 +9,7 @@ bop_rating: 4
 structure: [chorus]
 joiny_inny: hard
 known: 1
-# in_nb: TK
+in_nb: true
 notes: Poem by Robert W. Service ("The Bard of the Yukon" / "The Canadian Kipling")
 rnge: mi>>la
 ---

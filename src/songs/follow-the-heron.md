@@ -9,7 +9,7 @@ bop_rating: 2
 structure: [chorus]
 joiny_inny: moderate
 known: 1
-# in_nb: TK
+in_nb: true
 notes: First recorded 2009
 rnge: ti>>re
 ---

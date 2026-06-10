@@ -9,7 +9,7 @@ bop_rating: 2
 structure: [chorus, 2nd-4th-lines-repeat]
 joiny_inny: easy
 known: 1
-# in_nb: TK
+in_nb: true
 # notes: >-
 #   TK
 rnge: so>>la

@@ -9,7 +9,7 @@ bop_rating: 3
 structure: [chorus]
 joiny_inny: moderate
 known: 3
-# in_nb: TK
+in_nb: true
 # notes: >-
 #   TK
 rnge: la>>re
