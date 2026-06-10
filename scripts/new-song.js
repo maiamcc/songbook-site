@@ -109,6 +109,10 @@ export function parse(field, raw) {
   if (spec.type.startsWith("list")) {
     return trimmed.split(",").map((s) => normalizeInput(s)).filter(Boolean);
   }
+  if (spec.type === "boolean") {
+    if (trimmed === "checked" || trimmed === "true") return true;
+    if (trimmed === "false") return false;
+  }
   if (spec.values && Object.keys(spec.values).every((k) => /^\d+$/.test(k))) {
     const n = Number(trimmed);
     return Number.isInteger(n) ? n : trimmed;
