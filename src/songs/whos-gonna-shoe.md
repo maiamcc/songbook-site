@@ -2,6 +2,7 @@
 title: Who's Gonna Shoe
 # alternate_title: TK
 author: trad., add'l verses by Sophia Donforth & Emily Steele Hurst
+author_short: trad., Sophia Donforth & Emily Steele Hurst
 topics: [feminism]
 # genre: TK
 mood: [badass, silly]

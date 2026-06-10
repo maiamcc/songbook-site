@@ -77,6 +77,7 @@ Each song lives in `src/songs/<slug>.md` with YAML frontmatter. The schema is de
 | `title`           | string          | yes      |               |           |        | ✓    | ✓     |
 | `alternate_title` | string          | no       |               |           |        | ✓    | ✓     |
 | `author`          | string          | no       |               |           |        | ✓    | ✓     |
+| `author_short`    | string          | no       | short form displayed in the home table instead of `author`; not included in search |  |  |      |       |
 | `topics`          | list of strings | no       |               | ✓         | ✓      | +    |       |
 | `genre`           | enum (string)   | no       | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ | +    |       |
 | `mood`            | list of enums (string) | no | values + descriptions in [`lib/enums.yaml`](lib/enums.yaml) | ✓ | ✓ | +    |       |

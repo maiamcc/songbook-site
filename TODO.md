@@ -1,5 +1,8 @@
 # TODO
 
+## me
+* what's already in my songbook? get it on the ToC
+
 ## P1
 * styling refrains so they don't bork the spacing of the verse as much
 * can i tighten up printing even better?

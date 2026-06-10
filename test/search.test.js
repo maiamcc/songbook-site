@@ -15,6 +15,7 @@ const SENTINELS = {
   title: { value: "titlesentinel", marker: "titlesentinel" },
   alternate_title: { value: "altsentinel", marker: "altsentinel" },
   author: { value: "authorsentinel", marker: "authorsentinel" },
+  author_short: { value: "authorshortsentinel", marker: "authorshortsentinel" },
   topics: { value: ["topicsentinel"], marker: "topicsentinel" },
   genre: { value: "genresentinel", marker: "genresentinel" },
   mood: { value: "moodsentinel", marker: "moodsentinel" },
@@ -50,7 +51,7 @@ const fullData = Object.fromEntries(
   Object.entries(SENTINELS).map(([k, v]) => [k, v.value])
 );
 
-const isExcludedFromSearch = (spec) => spec.type === "boolean" || spec.coerceInt;
+const isExcludedFromSearch = (spec) => spec.type === "boolean" || spec.coerceInt || spec.searchable === false;
 
 for (const [field, spec] of Object.entries(FIELDS)) {
   if (isExcludedFromSearch(spec)) {

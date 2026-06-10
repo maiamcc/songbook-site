@@ -439,6 +439,8 @@ const DEFAULT_COL_LABELS = {
             alt.textContent = `(${song.alternate_title})`;
             td.appendChild(alt);
           }
+        } else if (col === "author" && song.author_short) {
+          td.textContent = song.author_short;
         } else {
           renderCellContent(td, song, col);
         }

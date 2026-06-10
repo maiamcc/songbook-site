@@ -46,9 +46,12 @@ export async function unstash(songsDir = SONGS_DIR, stashDir = join(songsDir, "s
   console.log(`Unstashed ${mds.length} song(s) to ${songsDir}`);
 }
 
-const unstashing = process.argv.includes("--unstash");
-if (unstashing) {
-  await unstash();
-} else {
-  await stash();
+// Only run as CLI — not when imported by tests or other modules.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const unstashing = process.argv.includes("--unstash");
+  if (unstashing) {
+    await unstash();
+  } else {
+    await stash();
+  }
 }
