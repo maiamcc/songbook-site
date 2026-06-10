@@ -34,7 +34,7 @@ I'm afraid Uncle Walter's been waltzing with bears!
 
 We told Uncle Walter that he should be good,
 And do all the things that we said that he should,
-But I know that he'd rather be oﬀ in the woods!
+But I know that he'd rather be off in the woods!
 I'm afraid that we'll lose Uncle Walter for good!
 
 We begged and we pleaded "Oh please won't you stay?"

@@ -15,7 +15,7 @@ known: 1
 rnge: so>>do
 ---
 
-I married John Coﬃn just two years ago,
+I married John Coffin just two years ago,
 And he's a fine man, as all Nantucket knows.
 And he's bound to make second mate, or so I hear,
 If the Charles brings home enough oil next year.
