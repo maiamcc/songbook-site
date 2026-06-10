@@ -40,6 +40,10 @@ function assertValidSongs(songs) {
 }
 
 export default function (eleventyConfig) {
+  // Never build stashed songs — they live in src/songs/stash/ and are
+  // excluded from the site entirely until unstashed.
+  eleventyConfig.ignores.add("src/songs/stash");
+
   // Suppress song and print pages for songs that have no markdown body.
   // The preprocessor runs before Eleventy writes any output; returning
   // false tells Eleventy to skip this template entirely.
