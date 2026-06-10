@@ -557,8 +557,8 @@ h1 {
 .song-th--check::before {
   content: "";
   display: block;
-  width: 1rem;
-  height: 1rem;
+  width: 0.7rem;
+  height: 0.7rem;
   margin: auto;
   border: 1.5px solid currentColor;
   border-radius: 2px;
@@ -671,7 +671,6 @@ h1 {
   padding: 0.35rem 0.6rem;
   text-align: left;
   border-bottom: 1px solid var(--border);
-  vertical-align: top;
 }
 
 .song-table thead th {
