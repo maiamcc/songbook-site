@@ -2,7 +2,7 @@
 title: Alice and Jessie
 # alternate_title: TK
 author: Douglas Day
-topics: [family]
+topics: [family, pregnancy / childbirth]
 # genre: TK
 mood: [sad]
 bop_rating: 1
