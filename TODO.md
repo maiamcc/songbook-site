@@ -1,19 +1,14 @@
 # TODO
 
-## me
-* what's already in my songbook? get it on the ToC
-
 ## P1
 * styling refrains so they don't bork the spacing of the verse as much
 * can i tighten up printing even better?
   * eg who's gonna shoe
-* what do I do with really long e.g. authors gumming up the song table? author_display escape hatch field, or?
-* maybe change default table fields?
 * smart quotes didn't happen
-* hitbox on checkboxes on table should be bigger
 
 ## P2:
 * can print an index
+* maybe change default table fields?
 * list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
 * multi-column sort on the home page table (shift+click to add a secondary sort key)
 * mobile layout?

@@ -531,18 +531,45 @@ h1 {
   color: var(--accent-dark);
 }
 
-/* Checkbox column: narrow, no horizontal padding, centred. */
+/* Checkbox column: narrow, centred. The td/th is the click target so we
+   make it position:relative and stretch the checkbox to fill it. */
 .song-th--check,
 .song-td--check {
-  width: 1.8rem;
-  padding-left: 0;
-  padding-right: 0;
+  width: 2.5rem;
+  padding: 0;
   text-align: center;
+  position: relative;
 }
 
 .row-check {
   cursor: pointer;
   margin: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* Visible checkbox indicator drawn via ::before so clicks still hit the
+   full-cell invisible input. Only shown when the cell actually has a checkbox. */
+.song-td--check:has(.row-check)::before,
+.song-th--check::before {
+  content: "";
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin: auto;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.song-td--check:has(.row-check:checked)::before,
+.song-th--check:has(.row-check:checked)::before {
+  background: currentColor;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 5l2.5 3 5-6' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
 }
 
 /* ── Home page song table ─────────────────────────────────────────────────── */
