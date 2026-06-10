@@ -84,6 +84,10 @@ body {
   line-height: 1.5;
 }
 
+body.wide {
+  max-width: 70rem;
+}
+
 /* All links default to the accent color, darkening on hover.
    Per-context rules below tune text-decoration but inherit color. */
 a {
