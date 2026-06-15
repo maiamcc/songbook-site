@@ -73,6 +73,10 @@
   border-radius: 3px;
 }
 
+strong {
+  font-weight: 700;
+}
+
 body {
   font-family: "Cormorant", Georgia, "Iowan Old Style", serif;
   font-weight: 500;
