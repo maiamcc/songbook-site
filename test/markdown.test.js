@@ -19,10 +19,22 @@ test("4-space-indented block renders as a chorus div", () => {
 
 test("multi-line indented block keeps newlines inside the chorus div", () => {
   const html = render("verse\n\n\tline one\n\tline two\n\tline three\n");
-  assert.match(
-    html,
-    /<div class="chorus">line one\nline two\nline three<\/div>/
-  );
+  assert.match(html, /<div class="chorus">line one\nline two\nline three<\/div>/);
+});
+
+test("bold markdown in a standalone chorus block renders as <strong>", () => {
+  const html = render("verse\n\n\t**bold word** in chorus\n");
+  assert.match(html, /<div class="chorus"><strong>bold word<\/strong> in chorus<\/div>/);
+});
+
+test("italic markdown in a standalone chorus block renders as <em>", () => {
+  const html = render("verse\n\n\t*italic word* in chorus\n");
+  assert.match(html, /<div class="chorus"><em>italic word<\/em> in chorus<\/div>/);
+});
+
+test("bold markdown in an interleaved refrain renders as <strong>", () => {
+  const html = render("verse line\n\t**bold** refrain\nnext verse");
+  assert.match(html, /<div class="chorus refrain[^"]*"><strong>bold<\/strong> refrain<\/div>/);
 });
 
 test("unindented lines stay in paragraphs, not chorus divs", () => {

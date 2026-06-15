@@ -869,6 +869,11 @@ a.cell-chip:hover {
   margin: 0.75rem 0 0.75rem 0.5rem;
 }
 
+/* Markdown *em* inside a chorus cancels the parent italic so it reads as emphasis. */
+.song-body .chorus em {
+  font-style: normal;
+}
+
 /* Refrain lines carry both .chorus and .refrain. .chorus handles all visual
    properties; .refrain overrides margin and padding so refrains flow tight
    against surrounding verse without vertical separation. */
