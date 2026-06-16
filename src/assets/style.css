@@ -859,6 +859,15 @@ a.cell-chip:hover {
   color: var(--separator);
 }
 
+.song-body ol {
+  padding-left: 0;
+  list-style-position: inside;
+}
+
+.song-body ol li {
+  margin-bottom: 0.5em;
+}
+
 /* Indented blocks in song markdown render as choruses. */
 .song-body .chorus {
   white-space: pre-wrap;
@@ -990,6 +999,11 @@ a.cell-chip:hover {
 
 .print-layout .song-vitals .song-meta {
   display: block;
+}
+
+.print-layout .song-body ol {
+  padding-left: 0;
+  list-style-position: inside;
 }
 
 .print-layout .song-body p {

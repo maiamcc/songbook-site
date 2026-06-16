@@ -15,17 +15,21 @@ known: 1
 rnge: so>>la
 ---
 
-(You know that) death came a-knockin' on my mother's* door,
-Singin': "Come on, mother, ain't ya ready to go?"
-So my mother stooped down, buckled up her shoes,
+(You know that) death came a-knockin' on my **mother**'s door,
+Singin': "Come on, **mother**, ain't ya ready to go?"
+So my **mother** stooped down, buckled up her shoes,
 And she moved on down by the Jordan stream.
 
 	And then she shout,
 	"Hallelujah! Done, done my duty,
 	got on my travelin shoes."
 
-*2. sister's
-*3. brother's
-*4. neighbor's
-*5. preacher's
-*6. my own... come on sinner
+2. sister's
+3. brother's
+4. neighbor's
+5. preacher's
+
+(You know that) death came a-knockin' on my own front door,
+Singin': "Come on, sinner, ain't ya ready to go?"
+So I stooped on down, buckled up mmy shoes,
+And I moved on down by the Jordan stream.
