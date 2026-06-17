@@ -180,3 +180,72 @@ test("getSortVal: title field returns de-articled lowercase key", () => {
   assert.equal(getSortVal({ title: "A Roving" }, "title"), "roving");
   assert.equal(getSortVal({ title: "Apple" }, "title"), "apple");
 });
+
+// ---------------------------------------------------------------------------
+// sortSongs / getSortVal — enum order (joiny_inny)
+// ---------------------------------------------------------------------------
+
+const JOINY_ORDER = ["very-easy", "easy", "moderate", "hard", "n/a"];
+const joinyEnumOrders = { joiny_inny: JOINY_ORDER };
+
+test("getSortVal: returns positional index when enumOrders provided", () => {
+  assert.equal(getSortVal({ joiny_inny: "very-easy" }, "joiny_inny", joinyEnumOrders), 0);
+  assert.equal(getSortVal({ joiny_inny: "easy" },      "joiny_inny", joinyEnumOrders), 1);
+  assert.equal(getSortVal({ joiny_inny: "moderate" },  "joiny_inny", joinyEnumOrders), 2);
+  assert.equal(getSortVal({ joiny_inny: "hard" },      "joiny_inny", joinyEnumOrders), 3);
+  assert.equal(getSortVal({ joiny_inny: "n/a" },       "joiny_inny", joinyEnumOrders), 4);
+});
+
+test("getSortVal: unknown enum value returns null when enumOrders provided", () => {
+  assert.equal(getSortVal({ joiny_inny: "unknown" }, "joiny_inny", joinyEnumOrders), null);
+});
+
+test("getSortVal: falls back to string value when field not in enumOrders", () => {
+  assert.equal(getSortVal({ joiny_inny: "easy" }, "joiny_inny", {}), "easy");
+});
+
+test("sortSongs: joiny_inny asc follows enum definition order", () => {
+  const songs = [
+    { joiny_inny: "hard" },
+    { joiny_inny: "very-easy" },
+    { joiny_inny: "n/a" },
+    { joiny_inny: "easy" },
+    { joiny_inny: "moderate" },
+  ];
+  const result = sortSongs(songs, "joiny_inny", "asc", joinyEnumOrders);
+  assert.deepEqual(
+    result.map((s) => s.joiny_inny),
+    ["very-easy", "easy", "moderate", "hard", "n/a"]
+  );
+});
+
+test("sortSongs: joiny_inny desc reverses enum definition order", () => {
+  const songs = [
+    { joiny_inny: "easy" },
+    { joiny_inny: "hard" },
+    { joiny_inny: "very-easy" },
+  ];
+  const result = sortSongs(songs, "joiny_inny", "desc", joinyEnumOrders);
+  assert.deepEqual(
+    result.map((s) => s.joiny_inny),
+    ["hard", "easy", "very-easy"]
+  );
+});
+
+test("sortSongs: joiny_inny missing values sort last", () => {
+  const songs = [
+    { joiny_inny: "hard" },
+    {},
+    { joiny_inny: "easy" },
+  ];
+  const result = sortSongs(songs, "joiny_inny", "asc", joinyEnumOrders);
+  assert.equal(result[0].joiny_inny, "easy");
+  assert.equal(result[1].joiny_inny, "hard");
+  assert.equal(result[2].joiny_inny, undefined);
+});
+
+test("sortSongs: other fields unaffected when joiny enumOrders present", () => {
+  const songs = [{ title: "Zebra" }, { title: "Apple" }];
+  const result = sortSongs(songs, "title", "asc", joinyEnumOrders);
+  assert.deepEqual(result.map((s) => s.title), ["Apple", "Zebra"]);
+});

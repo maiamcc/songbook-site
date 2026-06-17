@@ -295,7 +295,10 @@ const DEFAULT_COL_LABELS = {
         matchTokens(searchByUrl.get(song.url) || "", q) &&
         songMatchesFilters(song, active)
     );
-    const sorted = sortSongs(visible, sortField, sortDir);
+    const enumOrders = Object.fromEntries(
+      filterFields.filter((f) => f.sortByOrder && f.valueOrder).map((f) => [f.key, f.valueOrder])
+    );
+    const sorted = sortSongs(visible, sortField, sortDir, enumOrders);
 
     if (empty) empty.hidden = !((q.trim() || anyFilter) && sorted.length === 0);
     if (clearBtn) clearBtn.hidden = !anyFilter;
