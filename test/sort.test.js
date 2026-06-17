@@ -22,8 +22,8 @@ test("getSortVal: returns null for an explicit null value", () => {
   assert.equal(getSortVal({ genre: null }, "genre"), null);
 });
 
-test("getSortVal: returns first element (stringified) for a non-empty array", () => {
-  assert.equal(getSortVal({ mood: ["rousing", "fun"] }, "mood"), "rousing");
+test("getSortVal: returns sorted-joined elements for a non-empty array", () => {
+  assert.equal(getSortVal({ mood: ["rousing", "fun"] }, "mood"), "fun|rousing");
   assert.equal(getSortVal({ mood: [42] }, "mood"), "42");
 });
 
@@ -120,14 +120,24 @@ test("sortSongs: two songs both missing the field are considered equal", () => {
 // sortSongs — array fields
 // ---------------------------------------------------------------------------
 
-test("sortSongs: array field sorted by first element asc", () => {
+test("sortSongs: array field sorted by joined elements asc (order-independent)", () => {
   const songs = [
-    { mood: ["rousing", "fun"] },
-    { mood: ["gentle"] },
-    { mood: ["bouncy"] },
+    { mood: ["rousing", "fun"] },  // key: "fun|rousing"
+    { mood: ["gentle"] },          // key: "gentle"
+    { mood: ["bouncy"] },          // key: "bouncy"
   ];
   const result = sortSongs(songs, "mood", "asc");
-  assert.deepEqual(result.map((s) => s.mood[0]), ["bouncy", "gentle", "rousing"]);
+  // "fun|rousing" sorts after "bouncy" but before "gentle"
+  assert.deepEqual(result.map((s) => s.mood[0]), ["bouncy", "rousing", "gentle"]);
+});
+
+test("sortSongs: array field with same values in different order sorts identically", () => {
+  const a = { structure: ["chorus", "2nd-4th-lines-repeat"] };
+  const b = { structure: ["2nd-4th-lines-repeat", "chorus"] };
+  const result = sortSongs([a, b], "structure", "asc");
+  // Both have the same sort key — JS sort is stable so original order is kept.
+  assert.equal(result[0], a);
+  assert.equal(result[1], b);
 });
 
 test("sortSongs: empty array treated as missing → sorts last", () => {

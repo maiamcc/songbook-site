@@ -34,7 +34,7 @@ export function sortSongs(songs, field, dir, enumOrders = {}) {
 export function getSortVal(song, field, enumOrders = {}) {
   const v = song[field];
   if (v === undefined || v === null) return null;
-  if (Array.isArray(v)) return v.length > 0 ? String(v[0]) : null;
+  if (Array.isArray(v)) return v.length > 0 ? [...v].map(String).sort().join("|") : null;
   if (field === "title" && typeof v === "string") return titleSortKey(v);
   const order = enumOrders[field];
   if (order) {

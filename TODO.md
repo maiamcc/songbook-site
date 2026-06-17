@@ -37,3 +37,4 @@
 * narrow list of moods/topics? consistent display -- icons or color coding?
 * customizable print layout: paper size, fields included, etc.
 * command to `list-todo`: show songs that don't have lyrics (or don't have <some other field>)
+* better sort behavior for `structure` field (maybe don't want everything with a `chorus` having that come first)
