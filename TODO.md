@@ -7,20 +7,20 @@
 * smart quotes didn't happen
 
 ## P2:
+* mobile layout?
+* search in navbar
+* list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
+
+### P3:
 * anti-filters? (click smth twice to EXCLUDE it)
 * can print an index
 * maybe change default table fields?
-* list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
 * multi-column sort on the home page table (shift+click to add a secondary sort key)
-* mobile layout?
-* search in navbar
 * indicator on the filters that there's a filter active
 * human-readable translations for some enums that don't go there good (e.g. `2nd & 4th lines repeat`, `kid's song`)
 * back button should hop you back to the specific table config you left (i.e. preserve filters / sorts / columns)
 * export songs as csv
 * update JUST CERTAIN FIELDS from csv
-
-### P3:
 * make pill link layout less weird.
 * vertical spacing with comma-sep lists of topics -- comma placed weird??
 * importing new songs: if it's a big long notes field, make it a multiline yaml entry w softwraps instead of a giant string.
