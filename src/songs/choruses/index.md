@@ -334,7 +334,7 @@ I am the last of the great whales, and I am dying.
 
 _I thought I heard the old man say,_
 Leave her, Johnny, leave her
-_You can go ashore and take your pay / Tomorrow ye will get your pay!_
+_You can go ashore and get your pay!_
 And it's time for us to leave her.
 
 Leave her, Johnny, leave her!
@@ -474,7 +474,8 @@ There's dawn beyond the night.
 
 # Santa Georgia
 
-...In the land of Santa Georgia where the banks of burdocks grow.
+...
+In the land of Santa Georgia where the banks of burdocks grow.
 
 Where old panes are broken and a thousand tongues are spoken,
 And new saints awaken where the banks of burdocks grow;
@@ -495,10 +496,10 @@ And I'll be waiting for you 'round the corner.
 
 # Sea Creature of Greenland
 
-It was a most unusual sight,
-Wondrous and wiggling and wrinkled and white.
+It was a most unusual sight!
+Wondrous and wiggling and wrinkled and white,
 Its head as high as the ship,
-Its tail behind so long and thick:
+Its tail behind so long and thick...
 The sea creature of Greenland,
 Most dreadful and monstrously big.
 
@@ -506,7 +507,7 @@ Most dreadful and monstrously big.
 
 # Sing, John Ball
 
-Sing, John Ball, and tell it to them all!
+Sing, John Ball, and tell it to them all,
 Long live the day that is dawning!
 I'll crow like a cock, I'll carol like a lark,
 In the light that is coming in the morning!
@@ -599,7 +600,8 @@ I'm sticking to the union 'til the day I die.
 
 Pull your oars! (Pull your oars)
 We're bound away! (We're bound away!)
-With a thousand quarts of whisky bound for Valparaiso Bay,
+With a thousand quarts of whisky
+  bound for Valparaiso Bay,
 And we have no intention for to see the U.S.A.;
 We're bound for Valparaiso in a rowboat.
 
@@ -657,7 +659,7 @@ When I am gone from here?
 Will you go, lassie, will you go?
 And we'll all go together
 To pull wild mountain thyme
-All around the blooming heather,
+All around the blooming heather.
 Will you go, lassie, go?
 
 ---
@@ -673,7 +675,8 @@ No, never, no more.
 
 # Witch Hazel
 
-I am lookin' at witch hazel bloomin' in a garden,
+I am lookin' at a witch hazel bloomin' in a garden,
 Bright yellow flowers in the middle of wintertime;
 And I tell my heart be strong like the witch hazel flower,
-And you will not be injured by this dark and troubled time.
+And you will not be injured
+  by this dark and troubled time.

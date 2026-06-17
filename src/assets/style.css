@@ -1219,7 +1219,7 @@ a.cell-chip:hover {
 
 .choruses-print .chorus-entry {
   break-inside: avoid;
-  margin-bottom: 0.9em;
+  margin-bottom: 1em;
 }
 
 .choruses-print .chorus-entry h1 {
@@ -1243,7 +1243,7 @@ a.cell-chip:hover {
 
 /* extra breathing room between a refrain paragraph and its chorus */
 .choruses-print .chorus-entry p + p {
-  margin-top: 1em;
+  margin-top: 0.6em;
 }
 
 /* 2-space-indented lines flow tight with surrounding verse, no gaps */
