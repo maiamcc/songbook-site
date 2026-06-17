@@ -19,10 +19,10 @@ notes: >-
 rnge: la>mi
 ---
 
-Oh, we'd be alright if the wind was in our sails (x3)
+Oh, we'd be alright if the wind was in our sails (3x)
 	And we'll all hang on behind.
 
-	(And) We'll roll the old chariot along (x3)
+	(And) We'll roll the old chariot along (3x)
 	And we'll all hang on behind.
 
 We'd be alright if we make it around the horn.

@@ -31,7 +31,7 @@ And Jessie the way of the other.
 
 	Alice was married in Baltimore,
 	In a long dress of satin and pearls;
-	Jessie she ran with a dark ramblin' man,
+	Jessie, she ran with a dark ramblin' man,
 	And he carried her over the world.
 
 Alice raised children in Galesburg, St. Paul,

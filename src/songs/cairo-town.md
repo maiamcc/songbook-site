@@ -10,7 +10,7 @@ topics: [sea / sailors]
 known: 1
 in_nb: true
 ---
-    I'm rolling, flowing, around these hills; 
+    I'm rolling and flowing around these hills; 
     I must take my rest, but this river never will.
     Rolling, flowing, to Cairo Town,
     Just give me time to lay me down.

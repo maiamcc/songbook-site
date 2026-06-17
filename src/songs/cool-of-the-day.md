@@ -19,8 +19,8 @@ You may live in this garden if you keep the grasses green,
 And I'll return in the cool of the day."
 
 	Now is the cool of the day (2x)
-	Oh, this earth is a garden
-	The garden of my Lord
+	Oh this earth, it is a garden,
+    The garden of my Lord,
 	And He walks in His garden
 	In the cool of the day.
 

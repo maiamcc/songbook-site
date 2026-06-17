@@ -17,7 +17,7 @@ There ain't no ash will burn.
 
 Alice was married in Baltimore,
 In a long dress of satin and pearls;
-Jessie she ran with a dark ramblin' man,
+Jessie, she ran with a dark ramblin' man,
 And he carried her over the world.
 
 ---
@@ -111,7 +111,7 @@ My love sails the bonny barque, the Bergen.
 
 # Cairo Town (The Roustabout Song)
 
-I'm rolling, flowing, around these hills; 
+I'm rolling and flowing around these hills; 
 I must take my rest, but this river never will.
 Rolling, flowing, to Cairo Town,
 Just give me time to lay me down.
@@ -130,8 +130,8 @@ All that I am is all that you see;
 # Cool of the Day
 
 Now is the cool of the day (2x)
-Oh, this earth is a garden
-The garden of my Lord
+Oh this earth, it is a garden,
+The garden of my Lord,
 And He walks in His garden
 In the cool of the day.
 
@@ -141,7 +141,7 @@ In the cool of the day.
 
 I like to rise when the sun she rises
 Early in the morning;
-I like to hear them small birds singing
+And I like to hear them small birds singing
 Merrily upon their laylum;
 And hurrah for the life of a country boy,
 And to ramble in the new-mown hay.
@@ -152,8 +152,8 @@ And to ramble in the new-mown hay.
 
 Oh, the cow and the grain and the goat and the boat,
 Oh how would I get them across that great moat?
-The grain felt no pain and the goat he might float,
-but cows can't swim!
+The grain felt no pain, and the goat he might float,
+But cows can't swim!
 
 ---
 
@@ -176,24 +176,6 @@ It's dark as a dungeon and damp as the dew,
 Where dangers are double and pleasures are few;
 Where the rain never falls and the sun never shines,
 It's dark as a dungeon way down in the mines.
-
----
-
-# Davy Cross
-
-How we knew his bright blue eyes
-How we knew his golden hair;
-And the gansey that his mother made
-was fine beyond compare.
-
----
-
-# Do You Love an Apple (Still I Love Him)
-
-_Do you love an apple? Do you love a pear?_
-_Do you love a laddie with curly brown hair?_
-Ah, but still I love him, I can't deny him;
-I'll be with him wherever he goes.
 
 ---
 
@@ -220,7 +202,7 @@ And sing haul away, my laddie-o.
 
 By night and day we'll sport and we'll play
 And delight as the dawn dances over the bay.
-Sleep blows the breath of the morning away
+Sleep blows the breath of the morning away,
 And we follow the heron home.
 
 ---
@@ -267,7 +249,7 @@ Away, haul away, we'll haul away, Joe!
 
 # Here Is My Home
 
-_Good from whom we now must part,_
+_Good friendsfrom whom we now must part,_
 Where are we bound?
 _Your hands and voices lift my heart,_
 Here is my home.
@@ -319,11 +301,8 @@ Johnny come down to Hilo, poor old man.
 
 # Katy Cruel
 
-_When I first came to town_
-_They called me the roving jewel._
-_Now they've changed their tune,_
-_They call me Katy Cruel._
-Oh, the diddle-i-di-ay, o the diddle-i-di-do-day.
+...Oh, the diddle-i-di-ay,
+o the diddle-i-di-do-day.
 
 O that I was what I would be,
 Than should I be where I am not.
@@ -372,7 +351,7 @@ Let all our hearts be joined as one.
 We'll end the day as we begun,
 We'll end it all in pleasure.
 
-Right-folla-rolla-rolla, too-ra-lie-doe (x3)
+Right-folla-rolla-rolla, too-ra-lie-doe (3x)
 While we are together.
 
 ---
@@ -389,7 +368,8 @@ And let it not betray us! One species are we!
 Oh Agnes, won't you go with me? We'll be married in style,
 And we'll cross Lake Michigan, so blue and so wild;
 We'll cross over Lake Michigan till we come to the shore,
-And our orchards will blossom for our babies as they're born.
+And our orchards will blossom
+  for our babies as they're born.
 
 ---
 
@@ -428,7 +408,7 @@ Shouting the battle cry of freedom!
 
 Heel yo ho, boys; let her go, boys;
 Bring her head round, into the weather.
-Heel you ho, boys, let her go, boys,
+Heel yo ho, boys, let her go, boys,
 Sailing homeward to Mingulay.
 
 ---
@@ -436,9 +416,9 @@ Sailing homeward to Mingulay.
 # Old Jacky Frost
 
 _Summer's lost and the winter's come;_
-Don't let him in, no way sir.
+  Don't let him in, no way sir.
 _Days are short and the nights are long;_
-Don't let him in, no way sir.
+  Don't let him in, no way sir.
 _Hear him knocking, don't complain,_
 _See his star on the windowpane._
 _Comes the winter, comes what may,_
@@ -628,7 +608,7 @@ We're bound for Valparaiso in a rowboat.
 # The Vexings (Have You Got a Girlfriend Yet?)
 
 ..."Oh dear, oh dear, my dearest dear,
-  have you got a girlfriend yet?"
+Have you got a girlfriend yet?"
 
 No hi's, hellos, or how've you been's,
 Just the vexings you beget,

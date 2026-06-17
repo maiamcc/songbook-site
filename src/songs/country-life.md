@@ -24,7 +24,7 @@ rnge: do>do
 
 	I like to rise when the sun she rises
 	Early in the morning;
-	I like to hear them small birds singing
+	And I like to hear them small birds singing
 	Merrily upon their laylum;
 	And hurrah for the life of a country boy,
 	And to ramble in the new-mown hay.

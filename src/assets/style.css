@@ -1183,7 +1183,7 @@ a.cell-chip:hover {
    Each .chorus-entry is kept intact (no column break inside it).
    The h1 is compact; verse lines are italic via <em>; chorus lines are plain. */
 .choruses-page-title {
-  font-size: 13pt;
+  font-size: 17.5pt;
   font-weight: 600;
   margin: 0 0 0.15em;
   line-height: 1;
@@ -1191,7 +1191,7 @@ a.cell-chip:hover {
 }
 
 .choruses-page-subtitle {
-  font-size: 9pt;
+  font-size: 12pt;
   font-style: italic;
   margin: 0 0 0.4em;
   text-align: center;
