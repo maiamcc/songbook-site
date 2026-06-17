@@ -19,10 +19,10 @@ Once there was a man and he had no song.
 He felt his head was empty and his voice was wrong.
 And though he often tried, his songs were trapped inside;
 He couldn't find the place where they belonged.
- 
-    But raise your voice with mine (2x)
+
+    So raise your voice with mine (2x)
     For now's the perfect time to join the song.
- 
+
 Once there was a woman and her songs were loud.
 She sang them in the shower and she sang them proud!
 But when her friends were near, her voice, it shrank with fear,

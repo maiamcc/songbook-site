@@ -34,7 +34,7 @@ My poor Myrtle clean away.
 	Will the turtle be unbroken
 	By and by, Lord, by and by.
 	Lord help my Myrtle as she hurtles
-	Through the sky, Lord, through the sky
+	Through the sky, Lord, through the sky.
 
 I ran downstairs, I was crying;
 I must find her, I must know.

@@ -1239,6 +1239,19 @@ a.cell-chip:hover {
   margin-top: 1em;
 }
 
+/* 2-space-indented lines flow tight with surrounding verse, no gaps */
+.choruses-print .chorus-entry p.indent {
+  padding-left: 1em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.choruses-print .chorus-entry p.verse-pre-indent {
+  margin-bottom: 0;
+}
+.choruses-print .chorus-entry p.indent-mid + p {
+  margin-top: 0;
+}
+
 /* Active search notice rendered above the print table when ?q= is set. */
 .print-search-notice {
   font-size: 0.85rem;
