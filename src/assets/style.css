@@ -1179,6 +1179,66 @@ a.cell-chip:hover {
   color: #666;
 }
 
+/* Choruses print page: TOC + two-column letter-size lyric layout.
+   Each .chorus-entry is kept intact (no column break inside it).
+   The h1 is compact; verse lines are italic via <em>; chorus lines are plain. */
+.choruses-page-title {
+  font-size: 13pt;
+  font-weight: 600;
+  margin: 0 0 0.4em;
+  line-height: 1;
+  text-align: center;
+}
+
+.choruses-toc {
+  columns: 3;
+  column-gap: 0.35in;
+  margin: 0 0 1em;
+  padding: 0.5em 0 0.75em;
+  border-bottom: 1px solid #999;
+  list-style: none;
+  font-size: 8pt;
+  line-height: 1.4;
+}
+
+.choruses-toc li {
+  break-inside: avoid;
+}
+
+.choruses-body {
+  columns: 2;
+  column-gap: 0.45in;
+}
+
+.choruses-print .chorus-entry {
+  break-inside: avoid;
+  margin-bottom: 0.9em;
+}
+
+.choruses-print .chorus-entry h1 {
+  font-size: 10pt;
+  font-weight: 600;
+  margin: 0 0 0.2em;
+  line-height: 1.2;
+}
+
+.choruses-print .chorus-entry p {
+  font-size: 9pt;
+  line-height: 1.25;
+  margin: 0 0 0.2em;
+}
+
+.choruses-print .lyric-line {
+  display: block;
+  padding-left: 1em;
+  text-indent: -1em;
+}
+
+/* extra breathing room between a refrain paragraph and its chorus */
+.choruses-print .chorus-entry p + p {
+  margin-top: 0.5em;
+}
+
 /* Active search notice rendered above the print table when ?q= is set. */
 .print-search-notice {
   font-size: 0.85rem;

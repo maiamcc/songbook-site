@@ -125,6 +125,35 @@ export default function (eleventyConfig) {
   // n=1 produces the same shape as the original single-arrowhead SVG.
   // Each additional arrowhead adds a second chevron 4 units to the right,
   // and the viewBox widens accordingly.
+  // Parses the rendered HTML of the choruses index page into sorted sections.
+  // Splits on <hr>, extracts the <h1> text from each section for sort key
+  // (stripping leading articles), and returns an array of HTML strings.
+  // Parses the rendered HTML of the choruses index page into sorted sections.
+  // Splits on <hr>, extracts the <h1> text from each section for the sort key
+  // (stripping leading articles), and returns an array of { title, html } objects.
+  // Each <br>-separated lyric line is wrapped in a <span class="lyric-line"> so
+  // CSS hanging-indent applies per physical line rather than per paragraph.
+  eleventyConfig.addFilter("parseChorusSections", (html) => {
+    const stripArticle = (t) => t.replace(/^(the|a|an)\s+/i, "").trim();
+    const wrapLines = (s) =>
+      s.replace(/<p>([\s\S]*?)<\/p>/g, (_, inner) => {
+        const lines = inner
+          .split(/<br\s*\/?>/)
+          .map((l) => `<span class="lyric-line">${l}</span>`);
+        return `<p>${lines.join("")}</p>`;
+      });
+    return html
+      .split(/<hr\s*\/?>/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((s) => {
+        const title = (s.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1] || "";
+        const shortTitle = title.replace(/\s*\(.*?\)\s*$/, "").trim();
+        return { title, shortTitle, html: wrapLines(s) };
+      })
+      .sort((a, b) => stripArticle(a.title).localeCompare(stripArticle(b.title)));
+  });
+
   eleventyConfig.addFilter("rngeArrow", (n) => {
     const count = Math.max(1, n);
     const w = 10 + (count - 1) * 3;
