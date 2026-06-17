@@ -22,7 +22,7 @@ As we join again in joyful song and let it bring us through.
     When we sing together, it's like we were never alone.
     We want to forever believe our music will ring where green things grow.
     We know it'll fade, so we sing ever stronger, fill up our hearts with home;
-    When we sing together it's like we were never alone.
+    When we sing together, it's like we were never alone.
 
 The air, how it shimmers as we sing in harmony;
 And we can feel the floorboards shaking underneath our feet.

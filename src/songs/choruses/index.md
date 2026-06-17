@@ -624,7 +624,8 @@ We're bound for Valparaiso in a rowboat.
 
 # The Vexings (Have You Got a Girlfriend Yet?)
 
-..."Oh dear, oh dear, my dearest dear, have you got a girlfriend yet?"
+..."Oh dear, oh dear, my dearest dear,
+  have you got a girlfriend yet?"
 
 No hi's, hellos, or how've you been's,
 Just the vexings you beget,
@@ -637,7 +638,8 @@ For it's every damn time you see my face, you'll say:
 
 We are here and we are **[rising]**,
 We are here and we are strong,
-We are here for all our neighbors and the ones already gone.
+We are here for all our neighbors 
+  and the ones already gone.
 We are here and we are **[rising]**,
 We are here and we are strong,
 We are here and we are **[rising]**,
@@ -647,10 +649,14 @@ We are **[rising]**, we hold on.
 
 # When We Sing Together
 
-When we sing together, it's like we were never alone.
-We want to forever believe our music will ring where green things grow.
-We know it'll fade, so we sing ever stronger, fill up our hearts with home;
-When we sing together it's like we were never alone.
+When we sing together,
+  it's like we were never alone.
+We want to forever believe
+  our music will ring where green things grow.
+We know it'll fade, so we
+  sing ever stronger, fill up our hearts with home;
+When we sing together,
+  it's like we were never alone.
 
 ---
 
