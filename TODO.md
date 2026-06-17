@@ -5,6 +5,8 @@
 * can i tighten up printing even better?
   * eg who's gonna shoe
 * smart quotes didn't happen
+* chorus page: play w font sizing
+* chorus page: attribution subhead, maybe footer
 
 ## P2:
 * custom sort order for joiny-inny
