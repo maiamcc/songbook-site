@@ -18,15 +18,15 @@ rnge: so>mi
 	La, la, la, chick-a-la-lee-o (x4)
 
 Now I'm gonna marry just who I please,
-	La, la, la, chick-a-la-lee-o
-I bet I'd do if she asked me
-	La, la, la, chick-a-la-lee-o
+	La, la, la, chick-a-la-lee-o.
+I bet I'd do if she asked me,
+	La, la, la, chick-a-la-lee-o.
 
 I think I'll marry little Jenny Green;
 Prettiest girl I've ever seen.
 
 But she's gone off to the war away.
-She'll come back some pretty fair day
+She'll come back some pretty fair day.
 
 She'll come sailin' across the sea,
 Then she'll come ridin' home to me.
