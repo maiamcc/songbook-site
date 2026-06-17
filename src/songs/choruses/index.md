@@ -445,13 +445,13 @@ _Comes the winter, comes what may,_
 Don't let him in, no way sir.
 
 Old Jacky Frost is knockin' at the door,
-Don't let him in, no way sir.
+  Don't let him in, no way sir.
 Old Jacky Frost, been here before,
-Don't let him in, no way sir.
+  Don't let him in, no way sir.
 Whether you're rich or whether you're poor,
 He'll come knockin' all around your door.
 Give him a chance, he'll be in for sure,
-    Don't let him in, no way sir.
+  Don't let him in, no way sir.
 
 ---
 
@@ -566,9 +566,12 @@ Can't anybody help a little spider in the bath?
 
 # Stand Together (Grow Our Village Stronger)
 
-When we all **[stand]** together, we grow our village stronger.
-We are stronger than we realize, we are stronger than we know;
-So **[stand]** together, love each other, share in joys and sorrows
+When we all **[stand]** together,
+  we grow our village stronger.
+We are stronger than we realize,
+  we are stronger than we know;
+So **[stand]** together, love each other,
+  share in joys and sorrows
 And we'll grow our village stronger, this we know.
 
 
