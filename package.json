@@ -12,6 +12,7 @@
     "import-songs": "node scripts/import-songs.js",
     "stash-songs": "node scripts/stash-songs.js",
     "unstash-songs": "node scripts/stash-songs.js --unstash",
+    "dump-choruses": "node scripts/dump-choruses.js",
     "check-print-pages": "npm run build && node scripts/check-print-pages.js",
     "deploy": "npm run clean && npm run build && cd _site && git add -A && (git diff --cached --quiet && echo 'No changes to commit; pushing any prior unpushed commits.' || git commit -m \"Deploy $(date -u +%Y-%m-%dT%H:%M:%SZ)\") && git push",
     "prepare": "git config core.hooksPath .githooks || true"

@@ -7,6 +7,8 @@
 * smart quotes didn't happen
 
 ## P2:
+* custom sort order for joiny-inny
+* anti-filters? (click smth twice to EXCLUDE it)
 * can print an index
 * maybe change default table fields?
 * list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
