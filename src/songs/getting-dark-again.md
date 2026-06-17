@@ -29,7 +29,7 @@ It's getting dark again.
 
     Getting dark again (2x)
     For the second time since we got up
-    It's getting dark again
+    It's getting dark again.
 
 There was tea and tunes this morning—
 Or was it yesterday?

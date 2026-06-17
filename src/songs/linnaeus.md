@@ -7,7 +7,7 @@ topics: [animals]
 mood: [silly]
 bop_rating: 4
 structure: [chorus]
-joiny_inny: hard
+joiny_inny: easy
 known: 2
 # in_nb: TK
 # notes: >-

@@ -22,7 +22,7 @@ And the rooster starts to crow.
 They're walking up from the valley,
 And they're driving in from the town by the road.
 As family gathers around me,
-There are so many seeds to sow/
+There are so many seeds to sow.
 
     Well I'm grown up, Mama,
     Doin' right by you,

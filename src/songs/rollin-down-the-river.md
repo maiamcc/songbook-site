@@ -1,6 +1,5 @@
 ---
 title: Rollin' Down the River
-alternate_title: Jack Forbes
 author: Jack Forbes (revised by various)
 # author_short: TK
 topics: [sea / sailors]

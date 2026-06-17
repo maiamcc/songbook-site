@@ -23,6 +23,7 @@ Has come in here to dwell!
 
 	Which side are you on, boys?
 	Which side are you on?
+    (Repeat)
 
 My daddy was a miner,
 And I'm a miner's son;

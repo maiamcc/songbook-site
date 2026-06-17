@@ -1236,7 +1236,7 @@ a.cell-chip:hover {
 
 /* extra breathing room between a refrain paragraph and its chorus */
 .choruses-print .chorus-entry p + p {
-  margin-top: 0.5em;
+  margin-top: 1em;
 }
 
 /* Active search notice rendered above the print table when ?q= is set. */

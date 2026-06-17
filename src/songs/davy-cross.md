@@ -23,9 +23,9 @@ cable stitched both fine and fancy,
 and it looked like royal robes upon the boy.
 
 	How we knew his bright blue eyes
-	How we knew his golden hair
+	How we knew his golden hair;
 	And the gansey that his mother made
-	was fine beyond compare
+	was fine beyond compare.
 
 Tall and bright was Davy Cross, 
 with a smiling face that never bore a frown.

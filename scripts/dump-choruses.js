@@ -145,7 +145,10 @@ for (const file of files) {
   const raw = readFileSync(join(SONGS_DIR, file), "utf8");
   const { data: song, content: body } = matter(raw);
 
-  if (!body || !body.trim()) continue; // no lyrics
+  if (!body || !body.trim()) {
+    entries.push(`${formatSongHeader(song)}\n\n_(no lyrics)_`);
+    continue;
+  }
 
   const excerpts = extractHook(body);
   entries.push(formatEntry(song, excerpts));

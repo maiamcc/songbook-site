@@ -1,9 +1,21 @@
+# Ain't No Ash Will Burn
+
+_(no lyrics)_
+
+---
+
 # Alice and Jessie
 
 Alice was married in Baltimore,
 In a long dress of satin and pearls;
 Jessie she ran with a dark ramblin' man,
 And he carried her over the world.
+
+---
+
+# All the Salt
+
+_(no lyrics)_
 
 ---
 
@@ -22,6 +34,12 @@ Light the breakers on wild Bass Strait.
 
 ---
 
+# Annan Water
+
+_(no lyrics)_
+
+---
+
 # Archimedes (Use the Lever)
 
 The lever, boys, the lever,
@@ -32,31 +50,9 @@ Boys, it's time to use the lever!
 
 ---
 
-# Away with Rum (The Song of the Temperance Union)
+# Beer That Tastes Like Beer
 
-Away, away with rum, by gum, (3x)
-Away, away with rum, by gum,
-That's the song of the Temperance Union.
-
----
-
-# The Bells of Norwich (All Shall Be Well)
-
-Ring out, bells of Norwich,
-and let the winter come and go.
-All shall be well again, I know.
-
----
-
-# Blood Red Roses
-
-_Our boots and clothes are all in pawn,_
-Go down, you blood red roses, go down!
-_And its flamin' drafty 'round Cape Horn,_
-Go down, you blood red roses, go down!
-
-Oh, you pinks and posies,
-Go down, you blood red roses, go down!
+_(no lyrics)_
 
 ---
 
@@ -65,12 +61,18 @@ Go down, you blood red roses, go down!
 _Oh the rain it raineth all day long,_
 Bold Riley O, Bold Riley...
 _And the northern wind, it blows so strong,_
-Bold Riley O has gone away...
+Bold Riley O has gone away.
 
 Goodbye my sweetheart, goodbye my dear O,
 Bold Riley O, Bold Riley;
 Goodbye my darlin', goodbye my dear O,
 Bold Riley O has gone away.
+
+---
+
+# Bonnet and Shawl
+
+_(no lyrics)_
 
 ---
 
@@ -92,17 +94,6 @@ I'm rolling, flowing, around these hills;
 I must take my rest, but this river never will.
 Rolling, flowing, to Cairo Town,
 Just give me time to lay me down.
-
----
-
-# Chick-a-la-lee-o
-
-_Now I'm gonna marry just who I please,_
-La, la, la, chick-a-la-lee-o
-_I bet I'd do if she asked me_
-La, la, la, chick-a-la-lee-o
-
-La, la, la, chick-a-la-lee-o (x4)
 
 ---
 
@@ -130,9 +121,21 @@ In the cool of the day.
 I like to rise when the sun she rises
 Early in the morning;
 I like to hear them small birds singing
-Merrily upon the laylum;
+Merrily upon their laylum;
 And hurrah for the life of a country boy,
 And to ramble in the new-mown hay.
+
+---
+
+# Cows Can't Swim
+
+_(no lyrics)_
+
+---
+
+# Cremation of Sam McGee
+
+_(no lyrics)_
 
 ---
 
@@ -148,17 +151,9 @@ It's dark as a dungeon way down in the mines.
 # Davy Cross
 
 How we knew his bright blue eyes
-How we knew his golden hair
+How we knew his golden hair;
 And the gansey that his mother made
-was fine beyond compare
-
----
-
-# Death Came a-Knockin' (Travelin' Shoes)
-
-And then she shout,
-"Hallelujah! Done, done my duty,
-got on my travelin shoes."
+was fine beyond compare.
 
 ---
 
@@ -171,33 +166,9 @@ I'll be with him wherever he goes.
 
 ---
 
-# Drive Dull Care Away
+# Doin' My Best
 
-_Oh, why should we our lot complain or grieve at our distress?_
-_Some think if they could riches gain, t'would be true happiness._
-_But alas how vain is all their strife, life's cares it will not allay;_
-So while we're here with our friends so dear we'll drive dull care away.
-
-Away, away, away, away,
-We will drive dull care away
-So while we're here with our friends so dear
-We'll drive dull care away.
-
----
-
-# East for the Winter
-
-Well I could go east for the winter,
-And maybe the snow'd feel alright;
-But I know that I would just keep thinking 'bout where to rest my head,
-And that long dark rainy road back home again.
-
----
-
-# Farthest Field
-
-Walk with me and we will see the mystery revealed
-When one day we wend our way up to the farthest field.
+_(no lyrics)_
 
 ---
 
@@ -210,12 +181,15 @@ And sing haul away, my laddie-o.
 
 ---
 
-# Fire In the Hole
+# Follow the Heron
 
-Stand up boys, let the bosses know!
-Turn your buckets over, leave your lanterns low.
-There's fire in our heart and fire in our soul,
-But there ain't gonna be no fire in the hole!
+_(no lyrics)_
+
+---
+
+# Frozen in Frobisher Bay
+
+_(no lyrics)_
 
 ---
 
@@ -223,7 +197,7 @@ But there ain't gonna be no fire in the hole!
 
 Getting dark again (2x)
 For the second time since we got up
-It's getting dark again
+It's getting dark again.
 
 ---
 
@@ -233,16 +207,6 @@ So goodnight my friends, as the dawn comes pale,
 And the eastern wind brings the threat of gale.
 Keep a hold on hope through the darkest vale,
 And we'll meet further on down the road.
-
----
-
-# Grey Funnel Line
-
-_Don't mind the rain or the rolling sea,_
-_The weary night never worries me._
-_But the hardest time in sailor's day_
-_Is to watch the sun as it dies away._
-It's one more day on the Grey Funnel Line.
 
 ---
 
@@ -260,11 +224,23 @@ Away, haul away, we'll haul away, Joe!
 
 ---
 
+# Here Is My Home
+
+_(no lyrics)_
+
+---
+
 # Hey Rain (The Innisfail Song)
 
 Hey rain, hey rain, hey rain,
 Rain coming down on the cane,
 On the roofs of the town.
+
+---
+
+# I Can Hew
+
+_(no lyrics)_
 
 ---
 
@@ -274,28 +250,6 @@ It's a pleasure to know you, a pleasure to see you smile,
 A comfort to know we'll share the road awhile.
 Pleasure is fleeting, and comforts are far between;
 It's a pleasure to know you, and the comfort you bring.
-
----
-
-# I've got Sixpence (Rollin' Home)
-
-No cares have I to grieve me,
-No pretty little girls to deceive me.
-I'm happy as a lark, believe me,
-As we go rolling, rolling home.
-
-Rolling home, (rolling home)
-Rolling home, (rolling home)
-By the light of the silvery moon;
-Happy is the day when we line up for our pay
-As we go rolling, rolling home.
-
----
-
-# Jackie Munroe
-
-Sing tirra dooway, dooway-o
-Tirra dooway dooway
 
 ---
 
@@ -327,15 +281,15 @@ Go, the diddle-i-di-ay, o the diddle-i-di-do-day.
 
 ---
 
-# Kindergarten Wall
+# Lad I Love Dearly
 
-Of all you learn here, remember this the best:
-Don't hurt each other and clean up your mess.
-Take a nap every day, wash before you eat,
-Hold hands, stick together,
-Look before you cross the street.
-And remember the seed in the little paper cup:
-First the root does down, then the plant grows up!
+_(no lyrics)_
+
+---
+
+# The Last Leviathan
+
+_(no lyrics)_
 
 ---
 
@@ -353,6 +307,12 @@ And it's time for us to leave her!
 
 ---
 
+# Let Union Be in All Our Hearts
+
+_(no lyrics)_
+
+---
+
 # Linnaeus (One Species Are We)
 
 Linnaeus! Linnaeus! Here's to your hierarchy;
@@ -366,13 +326,6 @@ Oh Agnes, won't you go with me? We'll be married in style,
 And we'll cross Lake Michigan, so blue and so wild;
 We'll cross over Lake Michigan till we come to the shore,
 And our orchards will blossom for our babies as they're born.
-
----
-
-# Magalina Hagalina
-
-Magalina Hagalina oaka naka walka talka
-Oaka noka polka was her name (clap clap)!
 
 ---
 
@@ -407,46 +360,18 @@ For all the kindness from people like you.
 
 ---
 
+# Mary Had a Little Lamb
+
+_(no lyrics)_
+
+---
+
 # Mingulay Boat Song
 
 Heel yo ho, boys; let her go, boys;
 Bring her head round, into the weather.
 Heel you ho, boys, let her go, boys,
 Sailing homeward to Mingulay.
-
----
-
-# More Like the Lily
-
-Oh let me be more like the lily;
-_Let me grow in waters clear._
-Oh let me be more like the lily;
-_Show me how my roots grow here._
-
----
-
-# Mrs. Ravoon
-
-Mrs. Ravoon, Mrs. Ravoon,
-You are too much with me, late and soon.
-
----
-
-# No Man's Land (The Green Fields of France)
-
-Did they beat the drum slowly, did they sound the fife lowly,
-Did the rifles fire o'er ye as they lowered you down?
-Did the bugles play the Last Post and chorus?
-Did the pipes play "The Flowers o' the Forest"?
-
----
-
-# No Way We're Gay (The Song of the Very Straight Men)
-
-No way, no way we're gay. No way!
-No way we're gay. No way we're gay.
-No way, no way we're gay. No way!
-And we'll tell whoever will listen.
 
 ---
 
@@ -472,17 +397,9 @@ Give him a chance, he'll be in for sure,
 
 ---
 
-# Pleasant and Delightful
+# Old Zeb
 
-_Said the sailor to his true love, "I am bound far away,_
-_I am bound for the East Indies, I no longer can stay._
-_I am bound for the East Indies where the loud cannons roar,_
-_I am going to leave my Nancy, she's the girl I adore."_
-
-I am going to leave my Nancy (3x) etc.
-
-And the larks they sang melodious (3x)
-at the dawning of the day
+_(no lyrics)_
 
 ---
 
@@ -491,7 +408,7 @@ at the dawning of the day
 _Once there was a man and he had no song._
 _He felt his head was empty and his voice was wrong._
 _And though he often tried, his songs were trapped inside;_
-_He couldn't find the place where they belong_
+_He couldn't find the place where they belonged._
 
 But raise your voice with mine (2x)
 For now's the perfect time to join the song.
@@ -513,17 +430,7 @@ _And sing it out and make their friends rejoice._
 
 ---
 
-# Roll the Old Chariot Along (A Drop of Nelson's Blood)
-
-_Oh, we'd be alright if the wind was in our sails (x3)_
-And we'll all hang on behind.
-
-(And) We'll roll the old chariot along (x3)
-And we'll all hang on behind.
-
----
-
-# Rollin' Down the River (Jack Forbes)
+# Rollin' Down the River
 
 _I once was a rigger and I worked like hell,_
 Rollin' up, rollin' down
@@ -537,24 +444,9 @@ And go rollin' down the river.
 
 ---
 
-# Royal Potatoes
+# Row On
 
-Stay away (stay away) from the royal potatoes!
-We're on guard (we're on guard), they're not for you (they're not for you)!
-Stay away (stay away) from the royal potatoes,
-For potatoes are the fanciest of foods.
-
----
-
-# Sam's Gone Away
-
-_I wish I was a **cabin boy** abord a man o' war;_
-Sam's gone away aboard a man o' war!
-__(Repeat)__
-
-Pretty work, brave boys, pretty work I say!
-Sam's gone away aboard a man o' war!
-_(Repeat)_
+_(no lyrics)_
 
 ---
 
@@ -572,6 +464,30 @@ In the land of Santa Georgia where the banks of burdocks grow.
 
 ---
 
+# Sarah, Won't You Come Out Tonight
+
+_(no lyrics)_
+
+---
+
+# Sea Creature of Greenland
+
+_(no lyrics)_
+
+---
+
+# Sing, John Ball
+
+_(no lyrics)_
+
+---
+
+# Songs Stay Sung
+
+_(no lyrics)_
+
+---
+
 # South Australia
 
 _In South Australia I was born!_
@@ -586,27 +502,15 @@ We're bound for South Australia!
 
 ---
 
-# Star of the County Down
+# Spider in the Bath
 
-From Bantry Bay up to Derry Quay,
-And from Galway to Dublin town,
-No maid I've seen like the fair colleen
-That I met in the County Down.
+_(no lyrics)_
 
 ---
 
-# Stars are Turning
+# Stand Together (Grow Our Village Stronger)
 
-_Oh my friends, the **moon** is rising,_
-_Warm as spring and bright as snow._
-
-**Moons** come and go...
-...
-So remember how to **grow**.
-
-**Stars** come and go, and come again;
-So remember, all my friends,
-So remember how to **shine**.
+_(no lyrics)_
 
 ---
 
@@ -619,15 +523,6 @@ Sets my heart a-ringing and winging away.
 
 ---
 
-# Thousands or More (Sorrows Away)
-
-_The time passes over more cheerful and gay,_
-_Since we've learned a new act to drive sorrows away._
-Sorrows away (3x),
-Since we've learned a new act to drive sorrows away.
-
----
-
 # Tide and the River Rising (Oars and Row)
 
 Come on, get your oars and row, my darling
@@ -637,11 +532,23 @@ Come on, get your oars and row.
 
 ---
 
+# Turning Towards the Morning
+
+_(no lyrics)_
+
+---
+
 # Union Maid
 
 Oh, you can't scare me, I'm sticking to the union (3x)
 Oh, you can't scare me, I'm sticking to the union,
 I'm sticking to the union 'til the day I die.
+
+---
+
+# Valparaiso in a Rowboat
+
+_(no lyrics)_
 
 ---
 
@@ -661,32 +568,7 @@ For it's every damn time you see my face, you'll say:
 
 ---
 
-# Waltzing with Bears
-
-He goes wa-wa-wa wa-wa-wa-waltzing with bears.
-Raggy bears, shaggy bears, baggy bears too.
-And there's nothing on earth Uncle Walter won't do!
-So he can go waltzing, wa-wa-wa-waltzing,
-So he can go waltzing, go waltzing with bears.
-
----
-
-# Wayfaring Stranger
-
-I'm going there to see my Father,
-I'm going there no more to roam:
-I'm only goin' over Jordan,
-I'm only goin' over home.
-
----
-
 # We Are Here and We Are Rising
-
-_(no chorus or refrain found)_
-
----
-
-# When I Rise
 
 _(no chorus or refrain found)_
 
@@ -701,27 +583,12 @@ When we sing together it's like we were never alone.
 
 ---
 
-# Which Side Are You On?
-
-Which side are you on, boys?
-Which side are you on?
-
----
-
 # Who Will Watch the Home Place
 
 Who will watch the home place?
 Who will tend my heart's dear space?
 Who will fill my empty place,
 When I am gone from here?
-
----
-
-# Who's Gonna Shoe
-
-I don't need no man (2x)
-Sister's gonna kiss my red ruby lips,
-I don't need no man.
 
 ---
 
@@ -737,16 +604,13 @@ Will you go, lassie, go?
 
 # Wild Rover
 
-And it's no, nay, never,
+And it's no, nay, never, (clap 4x)
 No, nay never no more
 Will I play the wild rover,
 No, never, no more.
 
 ---
 
-# Will the Turtle Be Unbroken?
+# Witch Hazel
 
-Will the turtle be unbroken
-By and by, Lord, by and by.
-Lord help my Myrtle as she hurtles
-Through the sky, Lord, through the sky
+_(no lyrics)_

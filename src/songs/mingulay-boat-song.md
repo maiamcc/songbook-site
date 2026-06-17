@@ -6,7 +6,7 @@ topics: [sea / sailors]
 mood: [uplifting, sweet]
 bop_rating: 2
 structure: [chorus]
-joiny_inny: easy
+joiny_inny: moderate
 known: 2
 # in_nb: TK
 # notes: >-

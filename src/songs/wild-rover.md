@@ -21,7 +21,7 @@ And I've spent all me money on whiskey and beer;
 But now I'm returning with gold in great store,
 And I never will play the wild rover no more.
 
-    And it's no, nay, never,
+    And it's no, nay, never, (clap 4x)
     No, nay never no more
     Will I play the wild rover,
     No, never, no more.

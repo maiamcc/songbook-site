@@ -25,7 +25,7 @@ rnge: do>do
 Oh the rain it raineth all day long,
 	Bold Riley O, Bold Riley...
 And the northern wind, it blows so strong,
-	Bold Riley O has gone away...
+	Bold Riley O has gone away.
 
 	Goodbye my sweetheart, goodbye my dear O,
 	Bold Riley O, Bold Riley;
