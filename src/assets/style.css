@@ -1204,7 +1204,7 @@ a.cell-chip:hover {
   padding: 0.5em 0 0.75em;
   border-bottom: 1px solid #999;
   list-style: none;
-  font-size: 9.5pt;
+  font-size: 10pt;
   line-height: 1.4;
 }
 
@@ -1223,14 +1223,14 @@ a.cell-chip:hover {
 }
 
 .choruses-print .chorus-entry h1 {
-  font-size: 11pt;
+  font-size: 12pt;
   font-weight: 600;
   margin: 0 0 0.2em;
   line-height: 1.2;
 }
 
 .choruses-print .chorus-entry p {
-  font-size: 10.5pt;
+  font-size: 11pt;
   line-height: 1.25;
   margin: 0 0 0.2em;
 }

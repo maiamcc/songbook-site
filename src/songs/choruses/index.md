@@ -249,7 +249,7 @@ Away, haul away, we'll haul away, Joe!
 
 # Here Is My Home
 
-_Good friendsfrom whom we now must part,_
+_Good friends from whom we now must part,_
 Where are we bound?
 _Your hands and voices lift my heart,_
 Here is my home.
@@ -333,7 +333,7 @@ I am the last of the great whales, and I am dying.
 # Leave Her Johnny
 
 _I thought I heard the old man say,_
-Leave her, Johnny, leave her
+Leave her, Johnny, leave her;
 _You can go ashore and get your pay!_
 And it's time for us to leave her.
 
@@ -358,14 +358,15 @@ While we are together.
 
 # Linnaeus (One Species Are We)
 
-Linnaeus! Linnaeus! Here's to your hierarchy;
-And let it not betray us! One species are we! 
+Linnaeus, Linnaeus, Here's to your hierarchy!
+And let it not betray us: one species are we! 
 
 ---
 
 # Lovely Agnes
 
-Oh Agnes, won't you go with me? We'll be married in style,
+Oh Agnes, won't you go with me?
+  We'll be married in style,
 And we'll cross Lake Michigan, so blue and so wild;
 We'll cross over Lake Michigan till we come to the shore,
 And our orchards will blossom
@@ -399,7 +400,8 @@ For all the kindness from people like you.
 
 Hurrah for Mary! Hurrah for the lamb!
 Hurrah for the Union Boys who did not give a damn!
-And everywhere that Mary went the lamb was sure to go,
+And everywhere that Mary went
+  the lamb was sure to go,
 Shouting the battle cry of freedom!
 
 ---
@@ -474,13 +476,17 @@ There's dawn beyond the night.
 
 # Santa Georgia
 
-...
-In the land of Santa Georgia where the banks of burdocks grow.
+...In the land of Santa Georgia
+Where the banks of burdocks grow.
 
-Where old panes are broken and a thousand tongues are spoken,
-And new saints awaken where the banks of burdocks grow;
-So farewell cold winter, we will all shine out together
-In the land of Santa Georgia where the banks of burdocks grow.
+Where old panes are broken
+And a thousand tongues are spoken,
+And new saints awaken
+Where the banks of burdocks grow;
+So farewell cold winter,
+We will all shine out together
+In the land of Santa Georgia
+Where the banks of burdocks grow.
 
 ---
 
@@ -590,7 +596,8 @@ That the world is always turning toward the morning.
 
 # Union Maid
 
-Oh, you can't scare me, I'm sticking to the union (3x)
+Oh, you can't scare me,
+I'm sticking to the union (3x)
 Oh, you can't scare me, I'm sticking to the union,
 I'm sticking to the union 'til the day I die.
 
@@ -649,14 +656,14 @@ When we sing together,
 
 Who will watch the home place?
 Who will tend my heart's dear space?
-Who will fill my empty place,
+Who will fill my empty place
 When I am gone from here?
 
 ---
 
 # Wild Mountain Thyme
 
-Will you go, lassie, will you go?
+Will you go, lassie, go?
 And we'll all go together
 To pull wild mountain thyme
 All around the blooming heather.

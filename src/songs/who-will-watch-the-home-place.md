@@ -23,7 +23,7 @@ As he hands me a couple more bills.
 
 	Who will watch the home place?
 	Who will tend my heart's dear space?
-	Who will fill my empty place,
+	Who will fill my empty place
 	When I am gone from here?
 
 There's a lovely green nook by a clear-running stream;
