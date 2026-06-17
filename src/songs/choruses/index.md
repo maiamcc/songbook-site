@@ -1,6 +1,6 @@
 ---
 layout: choruses-print.njk
-permalink: /choruses.html
+permalink: /choruses/
 ---
 
 
