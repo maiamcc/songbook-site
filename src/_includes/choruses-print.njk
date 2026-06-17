@@ -12,6 +12,12 @@
       @page {
         size: letter;
         margin: 0.35in 0.55in 0.45in;
+        @bottom-left {
+          content: "Maia McCormick | maia.mcc@gmail.com";
+          font-family: "Cormorant", Georgia, serif;
+          font-size: 9pt;
+          color: #666;
+        }
         @bottom-right {
           content: counter(page) "/" counter(pages);
           font-family: "Cormorant", Georgia, serif;
@@ -25,6 +31,7 @@
     <main>
       {% set sections = content | parseChorusSections %}
       <h1 class="choruses-page-title">Assorted Choruses</h1>
+      <p class="choruses-page-subtitle">Compiled by Maia McCormick for Lady of the Lake, June 2026</p>
       <ol class="choruses-toc">
         {% for s in sections %}<li>{{ s.shortTitle }}</li>
         {% endfor %}

@@ -1185,8 +1185,15 @@ a.cell-chip:hover {
 .choruses-page-title {
   font-size: 13pt;
   font-weight: 600;
-  margin: 0 0 0.4em;
+  margin: 0 0 0.15em;
   line-height: 1;
+  text-align: center;
+}
+
+.choruses-page-subtitle {
+  font-size: 8.5pt;
+  font-style: italic;
+  margin: 0 0 0.4em;
   text-align: center;
 }
 
