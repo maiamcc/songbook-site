@@ -20,7 +20,7 @@ Grows around the purple heather.
 	Will you go, lassie, will you go?
 	And we'll all go together
 	To pull wild mountain thyme
-	All around the blooming heather,
+	All around the blooming heather.
 	Will you go, lassie, go?
 
 I will build my love a bower

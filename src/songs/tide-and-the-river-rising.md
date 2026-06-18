@@ -24,21 +24,29 @@ Come up on your feet and walk, my baby,
 Rise up on your feet and walk;
 We've got arms reaching out to catch you,
 Haul up on those feet and walk.
+
 In the morning call my name, my darling,
 In the morning call my name;
 We grow old, young, we birth, we die,
 And somehow rearrange.
 
+    Cone on, get your oars...
+
 Some live and change the world with grace
 And a vision and a strength of mind;
 Some rise from trouble, some lend a hand,
 And some keep trying to find.
+
 Watch that little boy go walking, my lover,
 And watch him as he learns to run;
 Watch him as he rounds the corner out of sight,
 Then tumbling back in our arms he comes.
 
+    Cone on, get your oars...
+
 When it's time to say goodbye, my darling,
 When it's time to say goodbye;
 We'll live on in the old and the young ones
 Dreaming down a quiet line.
+
+    Cone on, get your oars...

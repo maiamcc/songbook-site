@@ -17,7 +17,8 @@ rnge: do>la
 
 We are here and we are **rising**,
 We are here and we are strong,
-We are here for all our neighbors and the ones already gone.
+We are here for all our neighbors
+  and the ones already gone.
 We are here and we are **rising**,
 We are here and we are strong,
 We are here and we are **rising**,

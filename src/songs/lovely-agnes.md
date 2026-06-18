@@ -26,7 +26,8 @@ rnge: do>>mi
 Oh yes, I will go with you, leave Wisconsin behind,
 Though my parents think little of my life on a farm.
 Oh to leave the gay city life to be bury'd on a farm,
-But I'll watch the orchards bloom in spring, spend the winters warm in your arms.
+But I'll watch the orchards bloom in spring,
+  spend the winters warm in your arms.
 
 Three children they bore together, Curtis, Addie, and Dee,
 And their fourth, little Gussie came ten years after these.
