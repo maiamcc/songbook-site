@@ -63,11 +63,20 @@ permalink: /bops/
         column-gap: 6mm;
       }
 
+      .bops-cont-label {
+        break-before: column;
+        font-style: italic;
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-bottom: 0.15rem;
+      }
+
       @media print {
         .layout-toggle { display: none; }
         .bops-title { font-size: 1.3rem; margin-bottom: 0.5rem; }
         .bops-section h2 { font-size: 0.9rem; }
         .bops-section li { font-size: 0.75rem; }
+        .bops-cont-label { font-size: 0.65rem; color: #999; }
       }
     </style>
   </head>
@@ -92,5 +101,63 @@ permalink: /bops/
         {% endfor %}
       </div>
     </main>
+  <script>
+    function clearLabels() {
+      document.querySelectorAll('.bops-cont-label').forEach(el => el.remove());
+    }
+
+    function insertLabels() {
+      clearLabels();
+      for (const section of document.querySelectorAll('.bops-section')) {
+        const h2 = section.querySelector('h2');
+        const ul = section.querySelector('ul');
+        if (!h2 || !ul) continue;
+        const heading = h2.textContent.trim();
+        const lis = [...ul.querySelectorAll('li')];
+        if (lis.length < 2) continue;
+
+        const breakIndices = [];
+        let prev = lis[0].getBoundingClientRect();
+        for (let i = 1; i < lis.length; i++) {
+          const r = lis[i].getBoundingClientRect();
+          // Same-page left→right break: top resets upward.
+          // Cross-page col2→col3 break: left jumps rightward by ~column width.
+          if (r.top < prev.top - 2 || r.left > prev.left + 80) breakIndices.push(i);
+          prev = r;
+        }
+
+        for (let b = breakIndices.length - 1; b >= 0; b--) {
+          const label = document.createElement('li');
+          label.className = 'bops-cont-label';
+          label.textContent = `${heading} (cont.)`;
+          ul.insertBefore(label, lis[breakIndices[b]]);
+        }
+      }
+    }
+
+    // Screen layout: insert labels after fonts settle.
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(insertLabels);
+
+    // Print layout: beforeprint fires before the browser applies @media print,
+    // so we temporarily constrain the container to A5 dimensions with a fixed
+    // height and column-fill:auto. This makes CSS columns overflow into col3,
+    // col4… (laid out horizontally) rather than vertically — exactly mirroring
+    // print pagination. We can then detect both same-page breaks (top resets)
+    // and cross-page breaks (left jumps by ~column width). After measurement,
+    // restore the original styles; the inserted break-before:column labels
+    // handle the actual print layout.
+    window.addEventListener('beforeprint', () => {
+      const cols = document.querySelector('.bops-columns');
+      if (!cols) return;
+      const saved = cols.getAttribute('style') || '';
+      cols.style.cssText = (saved ? saved + ';' : '') +
+        'width:120mm;height:186mm;column-fill:auto;overflow:visible';
+      void cols.offsetHeight; // force reflow before measuring
+      insertLabels();
+      cols.setAttribute('style', saved);
+    });
+
+    window.addEventListener('afterprint', insertLabels); // restore screen labels
+  </script>
   </body>
 </html>
