@@ -43,26 +43,11 @@
     return section;
   });
 
-  // `break-after: right` (CSS recto page break) is not reliably implemented
-  // in current browsers. Instead, measure each section's rendered height,
-  // calculate its page count, and insert a blank page after any section
-  // that ends on an odd page so the next song starts on an odd page.
-  //
   // A5 content height: 210mm paper − 24mm top+bottom @page margins = 186mm.
   // At 96 CSS px/inch and 25.4 mm/inch: 186 × 96 / 25.4 ≈ 703 px.
   const PAGE_PX = Math.round((186 / 25.4) * 96);
 
-  // Measure all sections before inserting blank pages so the blanks don't
-  // affect the height readings.
   const pageCounts = sections.map(s => Math.ceil(s.offsetHeight / PAGE_PX));
-
-  for (let i = 0; i < sections.length - 1; i++) {
-    if (pageCounts[i] % 2 === 1) {
-      const blank = document.createElement("div");
-      blank.className = "multi-print-blank";
-      sections[i].after(blank);
-    }
-  }
 
   // Give each song section a unique named CSS page so the page counter resets
   // to 1 at the start of each song and reads "x/<total>" rather than counting
