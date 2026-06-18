@@ -43,15 +43,25 @@ structure:
   values:
     chorus: it's a chorus.
     zipper: stays the same with one or two words changed (e.g. "oh mothers" / "oh fathers" or "when we work/play/sing together, we grow our village stronger")
-    short-refrain: little refrain, shorter than true chorus # do i need this?
+#    short-refrain: little refrain, shorter than true chorus # do i need this?
     repeat-line-you-listen-for: repeat a line of a verse (either as an answer in the verse, or as a chorus)
     call-and-response: call and response # redundant with repeat-line-you-listen-for?
     2nd-4th-lines-repeat: 1st and 3rd lines are different per verse but 2nd/4th are the same
     counting: verses count up or down (also applies to going through months, days of week etc.)
     refrain-lines: repeating line(s) interspersed with verse
     no-chorus: no chorus or other joiny-inny bits
-    folderol: nonsense words  # is this structural??
+#    folderol: nonsense words  # is this structural??
     fill-in-the-blank: leave a space for audience to insert words
+  abbrs:
+    chorus: ch
+    zipper: zip
+    repeat-line-you-listen-for: verse ln
+    call-and-response: c&r,
+    2nd-4th-lines-repeat: 2nd/4th
+    refrain-lines: rfrn ln(s)
+    no-chorus: n/c
+    fill-in-the-blank: fitb
+
 #    round: it's a round.
 #    layer: parts layer on each other
 #    optional-chorus: chorus is optional

@@ -6,7 +6,7 @@ topics: [drinking, friendship]
 # genre: TK
 mood: [rousing]
 bop_rating: 5
-structure: [chorus, folderol]
+structure: [chorus]
 joiny_inny: easy
 known: 1
 # in_nb: TK

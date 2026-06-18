@@ -248,7 +248,7 @@ test("filterFields: abbrs map is exposed for fields that declare it", () => {
 
 test("filterFields: abbrs is absent for fields without abbreviations", () => {
   for (const entry of filterFields) {
-    if (entry.key === "joiny_inny") continue;
+    if (entry.key === "joiny_inny" || entry.key === "structure") continue;
     assert.ok(!("abbrs" in entry), `${entry.key} should not have abbrs`);
   }
 });

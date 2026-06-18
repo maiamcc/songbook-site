@@ -11,7 +11,6 @@ mood:
 bop_rating: 4
 structure:
   - refrain-lines
-  - folderol
 joiny_inny: easy
 #author: trad. (after Nancy & Sandra Kerr's version), ed. Emma Azelborn
 author: trad.
