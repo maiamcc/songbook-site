@@ -873,9 +873,21 @@ a.cell-chip:hover {
   white-space: pre-wrap;
   font-style: italic;
   color: var(--accent);
-  border-left: 3px solid var(--accent);
+  border-left: none;
+  position: relative;
   padding: 0.25rem 0 0.25rem 0.9rem;
   margin: 0.75rem 0 0.75rem 0.5rem;
+}
+.song-body .chorus::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 3px;
+  background: var(--accent);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 /* Markdown *em* inside a chorus cancels the parent italic so it reads as emphasis. */
@@ -901,6 +913,8 @@ a.cell-chip:hover {
   bottom: 2px;
   width: 2px;
   background: var(--accent);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 /* Suppress paragraph margins only where verse and refrain are in the same
@@ -1043,6 +1057,8 @@ a.cell-chip:hover {
   bottom: 2px;
   width: 2px;
   background: var(--accent);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 .print-layout .song-body p.verse-pre-refrain {
@@ -1095,11 +1111,10 @@ a.cell-chip:hover {
   color: inherit;
 }
 
-.print-layout .song-body .chorus,
-.print-layout .song-body .refrain,
 .print-layout .song .notes {
   border-color: #999;
 }
+.print-layout .song-body .chorus::before,
 .print-layout .song-body .refrain::before {
   background: #999;
 }
