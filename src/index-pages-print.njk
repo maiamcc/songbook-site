@@ -5,6 +5,7 @@ pagination:
   alias: entry
 permalink: "/index/{{ entry.field }}/{{ entry.slug }}/print/"
 layout: base-print.njk
+extraBodyClass: print-layout--table
 eleventyComputed:
   title: "{{ entry.field | replace('_', ' ') }}: {{ entry.value }} — Print View"
   screenUrl: "/index/{{ entry.field }}/{{ entry.slug }}/"

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Infant:wght@400;600&display=swap" />
     <link rel="stylesheet" href="{{ '/assets/style.css' | relativeUrl(page.url) }}" />
   </head>
-  <body class="print-layout">
+  <body class="print-layout{% if extraBodyClass %} {{ extraBodyClass }}{% endif %}">
     <p class="layout-toggle"><a href="{{ screenUrl | relativeUrl(page.url) }}">← Web view</a></p>
     <main>
       {{ content | safe }}
