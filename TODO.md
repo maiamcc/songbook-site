@@ -1,9 +1,6 @@
 # TODO
 
 ## P1
-* can i tighten up printing even better?
-  * eg who's gonna shoe
-* smart quotes didn't happen
 
 ## P2:
 * mobile layout?
