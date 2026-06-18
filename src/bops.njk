@@ -1,0 +1,96 @@
+---
+permalink: /bops/
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Songs by Bop Rating</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Infant:wght@400;600&display=swap" />
+    <link rel="stylesheet" href="{{ '/assets/style.css' | relativeUrl(page.url) }}" />
+    <style>
+      @page {
+        size: A5;
+        margin: 12mm 14mm;
+        @bottom-right {
+          content: counter(page) "/" counter(pages);
+          font-family: "Cormorant", Georgia, serif;
+          font-size: 9pt;
+          color: #666;
+        }
+      }
+
+      .bops-title {
+        font-family: "Cormorant Infant", "Cormorant", Georgia, serif;
+        font-size: 1.6rem;
+        margin: 0 0 0.75rem;
+        color: var(--fg);
+      }
+
+      .bops-section {
+        margin-bottom: 0.9rem;
+      }
+
+      .bops-section h2 {
+        break-after: avoid-column;
+        font-family: "Cormorant Infant", "Cormorant", Georgia, serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--fg);
+        margin: 0 0 0.15rem;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.1rem;
+      }
+
+      .bops-section ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .bops-section li {
+        font-size: 0.8rem;
+        line-height: 1.4;
+        color: var(--fg);
+        padding: 0;
+      }
+
+      .bops-columns {
+        columns: 2;
+        column-gap: 6mm;
+      }
+
+      @media print {
+        .layout-toggle { display: none; }
+        .bops-title { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .bops-section h2 { font-size: 0.9rem; }
+        .bops-section li { font-size: 0.75rem; }
+      }
+    </style>
+  </head>
+  <body class="print-layout">
+    <p class="layout-toggle"><a href="{{ '/' | relativeUrl(page.url) }}">← Web view</a></p>
+    <main>
+      <h1 class="bops-title">Songs by Bop Rating</h1>
+      <div class="bops-columns">
+        {% for rating in [5, 4, 3, 2, 1] %}
+          {% for entry in collections.indexEntries %}
+            {% if entry.field == "bop_rating" and entry.value == rating %}
+        <section class="bops-section">
+          <h2>Bop {{ entry.value }}/5</h2>
+          <ul>
+            {% for song in entry.songs %}
+            <li>{{ song.data.title }}</li>
+            {% endfor %}
+          </ul>
+        </section>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </main>
+  </body>
+</html>
