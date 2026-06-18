@@ -22,8 +22,7 @@ rnge: re>>fa
 Oh, why should we our lot complain or grieve at our distress?
 Some think if they could riches gain, t'would be true happiness.
 But alas how vain is all their strife, life's cares it will not allay;
-	So while we're here with our friends so dear
-      we'll drive dull care away.
+	So while we're here with our friends so dear we'll drive dull care away.
 
 	Away, away, away, away,
 	We will drive dull care away

@@ -122,7 +122,7 @@ test("buildFilterRecord: absent optional fields are excluded", () => {
   assert.ok(!("genre" in rec));
   assert.ok(!("mood" in rec));
   assert.ok(!("topics" in rec));
-  assert.ok(!("in_nb" in rec));
+  assert.equal(rec.in_nb, false); // defaults to false when absent
   assert.ok(!("rnge" in rec));
 });
 

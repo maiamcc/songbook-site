@@ -7,6 +7,7 @@
 
 ## P2:
 * mobile layout?
+* a way to specify optional verses
 * search in navbar
 * list by bop (maybe i'll just sort a table but we could do it with multiple subheadings??)
 

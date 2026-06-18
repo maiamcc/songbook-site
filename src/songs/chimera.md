@@ -11,7 +11,7 @@ joiny_inny: hard
 known: 4
 # in_nb: TK
 notes: >-
-  Via Jules: "Chimera is a Greek mythological creature and it's also a scientific term, and it's also been used historically to malign intersex people. So this is my take on all three of those things"
+  Via Jules: "Chimera is a Greek mythological creature and it's also a scientific term, and it's also been used historically to malign intersex people. So this is my take on all three of those things.
 
 
   (Technically chimera means "different genetic material put together" and hemaphrodite means 'both sexes at once' and they're not precisely the same thing but whatever)"
