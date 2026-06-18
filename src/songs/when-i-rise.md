@@ -2,6 +2,7 @@
 title: When I Rise
 # alternate_title: TK
 author: mus. Seth Martin, lyr. after Wendell Berry, arr. Penny Stone
+author_very_short: Seth Martin/Wendell Berry
 # author_short: TK
 # topics: TK
 genre: protest-song

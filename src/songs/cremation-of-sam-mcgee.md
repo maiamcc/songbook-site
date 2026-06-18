@@ -2,6 +2,7 @@
 title: Cremation of Sam McGee
 # alternate_title: TK
 author: mus. Maia McCormick, lyr. Robert W. Service
+author_very_short: Maia McCormick/Robert Service
 topics: [seasons, death]
 # genre: TK
 mood: [spooky, silly]

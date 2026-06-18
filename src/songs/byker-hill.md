@@ -2,6 +2,7 @@
 title: Byker Hill
 # alternate_title: TK
 author: trad. English (Newcastle)
+author_very_short: trad. English
 topics: [mining]
 # genre: TK
 mood: [rousing]

@@ -2,6 +2,7 @@
 title: Katy Cruel
 # alternate_title: TK
 author: trad. American or Scottish
+author_very_short: trad. Am/Scot
 # author_short: TK
 # topics: TK
 # genre: TK

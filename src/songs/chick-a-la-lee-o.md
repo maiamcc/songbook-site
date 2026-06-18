@@ -2,7 +2,7 @@
 title: Chick-a-la-lee-o
 # alternate_title: TK
 author: trad. (from Almeda Riddle)
-# author_short: TK
+author_very_short: trad.
 topics: [love]
 # genre: TK
 mood: [rousing]

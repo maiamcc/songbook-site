@@ -2,6 +2,7 @@
 title: Old Churchyard
 # alternate_title: TK
 author: trad. (after The Watersons)
+author_very_short: trad.
 topics: [religion / God, death, flowers / plants]
 genre: hymn
 mood: [melancholy, uplifting, rousing]

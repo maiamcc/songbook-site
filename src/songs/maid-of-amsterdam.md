@@ -3,6 +3,7 @@ title: Maid of Amsterdam
 alternate_title: A-Rovin'
 author: trad., revised by A. Heather Wood
 author_short: trad., rev. A. Heather Wood
+author_very_short: trad.+Heather Wood
 topics: [gender / sexuality / queer, sea / sailors]
 genre: chantey
 mood: [rousing, bawdy]

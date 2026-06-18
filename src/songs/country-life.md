@@ -2,6 +2,7 @@
 title: Country Life
 alternate_title: I Like to Rise
 author: trad. (after The Watersons)
+author_very_short: trad.
 # author_short: TK
 topics: [seasons, flowers / plants, sun / stars / planets]
 # genre: TK

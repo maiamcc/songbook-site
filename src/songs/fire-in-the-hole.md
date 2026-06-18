@@ -1,6 +1,7 @@
 ---
 title: Fire In the Hole
 author: mus. Mason Daring, lyr. John Sayles
+author_very_short: Mason Darling/John Sayles
 rnge: so>so
 topics:
   - mining

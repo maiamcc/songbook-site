@@ -2,6 +2,7 @@
 title: The Chimera
 # alternate_title: TK
 author: mus. Emma Azelborn, lyr. Jules Peiperl
+author_very_short: Emma Azelborn/Jules Peiperl
 topics: [gender / sexuality / queer, history]
 # genre: TK
 mood: [spooky]

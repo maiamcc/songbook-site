@@ -2,6 +2,7 @@
 title: On Ilkla Moor Baht 'at
 # alternate_title: TK
 author: trad. English (Yorkshire)
+author_very_short: trad. English
 # topics: TK
 # genre: TK
 mood: [silly]

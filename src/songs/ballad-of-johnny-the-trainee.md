@@ -3,6 +3,7 @@ title: Ballad of Johnny the Trainee
 # alternate_title: TK
 author: lyr. Maia McCormick, mus. "Ten Dollar Bill" (trad.)
 author_short: lyr. Maia McCormick, mel. trad.
+author_very_short: lyr. Maia McCormick
 # author_short: TK
 topics: [animals]
 genre: ballad

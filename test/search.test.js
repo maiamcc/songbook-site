@@ -16,6 +16,7 @@ const SENTINELS = {
   alternate_title: { value: "altsentinel", marker: "altsentinel" },
   author: { value: "authorsentinel", marker: "authorsentinel" },
   author_short: { value: "authorshortsentinel", marker: "authorshortsentinel" },
+  author_very_short: { value: "authorveryshortsentinel", marker: "authorveryshortsentinel" },
   topics: { value: ["topicsentinel"], marker: "topicsentinel" },
   genre: { value: "genresentinel", marker: "genresentinel" },
   mood: { value: "moodsentinel", marker: "moodsentinel" },

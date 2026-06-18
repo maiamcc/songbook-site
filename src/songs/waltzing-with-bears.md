@@ -3,6 +3,7 @@ title: Waltzing with Bears
 # alternate_title: TK
 author: lyr. Dr. Seuss, mel. Eugene Poddany, folk processed by Priscilla Herdman and others, add'l verses by Maia McCormick
 author_short: lyr. Dr. Seuss, mel. Eugene Poddany
+author_very_short: Seuss/Eugene Poddany
 topics: [gender / sexuality / queer, animals]
 genre: kids-song
 mood: [silly]

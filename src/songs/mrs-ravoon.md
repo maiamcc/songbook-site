@@ -2,6 +2,7 @@
 title: Mrs. Ravoon
 # alternate_title: TK
 author: mus. Tom Mastin, lyr. Paul Dehn
+author_very_short: Tom Mastin/Paul Dehn
 # author_short: TK
 # topics: TK
 # genre: TK

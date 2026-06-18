@@ -123,6 +123,7 @@ const FIELD_FIXTURES = {
   alternate_title: { value: "AltTitleSentinel", marker: "AltTitleSentinel" },
   author: { value: "AuthorSentinel", marker: "AuthorSentinel" },
   author_short: { value: "AuthorShortSentinel", marker: "AuthorShortSentinel" },
+  author_very_short: { value: "AuthorVeryShortSentinel", marker: "AuthorVeryShortSentinel" },
   topics: { value: ["TopicSentinel"], marker: "TopicSentinel" },
   genre: { value: "GenreSentinel", marker: "GenreSentinel" },
   mood: { value: ["MoodSentinel"], marker: "MoodSentinel" },

@@ -2,6 +2,7 @@
 title: Do You Love an Apple
 alternate_title: Still I Love Him
 author: trad. Scottish/English
+author_very_short: trad. Scot/Eng
 topics: [love]
 # genre: TK
 mood: [melancholy, sweet]

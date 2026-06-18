@@ -166,7 +166,9 @@ const DEFAULT_COL_LABELS = { title: "Title", author: "Author", bop_rating: "Bop"
 })();
 
 function renderCellContent(td, song, col) {
-  const val = song[col];
+  const val = col === "author"
+    ? (song.author_very_short || song.author_short || song.author)
+    : song[col];
   if (val === undefined || val === null) return;
   if (Array.isArray(val)) {
     const wrap = document.createElement("span");
