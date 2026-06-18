@@ -890,6 +890,17 @@ a.cell-chip:hover {
   margin: 0 0 0 0.5rem;
   padding-top: 0;
   padding-bottom: 0;
+  border-left: none;
+  position: relative;
+}
+.song-body .refrain::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--accent);
 }
 
 /* Suppress paragraph margins only where verse and refrain are in the same
@@ -897,10 +908,10 @@ a.cell-chip:hover {
    refrain; refrain-mid marks a refrain whose next sibling is a verse in the
    same stanza. Stanza boundaries retain their normal spacing. */
 .song-body p.verse-pre-refrain {
-  margin-bottom: 0;
+  margin-bottom: -0.1rem;
 }
 .song-body .refrain-mid + p {
-  margin-top: 0;
+  margin-top: -0.1rem;
 }
 
 /* 2-space-indented lines render as <p class="indent">, flowing tight with
@@ -1021,13 +1032,24 @@ a.cell-chip:hover {
   margin: 0 0 0 0.4rem;
   padding-top: 0;
   padding-bottom: 0;
+  border-left: none;
+  position: relative;
+}
+.print-layout .song-body .refrain::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--accent);
 }
 
 .print-layout .song-body p.verse-pre-refrain {
-  margin-bottom: 0;
+  margin-bottom: -0.1rem;
 }
 .print-layout .song-body .refrain-mid + p {
-  margin-top: 0;
+  margin-top: -0.1rem;
 }
 
 .print-layout .song-body p.indent {
@@ -1077,6 +1099,9 @@ a.cell-chip:hover {
 .print-layout .song-body .refrain,
 .print-layout .song .notes {
   border-color: #999;
+}
+.print-layout .song-body .refrain::before {
+  background: #999;
 }
 
 /* Actual-paper print: hide the on-page toggle links (they're nav
