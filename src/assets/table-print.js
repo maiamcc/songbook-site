@@ -103,6 +103,11 @@ const DEFAULT_COL_LABELS = { title: "Title", author: "Author", bop_rating: "Bop"
     ...optionalCols.filter((f) => activeCols.has(f.key)).map((f) => f.key),
   ];
 
+  const colAbbrs = {};
+  for (const f of filterFields) {
+    if (f.abbrs) colAbbrs[f.key] = f.abbrs;
+  }
+
   // ── Render ─────────────────────────────────────────────────────────────────
   if (q.trim()) {
     const notice = document.createElement("p");
@@ -155,7 +160,7 @@ const DEFAULT_COL_LABELS = { title: "Title", author: "Author", bop_rating: "Bop"
           td.appendChild(alt);
         }
       } else {
-        renderCellContent(td, song, col);
+        renderCellContent(td, song, col, colAbbrs[col] || null);
       }
       tr.appendChild(td);
     }
@@ -165,7 +170,7 @@ const DEFAULT_COL_LABELS = { title: "Title", author: "Author", bop_rating: "Bop"
   tableWrap.appendChild(table);
 })();
 
-function renderCellContent(td, song, col) {
+function renderCellContent(td, song, col, abbrs) {
   const val = col === "author"
     ? (song.author_very_short || song.author_short || song.author)
     : song[col];
@@ -176,15 +181,20 @@ function renderCellContent(td, song, col) {
     for (const item of val) {
       const chip = document.createElement("span");
       chip.className = "cell-chip";
-      chip.textContent = humanizeVal(String(item));
+      chip.textContent = displayVal(String(item), abbrs);
       wrap.appendChild(chip);
     }
     td.appendChild(wrap);
   } else if (typeof val === "boolean") {
     td.textContent = val ? "yes" : "no";
   } else {
-    td.textContent = humanizeVal(String(val));
+    td.textContent = displayVal(String(val), abbrs);
   }
+}
+
+function displayVal(val, abbrs) {
+  if (abbrs && Object.prototype.hasOwnProperty.call(abbrs, val)) return abbrs[val];
+  return humanizeVal(val);
 }
 
 function humanizeVal(val) {
