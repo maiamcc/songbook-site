@@ -358,7 +358,7 @@ While we are together.
 
 # Linnaeus (One Species Are We)
 
-Linnaeus, Linnaeus, Here's to your hierarchy!
+Linnaeus, Linnaeus, here's to your hierarchy!
 And let it not betray us: one species are we! 
 
 ---

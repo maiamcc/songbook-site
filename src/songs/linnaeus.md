@@ -20,7 +20,7 @@ Inside each cell within us, a nucleus there be.
 _Bacteria_, _Archaea_, unfortunate are they;
 They have no membrane bound around their strands of DNA.
 
-	Linnaeus, Linnaeus, Here's to your hierarchy!
+	Linnaeus, Linnaeus, here's to your hierarchy!
 	And let it not betray us: one species are we! 
 
 Come all you motile metazoans and listen to my song:

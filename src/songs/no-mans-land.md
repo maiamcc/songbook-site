@@ -22,7 +22,7 @@ notes: >-
 rnge: re>>so
 ---
 
-Well how do you do, Private Willie McBride?
+Well how do you do, Private William McBride?
 Do you mind if I sit here down by your graveside,
 And rest for a while 'neath the warm summer sun?
 I've been walking all day and I'm nearly done.

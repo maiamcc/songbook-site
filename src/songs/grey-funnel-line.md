@@ -11,10 +11,11 @@ joiny_inny: easy
 known: 1
 # in_nb: TK
 notes: >-
-  Cyril Tawney wrote this melancholy song in 1959 before he left the Royal Navy. The title "The Grey Funnel Line" is an euphemism for the Navy, equating the colour of its funnels with those of company emblems found on commercial shipping lines (e.g. the Blue Funnel Line or the Black Ball Line). 
-
-
-  Tawney wrote: "This was the last song I wrote before I left the Royal Navy in 1959. 'The Grey Funnel Line' is the sailors' nickname for the Royal Navy—just as if it were another mercantile line. It's a straightforward song about a sailor leaving home and the loved one... I think the close of the first day out, as the sun is setting, is the time when we're most vulnerable to nostalgia."
+  Tawney wrote: "This was the last song I wrote before I left the Royal Navy in 1959.
+  'The Grey Funnel Line' is the sailors' nickname for the Royal Navy—just as if it were
+  another mercantile line. It's a straightforward song about a sailor leaving home and
+  the loved one... I think the close of the first day out, as the sun is setting, is the
+  time when we're most vulnerable to nostalgia."
 rnge: so>so
 ---
 

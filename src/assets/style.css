@@ -872,6 +872,7 @@ a.cell-chip:hover {
 .song-body .chorus {
   white-space: pre-wrap;
   font-style: italic;
+  font-weight: 500;
   color: var(--accent);
   border-left: none;
   position: relative;

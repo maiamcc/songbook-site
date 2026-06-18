@@ -34,18 +34,17 @@ And there was no gold or silver where the foundry meets the river
 	So farewell cold winter, we will all shine out together
 	In the land of Santa Georgia where the banks of burdocks grow.
 
-Well there is no peace (power) or plenty in the land of old Brigante,
+Well there is no power or plenty in the land of old Brigante,
 But the rain falls down so gently where the banks of burdocks grow;
 And a fond lover's sweetness is a lantern in the darkness,
 Is a grand and burning furnace where the banks of burdocks grow.
 
-
 Well the king, he sent his army from the land of old Brigante,
 And the soldiers they were weary where the banks of burdocks grow;
 So they stormed the temple quarter and the glass fell down like water
-> In the land of Santa Georgia where the banks of burdocks grow.
+	In the land of Santa Georgia where the banks of burdocks grow.
 
 On the road to old Brigando where the factory meets the meadow,
 There's a lantern in my window where the banks of burdocks grow;
 And a thousand trees are planted in the land of old Brigante,
-In the land of Santa Georgia where the banks of burdocks grow.
+	In the land of Santa Georgia where the banks of burdocks grow.

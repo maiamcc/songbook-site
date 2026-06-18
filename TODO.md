@@ -1,7 +1,6 @@
 # TODO
 
 ## P1
-* styling refrains so they don't bork the spacing of the verse as much
 * can i tighten up printing even better?
   * eg who's gonna shoe
 * smart quotes didn't happen
